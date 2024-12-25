@@ -1,7 +1,7 @@
 import Lake
 open Lake DSL
 
-package «LeanBlueprintExample» where
+package «Combinatorics» where
   -- add any package configuration options here
 
 require mathlib from git
@@ -11,7 +11,7 @@ meta if get_config? env = some "dev" then -- dev is so not everyone has to build
 require «doc-gen4» from git "https://github.com/leanprover/doc-gen4" @ "main"
 
 @[default_target]
-lean_lib «LeanBlueprintExample» where
+lean_lib «Combinatorics» where
   -- add any library configuration options here
 
 lean_exe «decls» where

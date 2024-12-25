@@ -29,7 +29,7 @@ jobs:
         run: ~/.elan/bin/lake -Kenv=dev exe cache get || true
 
       - name: Build project
-        run: ~/.elan/bin/lake -Kenv=dev build LeanBlueprintExample
+        run: ~/.elan/bin/lake -Kenv=dev build Combinatorics
 
       - name: Cache mathlib docs
         uses: actions/cache@v3
@@ -41,13 +41,13 @@ jobs:
             .lake/build/doc/Std
             .lake/build/doc/Mathlib
             .lake/build/doc/declarations
-            !.lake/build/doc/declarations/declaration-data-LeanBlueprintExample*
+            !.lake/build/doc/declarations/declaration-data-Combinatorics*
           key: MathlibDoc-${{ hashFiles('lake-manifest.json') }}
           restore-keys: |
             MathlibDoc-
 
       - name: Build documentation
-        run: ~/.elan/bin/lake -Kenv=dev build LeanBlueprintExample:docs
+        run: ~/.elan/bin/lake -Kenv=dev build Combinatorics:docs
 
       - name: Build blueprint and copy to `docs/blueprint`
         uses: xu-cheng/texlive-action@v2
