@@ -6,11 +6,11 @@
 % the current file can be a simple sequence of \input. Otherwise It
 % can start with a \section or \chapter for instance.
 
-\chapter{Introduction}
+% \chapter{Introduction}
 
-.....
+% .....
 
-\chapter{Pigeonhole Principle}
+% \chapter{Pigeonhole Principle}
 
 % \begin{theorem}[Smale 1958]
 %   \label{thm:sphere_eversion}
@@ -27,22 +27,497 @@
 %   This obviously follows from what we did so far.
 % \end
 
+% \begin{theorem}
+%   \label{thm:pigeonhole_principle_simple} 
+%   \lean{pigeonhole_simple}
+%   \leanok
+%   If $n + 1$ objects are distributed into $n$ boxes, then at least one box contains two or more of the objects.
+% \end{theorem}
+
+% \begin{proof}
+%   \leanok
+%   Suppose that no box contains more than one object. Then each box contains at most one object, so the total number of objects is at most $n$. This contradicts the assumption that there are $n + 1$ objects.
+% \end{proof}
+
+% \begin{theorem}
+%   \label{thm:2.2.1}
+%   For $n$ and $r$ positive integers with $r \leq n$, 
+%   \[ P(n,r)= n\times(n- 1) \times \cdots \times (n-r+1).  \]
+% \end{theorem}
+
+
+
+\chapter{What Is Combinatorics?}
+
+\chapter{Permutations and Combinations}
+
 \begin{theorem}
-  \label{thm:pigeonhole_principle_simple} 
-  \lean{pigeonhole_simple}
-  \leanok
-  If $n + 1$ objects are distributed into $n$ boxes, then at least one box contains two or more of the objects.
+    \label{thm:2.2.1}
+    For $n$ and $r$ positive integers with $r\leq n$,
+    \[P(n,r) = n\times(n-1)\times\cdots\times(n-r+1).\]  
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:2.2.2}
+    The number of circular r-permutations of a set of $n$ elements is given by 
+    \[\frac{P(n,r)}{r}=\frac{n!}{r\cdot(n-r)!}.\]
+    In particular, the number of circular permutations of $n$ elements is $(n - 1)!$.
 \end{theorem}
 
-\begin{proof}
-  \leanok
-  Suppose that no box contains more than one object. Then each box contains at most one object, so the total number of objects is at most $n$. This contradicts the assumption that there are $n + 1$ objects.
-\end{proof}
-
 \begin{theorem}
-  \label{thm:2.2.1}
-  For $n$ and $r$ positive integers with $r \leq n$, 
-  \[ P(n,r)= n\times(n- 1) \times \cdots \times (n-r+1).  \]
+    \label{thm:2.3.1} 
+    For $0\leq r \leq n$,
+    \[P(n,r)=r!\binom{n}{r}\]
+    Hence, 
+    \[\binom{n}{r} = \frac{n!}{r! (n-r)!}.\]
 \end{theorem}
 
+\begin{corollary}
+    \label{cor:2.3.2}
+    For $0 \leq r \leq n$,
+    \[\binom{n}{r} = \binom{n}{n-r}.\]
+\end{corollary}
+
+\begin{theorem}
+    \label{thm:2.3.3}
+    (\textbf{Pascal's formula}) For all integers $n$ and $k$ with $1 \leq k \leq n-1$,
+    \[\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}.\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:2.3.4}
+    For $n \geq 0$,
+    \[\binom{n}{0} + \binom{n}{1} + \binom{n}{2} + \cdots + \binom{n}{n} = 2 ^ {n},\]
+    and the common value equals the number of subsets of an n-element set.
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:2.4.1}
+    Let $S$ be a multiset with objects of $k$ different types, where each object has an infinite repetition number. Then the number of r-permutations of $S$ is $k^{r}$.
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:2.4.2}
+    Let $S$ be a multiset with objects of $k$ different types with finite repetition numbers $n_1, n_2, ... , n_k$, respectively. Let the size of $S$ be $n = n_1 + n_2 + ... + n_k$. Then the number of permutations of $S$ equals
+    \[\frac{n!}{n_1!n_2!\dots n_k!}.\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:2.4.3}
+    Let $n$ be a positive integer and let $n_1, n_2, ...  ,n_k$ be positive integers with $n = n_1 + n_2 + ... + n_k$. The number of ways to partition a set of $n$ objects into $k$ labeled boxes in which Box 1 contains $n_1$ objects, Box 2 contains $n_2$ objects, ..., Box k contains $n_k$ objects equals
+    \[\frac{n!}{n_1!n_2!\dots n_k!}.\]
+    If the boxes are not labeled, and $n_1 = n_2 = ... = n_k$, then the number of partitions equals
+    \[\frac{n!}{k!n_1!n_2!\dots n_k!}.\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:2.4.4}
+    There are $n$ rooks of $k$ colors with $n_1$ rooks of the first color, $n_2$ rooks of the second color, . . . , and $n_k$ rooks of the kth color. The number of ways to arrange these rooks on an n-by-n board so that no rook can attack another 
+    \[n!\frac{n!}{n_1!n_2!\cdots n_k!}=\frac{(n!)^2}{n_1!n_2!\cdots n_k!}.\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:2.5.1}
+    Let $S$ be a multiset with objects of $k$ types, each with an infinite repetition number. Then the number of r-combinations of $S$ equals
+    \[\binom{r+k-1}{r}=\binom{r+k-1}{k-1}\]
+\end{theorem}
+
+\chapter{The Pigeonhole Principle}
+
+\begin{theorem}
+    \label{thm:3.1.1}
+   If $n + 1$ objects are distributed into $n$ boxes, then at least one box 
+contains two or more of the objects.
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:3.2.1}
+   Let $q_1, q_2, . .. ,q_n$ be positive integers. If
+   \[q_1 + q_2 + \cdots + q_n - n + 1\]
+objects are distributed into $n$ boxes, then either the first box contains at least $q_1$ objects, or the second box contains at least $q_2$ objects, $\dots$, or the $n$th box contains at least $q_n$ objects.
+\end{theorem} 
+
+\begin{corollary}
+    \label{cor:3.2.2}
+Let $n$ and $r$ be positive integers. If $n(r-1) + 1$
+objects are distributed into $n$ boxes, then at least one of the boxes contains $r$ or more of the objects.
+\end{corollary}
+
+\begin{theorem}
+    \label{thm:3.3.1}
+If $m \geq 2$ and $n \geq 2$ are integers, then there is a positive integer $p$ such that
+\[K_p \rightarrow K_m, K_n.\]
+\end{theorem} 
+
+\chapter{Generating Permutations and Combinations}
+
+\begin{theorem}
+    \label{thm:4.2.1}
+Let $b_1, b_2, \dots, b_n$ be a sequence of integers satisfying
+\[
+0 \leq b_1 \leq n-1, \quad 0 \leq b_2 \leq n-2,\quad \dots \quad 0 \leq b_{n-1} \leq 1, \quad b_n = 0.
+\]
+Then there exists a unique permutation of $\{1, 2, \dots, n\}$ whose inversion sequence is $b_1, b_2, \dots, b_n$.
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:4.3.1}
+The preceding algorithm for generating the $n$-tuples of 0s and 1s 
+produces the reflected Gray code of order $n$ for each positive integer $n$.
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:4.3.1}
+Let $a_1a_2 \cdots a_r$ be an $r$-subset of $\{1, 2, \dots, n\}$. 
+The first $r$-subset in the lexicographic ordering is $1 2 \cdots r$. The last $r$-subset 
+in the lexicographic ordering is $(n-r+1)(n-r+2) \cdots n$. Assume that 
+$a_1a_2 \cdots a_r \neq (n-r+1)(n-r+2) \cdots n$. Let $k$ be the largest integer such that 
+$a_k < n$ and $a_k + 1$ is different from each of $a_{k+1}, \dots, a_r$. Then the $r$-subset 
+that is the immediate successor of $a_1a_2 \cdots a_r$ in the lexicographic ordering is
+\[
+a_1 \cdots a_{k-1}(a_k + 1)(a_k + 2) \cdots (a_k + r - k + 1).
+\]
+\end{theorem} 
+
+
+\begin{theorem}
+    \label{thm:4.4.2}
+The $r$-subset $a_1a_2 \cdots a_r$ of $\{1, 2, \dots, n\}$ occurs in place number
+\[
+\binom{n}{r} - \binom{n - a_1}{r} - \binom{n - a_2}{r-1} - \cdots - \binom{n - a_{r-1}}{2} - \binom{n - a_r}{1}
+\]
+in the lexicographic order of the $r$-subsets of $\{1, 2, \dots, n\}$.
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:4.5.1}
+Let $X$ be a finite set with $n$ elements. Then there is a one-to-one correspondence between the total orders on $X$ and the permutations of $X$. In particular, the number of different total orders on $X$ is $n!$.
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:4.5.2}
+Let $(X, \leq)$ be a finite partially ordered set. Then there is a linear extension of $(X, \leq)$.
+\end{theorem} 
+
+\begin{theorem}
+    \label{thm:4.5.3}
+Let $\sim$ be an equivalence relation on a set $X$. Then the distinct equivalence classes partition $X$ into nonempty parts. Conversely, given any partition of $X$ into nonempty parts, there is an equivalence relation on $X$ whose equivalence classes are the parts of the partition.
+\end{theorem} 
+
+\chapter{The Binomial Coefficients}
+
+\begin{theorem}
+    \label{thm:5.2.1}
+Let \( n \) be a positive integer. Then, for all \( x \) and \( y \),
+\[
+(x+y)^{n}=x^{n}+\binom{n}{1}x^{n-1}y+\binom{n}{2}x^{n-2}y^{2}+\cdots+\binom{n}{n-1}x^{1}y^{n-1}+y^{n}.
+\]
+In summation notation,
+\[
+(x+y)^n=\sum_{k=0}^n\binom{n}{k} x^{n-k} y^k.
+\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:5.2.2}
+Let \( n \) be a positive integer. Then, for all \( x \),
+\[
+(1+x)^n = \sum_{k=0}^n \binom{n}{k} x^k = \sum_{k=0}^n \binom{n}{n-k} x^k.
+\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:5.3.1}
+Let \( n \) be a positive integer. The sequence of binomial coefficients
+\[
+\binom{n}{0}, \binom{n}{1}, \binom{n}{2}, \ldots, \binom{n}{n}
+\]
+is a unimodal sequence. More precisely, if \( n \) is even,
+\begin{align*}
+\binom{n}{0} &< \binom{n}{1} < \cdots < \binom{n}{n/2}, \\
+\binom{n}{n/2} &> \cdots > \binom{n}{n-1} > \binom{n}{n},
+\end{align*}
+and if \( n \) is odd,
+\begin{align*}
+\binom{n}{0} &< \binom{n}{1} < \cdots < \binom{n}{(n-1)/2} = \binom{n}{(n+1)/2}, \\
+&\binom{n}{(n+1)/2} > \cdots > \binom{n}{n-1} > \binom{n}{n}.
+\end{align*}
+\end{theorem}
+
+\begin{corollary}
+    \label{cor:5.3.2}
+For \( n \) a positive integer, the largest of the binomial coefficients
+\[
+\binom{n}{0}, \binom{n}{1}, \binom{n}{2}, \ldots, \binom{n}{n}
+\]
+is
+\[
+\binom{n}{\lfloor n/2 \rfloor} = \binom{n}{\lceil n/2 \rceil}.
+\]
+\end{corollary}
+
+\begin{theorem}
+    \label{thm:5.3.3}
+Let \( S \) be a set of \( n \) elements. Then an antichain on \( S \) contains at most \( \binom{n}{\lfloor \frac{n}{2} \rfloor} \) sets.
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:5.4.1}
+Let \( n \) be a positive integer. For all \( x_1, x_2, \ldots, x_t \),
+$
+(x_1 + x_2 + \cdots + x_t)^n = \sum \binom{n}{n_1n_2\ldots n_t} x_1^{n_1} x_2^{n_2} \cdots x_t^{n_t},
+$
+where the summation extends over all nonnegative integral solutions is \( n_1, n_2, \ldots, n_t \) of \( n_1 + n_2 + \cdots + n_t = n \).
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:5.5.1}
+Let \( \alpha \) be a real number. Then, for all \( x \) and \( y \) with \( 0 \leq |x| < |y| \),
+\[
+(x + y)^\alpha = \sum_{k=0}^{\infty} \binom{\alpha}{k} x^k y^{\alpha-k},
+\]
+where
+\[
+\binom{\alpha}{k} = \frac{\alpha(\alpha - 1) \cdots (\alpha - k + 1)}{k!}.
+\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:5.6.1}
+Let \((X, \leq)\) be a finite partially ordered set, and let \( r \) be the largest size of a chain. Then \( X \) can be partitioned into \( r \) but no fewer antichains.
+\end{theorem}
+
+
+\begin{theorem}
+    \label{thm:5.6.2}
+Let \((X, \leq)\) be a finite partially ordered set, and let \(m\) be the largest size of an antichain. Then \(X\) can be partitioned into \(m\) but no fewer chains.
+\end{theorem}
+
+
+
+\chapter{The Inclusion-Exclusion Principle and Applications}
+
+\begin{theorem}
+    \label{thm:6.1.1}
+The number of objects of the set $S$ that have none of the properties $P_1, P_2, \ldots, P_m$ is given by the alternating expression
+\begin{align*}
+    |\overline{A}_1 \cap \overline{A}_2 \cap \cdots \cap \overline{A}_m| 
+    = & |S| - \sum |A_i| + \sum |A_i \cap A_j| - \sum |A_i \cap A_j \cap A_k| + \\ 
+    & \cdots + (-1)^m |A_1 \cap A_2 \cap \cdots \cap A_m|, \tag{6.2}
+\end{align*}
+where the first sum is over all 1-subsets $\{i\}$ of $\{1,2,\ldots,m\}$, the second sum is over all 2-subsets $\{i,j\}$ of $\{1,2,\ldots,m\}$, the third sum is over all 3-subsets $\{i,j,k\}$ of $\{1,2,\ldots,m\}$, and so on until the $m$th sum over all $m$-subsets of $\{1,2,\ldots,m\}$ of which the only one is itself.
+\end{theorem} 
+
+
+\begin{corollary}
+    \label{cor: 6.1.2}
+The number of objects of $S$ which have at least one of the properties $P_1, P_2, \ldots, P_m$ is given by
+\begin{align*}
+    |A_1 \cup A_2 \cup \cdots \cup A_m| 
+    = & \sum |A_i| - \sum |A_i \cap A_j| + \sum |A_i \cap A_j \cap A_k| - \\
+    & \cdots + (-1)^{m+1} |A_1 \cap A_2 \cap \cdots \cap A_m|,
+\tag{6.3}
+\end{align*}
+
+where the summations are as specified in Theorem~\ref{thm:6.1.1}.
+\end{corollary}
+
+\begin{theorem}
+    \label{thm:6.3.1}
+For $n \geq 1$,
+\[
+D_n = n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots + (-1)^n \frac{1}{n!} \right).
+\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:6.4.1}
+The number of ways to place $n$ nonattacking, indistinguishable rooks on an $n$-by-$n$ board with forbidden positions equals
+\[
+n! - r_1 (n-1)! + r_2 (n-2)! - \cdots + (-1)^k r_k (n-k)! + \cdots + (-1)^n r_n.
+\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:6.5.1}
+For $n \geq 1$,
+\begin{align*}
+    Q_n = \quad & n! - \binom{n-1}{1}(n-1)! + \binom{n-1}{2}(n-2)! \\
+    & - \binom{n-1}{3}(n-3)! + \cdots + (-1)^{n-1} \binom{n-1}{n-1}1!.
+\end{align*}
+
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:6.6.1}
+Let $(X, \leq)$ be a partially ordered set with a smallest element $0$. Let $\mu$ be its Möbius function, and let $F : X \to \Re$ be a real-valued function defined on $X$. Let the function $G : X \to \Re$ be defined by
+\[
+G(x) = \sum_{\{z : z \leq x\}} F(z), \quad (x \in X).
+\]
+Then
+\[
+F(x) = \sum_{\{y : y \leq x\}} G(y) \mu(y, x), \quad (x \in X).
+\]
+\end{theorem}
+
+\begin{corollary}
+    \label{cor: 6.6.2}
+Let $X_n = \{1, 2, \ldots, n\}$ and let $F : \mathcal{P}(X_n) \to \Re$ be a function defined on the subsets of $X_n$. Let $G : \mathcal{P}(X_n) \to \Re$ be the function defined by
+\[
+G(K) = \sum_{L \subseteq K} F(L), \quad (K \subseteq X_n).
+\]
+Then
+\[
+F(K) = \sum_{L \subseteq K} (-1)^{|K| - |L|} G(L), \quad (K \subseteq X_n).
+\]
+\end{corollary}
+
+\begin{theorem}
+    \label{thm:6.6.3}
+Let $(X, \leq_1)$ and $(Y, \leq_2)$ be two finite partially ordered sets with Möbius functions $\mu_1$ and $\mu_2$, respectively. Let $\mu$ be the Möbius function of the direct product of $(X, \leq_1)$ and $(Y, \leq_2)$. Then
+\[
+\mu\big((x, y), (x', y')\big) = \mu(x, x') \mu(y, y'), \quad \big((x, y), (x', y') \in X \times Y\big).
+\tag{6.29}
+\]
+\end{theorem}
+
+\begin{theorem}
+    \label{thm:6.6.4}
+Let $F$ be a real-valued function defined on the set of positive integers. Define a real-valued function $G$ on the positive integers by
+\[
+G(n) = \sum_{k : k \mid n} F(k).
+\]
+Then, for each positive integer $n$, we have
+\[
+F(n) = \sum_{k : k \mid n} \mu\left(n/k \right) G(k),
+\]
+where we write $\mu(n/k)$ for $\mu(1, n/k)$.
+\end{theorem}
+
+\chapter{Recurrence Relations and Generating Functions}
+\begin{theorem}
+ \label{thm:7.1.1}
+The Fibonacci numbers satisfy the formula:
+\[
+f_n = \frac{1}{\sqrt{5}} \left( \frac{1 + \sqrt{5}}{2} \right)^n - \frac{1}{\sqrt{5}} \left( \frac{1 - \sqrt{5}}{2} \right)^n, \quad (n \geq 0).\tag{7.8}
+\]
+\end{theorem}
+
+
+\begin{theorem}
+ \label{thm:7.1.2}
+The sums of the binomial coefficients along the diagonals of Pascal's triangle running upward from the left are Fibonacci numbers. More precisely, the $n$th Fibonacci number $f_n$ satisfies
+\[
+f_n = \binom{n-1}{0} + \binom{n-2}{1} + \binom{n-3}{2} + \cdots + \binom{n-t}{t-1},
+\]
+where $t = \left\lfloor \frac{n+1}{2} \right\rfloor$ is the floor of $\frac{n+1}{2}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:7.2.1}
+Let $n$ be a positive integer. Then
+\[
+g_n(x) = 1(1 + x)(1 + x + x^2)(1 + x + x^2 + x^3) \cdots (1 + x + x^2 + \cdots + x^{n-1})
+\]
+\[
+= \frac{\prod_{j=1}^n (1 - x^j)}{(1 - x)^n}.\tag{7.14}
+\]
+\end{theorem}
+
+\begin{theorem}
+\label{thm:7.3.1}
+ Let $S$ be the multiset $\{n_1 \cdot a_1, n_2 \cdot a_2, \dots, n_k \cdot a_k\}$, where $n_1, n_2, \dots, n_k$ are nonnegative integers. Let $h_n$ be the number of $n$-permutations of $S$. Then the exponential generating function $g^{(e)}(x)$ for the sequence $h_0, h_1, h_2, \dots, h_n, \dots$ is given by
+\[
+    g^{(e)}(x) = f_{n_1}(x) f_{n_2}(x) \cdots f_{n_k}(x), \tag{7.18}
+\]
+where, for $i = 1, 2, \dots, k$,
+\[
+    f_{n_i}(x) = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{{n_i}!}. 
+\]
+\end{theorem}
+
+
+
+\begin{theorem}
+  \label{thm:7.4.1}
+Let $q$ be a nonzero number. Then $h_n = q^n$ is a solution of the linear homogeneous recurrence relation
+\[
+    h_n - a_1 h_{n-1} - a_2 h_{n-2} - \cdots - a_k h_{n-k} = 0, \quad (a_k \neq 0, n \geq k) \tag{7.29}
+\]
+with constant coefficients if and only if $q$ is a root of the polynomial equation
+\[
+    x^k - a_1 x^{k-1} - a_2 x^{k-2} - \cdots - a_k = 0. \tag{7.30}
+\]
+
+If the polynomial equation has $k$ distinct roots $q_1, q_2, \dots, q_k$, then
+\[
+h_n = c_1 q_1^n + c_2 q_2^n + \cdots + c_k q_k^n. \tag{7.31}
+\]
+is the general solution of (7.29) in the following sense: No matter what initial values for 
+$h_0, h_1, \dots, h_{k-1}$ are given, there are constants $c_1, c_2, \dots, c_k$ so that (7.31) 
+is the unique sequence which satisfies both the recurrence relation (7.29) and the initial values.
+
+
+\end{theorem}
+
+
+\begin{theorem}
+    \label{thm:7.4.2}
+ Let $q_1, q_2, \dots, q_t$ be the distinct roots of the following characteristic equation of the linear homogeneous recurrence relation with constant coefficients:
+\[
+    h_n = a_1 h_{n-1} + a_2 h_{n-2} + \cdots + a_k h_{n-k}, \quad a_k \neq 0, \quad (n \geq k). \tag{7.39}
+\]
+
+If $q_i$ is an $s_i$-fold root of the characteristic equation of (7.39), the part of the general solution of this recurrence relation corresponding to $q_i$ is
+\[
+H_n^{(i)} = c_1 q_i^n + c_2 n q_i^n + \cdots + c_{s_i} n^{s_i-1} q_i^n,
+\]
+\[
+= (c_1 + c_2 n + \cdots + c_{s_i} n^{s_i-1}) q_i^n.
+\]
+
+The general solution of the recurrence relation is
+\[
+h_n = H_n^{(1)} + H_n^{(2)} + \cdots + H_n^{(t)}.
+\]
+
+\end{theorem}
+
+
+
+\begin{theorem}
+    \label{thm:7.4.3}
+Let 
+\[
+h_0, h_1, h_2, \dots, h_n, \dots
+\]
+be a sequence of numbers that satisfies the linear homogeneous recurrence relation
+\[
+    h_n + c_1 h_{n-1} + \cdots + c_k h_{n-k} = 0, \quad c_k \neq 0, \quad (n \geq k). \tag{7.42}
+\]
+of order $k$ with constant coefficients. Then its generating function $g(x)$ is of the form
+\[
+    g(x) = \frac{p(x)}{q(x)}, \tag{7.43}
+\]
+\end{theorem}
+
+
+
+\begin{theorem}
+    \label{thm:7.6.1}
+Let $h_n$ denote the number of ways of dividing a convex polygonal region with $n+1$ sides into triangular regions by inserting diagonals that do not intersect in the interior. Define $h_1 = 1$. Then $h_n$ satisfies the recurrence relation
+
+\begin{align}
+h_n &= h_1 h_{n-1} + h_2 h_{n-2} + \cdots + h_{n-1} h_1
+\\
+&= \sum_{k=1}^{n-1} h_k h_{n-k}, \quad (n \geq 2). \tag{7.54}
+\end{align}
+The solution of this recurrence relation is
+\[
+h_n = \frac{1}{n} \binom{2n-2}{n-1}, \quad (n = 1, 2, 3, \dots).
+\]
+
+
+
+\end{theorem}
 
