@@ -665,12 +665,7 @@ h_n = \frac{1}{n} \binom{2n-2}{n-1}, \quad (n = 1, 2, 3, \dots).
 \begin{theorem}
   \label{thm:8.5.4}
   Let $r \leq \min\{p, q\}$. Then 
-  \[ K(p, q : rD) = \begin{eqnarray}
-    \begin{pmatrix}
-       & p+q-r & \\
-      p-r & q-r & r 
-    \end{pmatrix}
-  \end{eqnarray} = \frac{(p+q-r)!}{(p-r)!(q-r)!r!}, \]
+  \[ K(p, q : rD) = \begin{pmatrix} & p+q-r & \\ p-r & q-r & r \end{pmatrix} = \frac{(p+q-r)!}{(p-r)!(q-r)!r!}, \]
   and 
   \[ K(p,q) = \sum\limits_{r=0}^{\min\{p, q\}}\frac{(p+q-r)!}{(p-r)!(q-r)!r!}. \]
 \end{theorem}
@@ -681,12 +676,11 @@ h_n = \frac{1}{n} \binom{2n-2}{n-1}, \quad (n = 1, 2, 3, \dots).
   $r \leq q$. Then
   \begin{align*}
     R(p, q : rD) &= \frac{p-q+1}{p-r+1}\frac{(p+q-r)!}{r!(p-r)!(q-r)!} \\
-    &= \frac{p-q+1}{p-r+1}\begin{eqnarray}
+    &= \frac{p-q+1}{p-r+1}
       \begin{pmatrix}
          & p+q-r & \\
         r & (p-r) & (q-r)
       \end{pmatrix}
-    \end{eqnarray}
   \end{align*}
   and
   \[R(p, q)=\sum\limits_{r=0}^q \frac{p-q+1}{p-r+1} \frac{(p+q-r)!}{r!(p-r)!(q-r)!}\]
