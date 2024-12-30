@@ -6,9 +6,9 @@
 % the current file can be a simple sequence of \input. Otherwise It
 % can start with a \section or \chapter for instance.
 
-% \chapter{Introduction}
+\chapter{Introduction}
 
-% .....
+.....
 
 % \chapter{Pigeonhole Principle}
 
@@ -34,10 +34,7 @@
 %   If $n + 1$ objects are distributed into $n$ boxes, then at least one box contains two or more of the objects.
 % \end{theorem}
 
-% \begin{proof}
-%   \leanok
-%   Suppose that no box contains more than one object. Then each box contains at most one object, so the total number of objects is at most $n$. This contradicts the assumption that there are $n + 1$ objects.
-% \end{proof}
+
 
 % \begin{theorem}
 %   \label{thm:2.2.1}
@@ -126,9 +123,16 @@
 
 \begin{theorem}
     \label{thm:3.1.1}
+    \lean{thm3_1_1}
+    \leanok
    If $n + 1$ objects are distributed into $n$ boxes, then at least one box 
 contains two or more of the objects.
 \end{theorem} 
+
+\begin{proof}
+  \leanok
+  Suppose that no box contains more than one object. Then each box contains at most one object, so the total number of objects is at most $n$. This contradicts the assumption that there are $n + 1$ objects.
+\end{proof}
 
 \begin{theorem}
     \label{thm:3.2.1}
@@ -161,22 +165,22 @@ Then there exists a unique permutation of $\{1, 2, \dots, n\}$ whose inversion s
 \end{theorem} 
 
 \begin{theorem}
-    \label{thm:4.3.1}
-The preceding algorithm for generating the $n$-tuples of 0s and 1s 
-produces the reflected Gray code of order $n$ for each positive integer $n$.
+  \label{thm:4.3.1}
+  The preceding algorithm for generating the $n$-tuples of 0s and 1s 
+  produces the reflected Gray code of order $n$ for each positive integer $n$.
 \end{theorem} 
 
 \begin{theorem}
-    \label{thm:4.3.1}
-Let $a_1a_2 \cdots a_r$ be an $r$-subset of $\{1, 2, \dots, n\}$. 
-The first $r$-subset in the lexicographic ordering is $1 2 \cdots r$. The last $r$-subset 
-in the lexicographic ordering is $(n-r+1)(n-r+2) \cdots n$. Assume that 
-$a_1a_2 \cdots a_r \neq (n-r+1)(n-r+2) \cdots n$. Let $k$ be the largest integer such that 
-$a_k < n$ and $a_k + 1$ is different from each of $a_{k+1}, \dots, a_r$. Then the $r$-subset 
-that is the immediate successor of $a_1a_2 \cdots a_r$ in the lexicographic ordering is
-\[
-a_1 \cdots a_{k-1}(a_k + 1)(a_k + 2) \cdots (a_k + r - k + 1).
-\]
+  \label{thm:4.4.1}
+  Let $a_1, a_2 \cdots a_r$ be an $r$-subset of $\{1, 2, \dots, n\}$. 
+  The first $r$-subset in the lexicographic ordering is $1 2 \cdots r$. The last $r$-subset 
+  in the lexicographic ordering is $(n-r+1)(n-r+2) \cdots n$. Assume that 
+  $a_1a_2 \cdots a_r \neq (n-r+1)(n-r+2) \cdots n$. Let $k$ be the largest integer such that 
+  $a_k < n$ and $a_k + 1$ is different from each of $a_{k+1}, \dots, a_r$. Then the $r$-subset 
+  that is the immediate successor of $a_1a_2 \cdots a_r$ in the lexicographic ordering is
+  \[
+  a_1 \cdots a_{k-1}(a_k + 1)(a_k + 2) \cdots (a_k + r - k + 1).
+  \]
 \end{theorem} 
 
 
@@ -504,9 +508,8 @@ of order $k$ with constant coefficients. Then its generating function $g(x)$ is 
 
 
 \begin{theorem}
-    \label{thm:7.6.1}
+\label{thm:7.6.1}
 Let $h_n$ denote the number of ways of dividing a convex polygonal region with $n+1$ sides into triangular regions by inserting diagonals that do not intersect in the interior. Define $h_1 = 1$. Then $h_n$ satisfies the recurrence relation
-
 \begin{align}
 h_n &= h_1 h_{n-1} + h_2 h_{n-2} + \cdots + h_{n-1} h_1
 \\
@@ -516,8 +519,1073 @@ The solution of this recurrence relation is
 \[
 h_n = \frac{1}{n} \binom{2n-2}{n-1}, \quad (n = 1, 2, 3, \dots).
 \]
-
-
-
 \end{theorem}
+
+\chapter{Special Counting Sequences}
+
+\begin{theorem}
+  \label{thm:8.1.1}
+  The number of sequences 
+  \begin{equation}\label{8.1}
+  a_1, a_2, \ldots, a_{2n}
+  \end{equation}
+  of $2n$ terms that can be formed by using exactly $n$ +1s and exactly $n$ -1s whose partial sums 
+  are always positive:
+  \begin{equation}\label{8.2}
+  a_1 + a_2 + \cdots + a_{k} \geq 0, \qquad  (k = 1, 2, \ldots, 2n)
+  \end{equation}
+  equals the nth Catalan number
+  \begin{align*}
+  C_n = \frac{1}{n+1} \binom{2n}{n}, \qquad (n \geq 0).
+  \end{align*}
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.1}
+  Let the geneml term of a sequence be a polynomial of degree $p$ in $n$:
+  \[ h_n = a_pn^p + a_{p-1}n^{p-1} + \cdots + a_1n + a_0, \qquad (n \geq 0). \]
+  Then $\Delta^{p+1}h_n = 0$ for all $n \geq 0$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.2}
+  The geneml term of the sequence whose difference table has its Oth diagonal equal to
+  \[ c_0, c_1, c_2, \ldots, c_p, 0, 0, 0, \ldots, \qquad \text{where} c_p \neq 0  \]
+  is a polynomial in n of degree $p$ satisfying
+  \begin{equation}\label{8.12}
+    h_n = c_0\binom{n}{0} + c_1\binom{n}{1} + c_2\binom{n}{2} + \cdots + c_p\binom{n}{p}.
+  \end{equation}
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.3}
+  Assume that the sequence $h_0, h_1, h_2, \ldots, h_n, \ldots$ has a difference .table whose Oth 
+  diagonal equals
+  \[ c_0, c_1, c_2, \ldots, c_p, 0, 0, 0, \ldots. \]
+  Then
+  \begin{equation}
+    \sum\limits_{k = 0}^{n}h_k = c_0\binom{n+1}{1} + c_1\binom{n+1}{2} + c_2\binom{n+1}{3} + \cdots 
+    + c_p\binom{n+1}{p+1}.
+  \end{equation}
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.4}
+  If $1 \leq k \leq p- 1$, then
+  \[ S(p, k) = kS(p-1, k) + S(p-1, k-1) \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.5}
+  The Stirling number of the second kind $S(p, k)$ counts the number of partitions of a set of $p$ 
+  elements into $k$ indistinguishable boxes in which no box is empty.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.6}
+  For each integer $k$ with $0 \leq k \leq p$, we have
+  \[ S^{#}(p, k) = \sum\limits_{t = 0}^{k} (-1)^t \binom{k}{t}(k-t)^p; \]
+  hence,
+  \[ S(p, k) = \frac{1}{k!}\sum\limits_{t = 0}^{k} (-1)^t \binom{k}{t}(k-t)^ \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.7}
+  If $p \geq 1$, then 
+  \[ B_p = \binom{p-1}{0}B_0 + \binom{p-1}{1}B_1 + \cdots + \binom{p-1}{p-1}B_{p-1}. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.8}
+  If $1 \leq k \leq p- 1$, then
+  \[ s(p, k) = (p-1)s(p-1, k) + s(p-1, k-1). \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.2.9}
+  The Stirling number $s(p, k)$ of the first kind counts the number of arrangements of $p$ objects 
+  into $k$ nonempty circular permutations.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.3.2}
+  Let $n$ be a positive integer. Let $p_n^s$ equal the number of self-conjugate partitions of $n$, 
+  and let $p_n^t$ be the number of partitions of $n$ into distinct odd parts. Then
+  \[ p_n^s = p_n^t. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.3.3}
+  Let $n$ be a positive integer. Let $p_n^{\textbf{o}}$ be the number of partitions of $n$ into odd
+  parts, and let $p_n^{\textbf{d}}$ be the number of partitions of $n$ into distinct parts. Then
+  \[ $p_n^{\textbf{o}}$ = $p_n^{\textbf{d}}$. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.3.4}
+  \[ \sum\limits_{n=0}^{\infty}p_nx^n = \prod\limits_{k=1}^{\infty}(1-x^k)^{-1} \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.3.5}
+  Lexicographic order is a linear extension of the partial order of majorization on the set 
+  $\mathcal{P}_n$ of partitions of a positive integer $n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.3.6}
+  Let $n$ be a positive integer. Let $p_n^{\prime}$ be the number of partitions of $n$ into an even 
+  number of distinct parts, and let $p_n^{\prime\prime}$ be the number of partitions of $n$ into an 
+  odd number of distinct parts. Then
+  \[ p_n^{\prime} = p_n^{\prime\prime} \]
+  where $e_n$ is an error term given by $e_n = (-1)^j$ if $n$ is of the form $j(3j\pm 1)/2$, and 0 
+  otherwise.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.1}
+  The number of rectangular lattice paths from $(r, s)$ to $(p, q)$ equals the binomial coefficient
+  \[ \binom{p-r+q-s}{p-r} = \binom{p-r+q-s}{q-s} \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.2}
+  Let $n$ be a nonnegative integer. Then the number of subdiagonal rectangular lattice paths from 
+  $(0,0)$ to $(n, n)$ equals the $n$th Catalan number
+  \[ C_n = \frac{1}{n+1}\binom{2n}{n}. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.3}
+  Let $p$ and $q$ be positive integers with $p \geq q$. Then the number of subdiagonal rectangular 
+  lattice paths from $(0,0)$ to $(p, q)$ equals
+  \[ \frac{p-q+1}{p+1}\binom{p+q}{q}. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.4}
+  Let $r \leq \min\{p, q\}$. Then 
+  \[ K(p, q : rD) = \begin{eqnarray}
+    \begin{pmatrix}
+       & p+q-r & \\
+      p-r & q-r & r 
+    \end{pmatrix}
+  \end{eqnarray} = \frac{(p+q-r)!}{(p-r)!(q-r)!r!}, \]
+  and 
+  \[ K(p,q) = \sum\limits_{r=0}^{\min\{p, q\}}\frac{(p+q-r)!}{(p-r)!(q-r)!r!}. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.5}
+  Let $p$ and $q$ be positive integers with $p \geq q$, and let $r$ be a nonnegative integer with 
+  $r \leq q$. Then
+  \begin{align*}
+    R(p, q : rD) &= \frac{p-q+1}{p-r+1}\frac{(p+q-r)!}{r!(p-r)!(q-r)!} \\
+    &= \frac{p-q+1}{p-r+1}\begin{eqnarray}
+      \begin{pmatrix}
+         & p+q-r & \\
+        r & (p-r) & (q-r)
+      \end{pmatrix}
+    \end{eqnarray}
+  \end{align*}
+  and
+  \[R(p, q)=\sum\limits_{r=0}^q \frac{p-q+1}{p-r+1} \frac{(p+q-r)!}{r!(p-r)!(q-r)!}\]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.6}
+  The generating function for the sequence ($s_n: n \geq 1$) of small Schroder numbers is
+  \[\sum\limits_{n=1}^{\infty} s_n x^n=\frac{1}{4}\left(1+x-\sqrt{x^2-6 x+1}\right). \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:8.5.7}
+  The generating function for the sequence ($R_n: n \geq 0$) of large Schroder numbers is
+  \[\sum\limits_{n=0}^{\infty} R_n x^n=\frac{1}{2x}\left(-(x - 1)-\sqrt{x^2-6 x+1}\right). \]
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:8.5.8}
+  The large and small Schroder numbers are related by
+  \[ R_n = 2s_{n+1}, \qquad (n \geq 1). \]
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:8.5.9}
+  Let $n$ be a positive integer. Then the number of dissections of a convex polygonal region of 
+  $n + 1$ sides equals the small Schroder number $s_n$.
+\end{theorem}
+
+\chapter{Systems of Distinct Representatives}
+
+\begin{theorem}
+  \label{thm:9.2.1}
+  In order for the family $\mathcal{A} = (A_1, A_2 ,\ldots , A_n)$ of sets to have an $SDR$, it is 
+  necessary that the following condition hold:\\
+  (MC): For each $k=1,2, \ldots, n$ and each choice of $k$ distinct indices $i_1, i_2, \ldots, i_k$ 
+  from $\{1,2, \ldots, n\}$,
+  \begin{equation}\label{9.1}
+    \left|A_{i_1} \cup A_{i_2} \cup \cdots \cup A_{i_k}\right| \geq k  
+  \end{equation}
+  in short, every $k$ sets of the family collectively contain at least $k$ elements.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:9.2.2}
+  The family $\mathcal{A} = (A_1, A_2 ,\ldots , A_n)$ of subsets of a set $Y$ has an SDR if and only
+  if the marriage condition MC holds.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:9.2.3}
+  Let $\mathcal{A} = (A_1, A_2 ,\ldots , A_n)$ be a family of subsets of a finite set $Y$. Let $t$ 
+  be an integer with $0 \leq t \leq n$. Then there exists a subfamily of $t$ sets of $\mathcal{A}$ 
+  that has an SDR if and only if
+  \begin{equation}\label{9.2}
+    \left|A_{i_1} \cup A_{i_2} \cup \cdots \cup A_{i_k}\right| \geq k - (n -t) 
+  \end{equation}
+  for all $k$ with $k \geq n-t$ and all choices of $k$ distinct indices $i_1, i_2, \ldots, i_k$ 
+  from $\{1,2, \ldots, n\}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:9.2.4}
+  Let $\mathcal{A} = (A_1, A_2 ,\ldots , A_n)$ be a family of subsets of a finite set $Y$. Then the 
+  largest number of sets in a subfamily of $\mathcal{A}$ with an SDR equals the smallest value taken
+  by the expression
+  \begin{equation}\label{9.4}
+    \left|A_{i_1} \cup A_{i_2} \cup \cdots \cup A_{i_k}\right| + n -k
+  \end{equation}
+  over all choices of $k = 1,2, \ldots ,n$ and all choices of $k$ indices $i_1, i_2, \ldots, i_k$ 
+  with $1 \leq i_1 < i_2 <\ldots< i_k \leq n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:9.3.1}
+  For each preferential ranking matrix, there exists a stable complete marriage.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:9.3.2}
+  The stable complete marriage obtained from the deferred acceptance algorithm, with the women 
+  choosing the men, is women-optimal. If the men choose the women in the deferred acceptance 
+  algorithm, the resulting complete marriage is men-optimal.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:9.3.3}
+  In the women-optimal stable complete marriage, each man is paired with the woman he ranks lowest 
+  among all the partners that are possible for him in a stable complete marriage.
+\end{corollary}
+
+\chapter{Combinatorial Designs}
+
+\begin{theorem}
+  \label{thm:10.1.1}
+  The preceding algorithm terminates and computes the GCD of $a$ and $b$ correctly.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.1.2}
+  Let $n$ be an integer with $n \geq 2$ and let $a$ be a nonzero integer in $Z_n = \{O,1 ,\ldots, 
+  n - 1\}$. Then $a$ has a multiplicative inverse in $Z_n$ if and only if the GCD of $a$ and $n$ is 
+  $1$. If $a$ has a multiplicative inverse, then it is unique.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:10.1.3}
+  Let $n$ be a prime number. Then each nonzero integer in $Z_n$ has a multiplicative inverse.
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:10.2.1}
+  In a BIBD, each variety is contained in
+  \[ r = \frac{\lambda(v-1)}{k-1} \]
+  blocks.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:10.2.2}
+  In a BIBD, we have
+  \[ bk=vr. \]
+\end{corollary}
+
+\begin{corollary}
+  \label{cor:10.2.3}
+  In a BIBD, we have
+  \[ \lambda < r. \]
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:10.2.4}
+  In a BIBD, $b \geq v.$
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.2.5}
+  Let $B$ be a subset of $k < v$ elements of $Z_v$ that forms a difference set mod $v$. Then the 
+  blocks developed from $B$ as a starter block form an SBIBD with index
+  \[ \lambda = \frac{k(k-1)}{v-1} \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.3.1}
+  Let $\mathcal{B}$ be a Steiner triple system with pammeters $b, v, k = 3, r, \lambda$. Then
+  \begin{equation}\label{10.4}
+    r = \frac{\lambda(v-1)}{2}
+  \end{equation}
+  and 
+  \begin{equation}\label{10.5}
+    b = \frac{\lambda v(v-1)}{6}
+  \end{equation}
+  If the index is $\lambda = 1$, then there is a nonnegative integer $n$ such that $v = 6n +1$ or 
+  $v = 6n +3$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.3.2}
+  If there are Steiner triple systems of index $\lambda = 1$ with $v$ and $w$ varieties, 
+  respectively, then there is a Steiner triple system of index $\lambda = 1$ with $vw$ varieties.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.1}
+  Let $n$ be a positive integer. Let $A$ be the $n$-by-$n$ array whose entry $a_{ij}$ in row $i$ 
+  and column $j$ is
+  \[ a_{i j}=i+j(\text{addition mod} \hspace{0.5em} n),(i, j=0,1, \ldots, n-1)\]
+  Then $A$ is a Latin square of order $n$ based on $Z_n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.2}
+  Let $n$ be a positive integer and let $r$ be a nonzero integer in $Z_n$ such that the GCD of rand 
+  $n$ is $1$. Let $A$ be the $n$-by-$n$ array whose entry $a_{ij}$ in row $i$ and column $j$ is
+  \[ a_{i j}=r \times i+j(\text{addition mod} \hspace{0.5em} n),(i, j=0,1, \ldots, n-1) \]
+  Then $A$ is a Latin square of order $n$ based on $Z_n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.3}
+  Let $n$ be a prime number. Then $L_n^1, L_n^2, \ldots , L_n^{n-1}$ are $n - 1$ MOLS of order $n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.4}
+  Let $n = p^k$ be an integer that is a power of a prime number $p$. Then there exist $n - 1$ MOLS 
+  of order $n$. In fact, the $n - 1$ Latin squares (10.12) of order $n$ constructed from a finite 
+  field with $n = p^k$ elements are $n - 1$ MOLS of order $n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.5}
+  Let $n \geq 2$ be an integer, and let $A_1, A_2,\ldots, A_k$ be $k$ MOLS of order $n$. Then $k 
+  \leq n - 1$; that is, the largest number of MOLS of order $n$ is at most $n - 1$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.6}
+  $N(n) \geq 2$ for each odd integer $n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.7}
+  If there is a pair of MOLS of order $m$ and there is a pair of MOLS of order $k$, then there is a 
+  pair of MOLS of order $mk$. More generally,
+  \[ N(mk) \geq \min\{N(m), N(k)\} \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.8}
+  Let $n \geq 2$ be an integer and let
+  $$
+  n=p_1^{e_1} \times p_2^{e_2} \times \cdots \times p_k^{e_k}
+  $$
+  be the factorization of $n$ into distinct prime numbers $p_1, p_2, \ldots, p_k$. Then
+  $$
+  N(n) \geq \min \left\{p_i^{e_2}-1: i=1,2, \ldots, k\right\}
+  $$
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:10.4.9}
+  Let $n \geq 2$ be an integer that is not twice an odd number. Then there exists a pair of 
+  orthogonal Latin squares of order $n$.
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:10.4.10}
+  Let $n \geq 2$ be an integer. If there exist $n-1$ MOLS of order $n$, then there exists a 
+  resolvable BIBD with parameters
+  \begin{equation}\label{10.18}
+    b=n^2+n, v=n^2, k=n^{\prime}, r=n+1, \lambda=1
+  \end{equation}
+  Conversely, if there exists a resolvable BIBD with parameters (10.18), then there exist $n-1$ 
+  MOLS of order $n$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.11}
+  Let $L$ be an $m$-by-$n$ Latin rectangle based on $Z_n$ with $m < n$. Then $L$ has a completion.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:10.4.12}
+  Let $L$ be a semi-Latin square of order $n$ and index $m$, where $m < n$. Then $L$ has a completion.
+\end{theorem}
+
+\chapter{Introduction to Graph Theory}
+
+\begin{theorem}
+  \label{thm:11.1.1}
+  Let $G$ be a general graph. The sum
+  \[ d_1 + d_2 + \cdots + d_n\]
+  of the degrees of all the vertices of $G$ is an even number, and, consequently, the number of 
+  vertices of $G$ with odd degree is even.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.1.2}
+  Two isomorphic general graphs have the same degree sequence, but two graphs with the same degree 
+  sequence need not be isomorphic.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.1.3}
+  Let $G=(V, E)$ be a general graph. Then the vertex set $V$ can be uniquely partitioned into 
+  nonempty parts $V_1, V_2, \ldots, V_k$ so that the following conditions are satisfied:
+  (1) The general subgraphs $G_1=\left(V_1, E_1\right), G_2=\left(V_2, E_2\right), \ldots, G_k=
+  \left(V_k, E_k\right)$ induced by $V_1, V_2, \ldots, V_k$, respectively, are connected.\\
+  (2) For each $i \neq j$ and each pair of vertices $x$ in $V_i$ and $y$ in $V_j$, there is no walk 
+  that joins $x$ and $y$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.1.4}
+  Let $G$ and $G^{\prime}$ be two general graphs. Then the following are necessary conditions for 
+  $G$ and $G^{\prime}$ to be isomorphic:
+  (1) If $G$ is a graph, so is $G^{\prime}$.\\
+  (2) If $G$ is connected, so is $G^{\prime}$. More generally, $G$ and $G^{\prime}$ have the same 
+  number of connected components.\\
+  (3) If $G$ has a cycle of length equal to some integer $k$, then so does $G^{\prime}$.\\
+  (4) If $G$ has an (induced) general subgraph that is a complete graph $K_m$ of order $m$, so does
+  $G^{\prime}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.2.1}
+  Let $G = (V, E)$ be a general graph and assume that the degree of each vertex is even. Then each 
+  edge of $G$ belongs to a closed trail and hence to a cycle.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.2.2}
+  Let $G$ be a connected general gmph. Then $G$ has a closed Eulerian trail if and only if the 
+  degree of each vertex is even.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.2.3}
+  Let $G$ be a connected general graph. Then $G$ has an open Eulerian trail if and only if there are
+  exactly two vertices $u$ and $v$ of odd degree. Every open Eulerian trail in $G$ joins $u$ and $v$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.2.4}
+  Let $G$ be a connected general graph and suppose that the number of vertices of $G$ with odd 
+  degree is $m > O$. Then the edges of $G$ can be partitioned into $m/2$ open trails. It is 
+  impossible to partition the edges of $G$ into fewer than $m/2$ open trails.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.2.5}
+  Let $G$ be a connected general graph having $K$ edges. Then there is a closed walk in $G$ of 
+  length $2K$ in which the number of times an edge is used equals twice its multiplicity.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.3.1}
+  A connected graph of order $n \geq 3$ with a bridge does not have a Hamilton cycle.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.3.2}
+  Let $G$ be a graph of order $n \geq 3$ that satisfies the Ore property. Then $G$ has a Hamilton 
+  cycle.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:11.3.3}
+  A graph of order $n \geq 3$, in which each vertex has degree at least $n/2$, has a Hamilton cycle.
+
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:11.3.4}
+  A graph of order $n$, in which the sum of the degrees of each pair of nonadjacent vertices is at 
+  least $n - 1$, has a Hamilton path.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.4.1}
+  A multigraph is bipartite if and only if each of its cycles has even length.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.4.2}
+  Let $G$ be a bipartite graph with bipartition $X, Y$. If $|X| \neq|Y|$, then $G$ does not have a 
+  Hamilton cycle. If $|X|=|Y|$, then $G$ does not have a Hamilton path that begins at a vertex in 
+  $X$ and ends at a vertex in $X$. If $X$ and $Y$ differ by at least 2 , then $G$ does not have a 
+  Hamilton path. If $|X|=|Y|+1$, then $G$ does not have a Hamilton path that begins at $X$ and ends 
+  at $Y$, or vice versa.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.1}
+  A connected graph of order $n$ has at least $n - 1$ edges. Moreover, for each positive integer $n$, 
+  there exist connected graphs with exactly $n - 1$ edges. Removing any edge from a connected graph 
+  of order $n$ with exactly $n-1$ edges leaves a disconnected graph, and hence each edge is a bridge.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.2}
+  A connected graph of order $n \geq 1$ is a tree if and only if it has exactly $n - 1$ edges.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.3}
+  Let $G$ be a connected graph and let $\alpha = \{x,y\}$ be an edge of $G$. Then $\alpha$ is a 
+  bridge if and only if there does not exist a cycle of $G$ containing $\alpha$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.4}
+  Let $G$ be a connected graph of order $n$. Then $G$ is a tree if and only if $G$ does not have 
+  any cycles.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.5}
+  A graph $G$ is a tree if and only if every pair of distinct vertices $x$ and $y$ is joined by a 
+  unique path. This path is necessarily a shortest path joining $x$ and $y$; that is, a path of 
+  length $d(x, y)$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.6}
+  Let $G$ be a tree of order $n \geq 2$. Then $G$ has at least two pendent vertices.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.7}
+  Every connected graph has a spanning tree.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.8}
+  Let $T$ be a spanning tree of a connected graph $G$. Let $\alpha = \{a,b\}$ be an edge of $G$ that
+  is not an edge of $T$. Then there is an edge $\beta$ of $T$ such that the graph $T^{\prime}$ 
+  obtained from $T$ by inserting $\alpha$ and deleting $\beta$ is also a spanning tree of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.5.9}
+  Let $T_1$ and $T_2$ be spanning trees of a connected graph $G$. Let $\beta$ be an edge of $T_1$. 
+  Then there is an edge $\alpha$ of $T_2$ such that the graph obtained from $T_1$ by inserting 
+  $\alpha$ and deleting $\beta$ is a spanning tree of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.6.1}
+  A neutral game is converted into a positive game if a new edge joining the distinguished vertices 
+  $u$ and $v$ is added to the multigraph of the game.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.6.2}
+  The game determined by a multigraph $G = (V, E)$ with distinguished vertices $u$ and $v$ is a 
+  positive game if and only if there is a subset $U$ containing $u$ and $v$ of the vertex set $V$ 
+  such that the induced multisubgraph $G_U$ has two spanning trees, $T_1$ and $T_2$, with no common 
+  edges.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.7.1}
+  Let $G = (V, E)$ be a graph. Then $G$ is connected if and only if the graph $T = (U, F)$ 
+  constructed by carrying out the preceding algorithm is a spanning tree of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.7.2}
+  Let $G = (V, E)$ be a graph and let $u$ be any vertex of $G$. Then $G$ is connected if and only if
+  the graph $T = (U, F)$ constructed by carrying out the BF-algorithm is a spanning tree of $G$. If 
+  $G$ is connected, then, for each vertex $y$ of $G$, the distance in $G$ between $u$ and $y$ equals
+  $D(y)$; and this is the same as the distance between $u$ and $y$ in $T$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.7.3}
+  Let $G = (V, E)$ be a graph and let $u$ be any vertex of $G$. Then $G$ is connected if and only if
+  the graph $T = (U, F)$, constructed by carrying out the preceding DF-algorithm, is a spanning tree
+  of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.7.4}
+  Let $G = (V, E)$ be a weighted graph and let $u$ be any vertex of $G$. Then $G$ is connected if 
+  and only if the graph $T = (U, F)$ obtained by carrying out the preceding algorithm is a spanning
+  tree of $G$. If G is connected, then for each vertex $y$ of $G$, the weighted distance between $u$
+  and $y$ equals $D(y)$, and this is the same as thf weighted distance between $u$ and $y$ in the 
+  weighted tree $T$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.7.5}
+  Let $G = (V, E)$ be a weighted connected graph with weight function $c$. Then the preceding greedy
+  algorithm constructs a minimum weight spanning tree $T = (V, F)$ of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:11.7.6}
+  Let $G = (V, E)$ be a weighted graph with weight function $c$. Then Prim's algorithm constructs a 
+  minimum weight spanning tree $T = (V, F)$ of $G$.
+\end{theorem}
+
+
+\chapter{More on Graph Theory}
+
+\begin{theorem}
+  \label{thm:12.1.1}
+  Let $G$ be a graph of order $n \geq 1$. Then
+  $$
+  1 \leq \chi(G) \leq n
+  $$
+  Moreover, $\chi(G)=n$ if and only if $G$ is a complete graph, and $\chi(G)=1$ if and only if $G$ 
+  is a null graph.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:12.1.2}
+  Let $G$ be a graph and let $H$ be a subgraph of $G$. Then $\chi(G) \geq \chi(H)$. If $G$ has a 
+  subgraph equal to a complete graph $K_p$ of order $p$, then
+  $$
+  \chi(G) \geq p
+  $$
+\end{corollary}
+
+\begin{corollary}
+  \label{cor:12.1.3}
+  Let $G=(V, E)$ be a graph of order $n$ and let $q$ be the largest order of an induced subgraph of 
+  $G$ equal to a null graph $N_q$. Then
+  $$
+  \chi(G) \geq\left\lceil\frac{n}{q}\right\rceil .
+  $$
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:12.1.4}
+  Let $G$ be a graph with at least one edge. Then $\chi(G) = 2$ if and only if $G$ is bipartite.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.1.5}
+  Let $G$ be a graph for which the maximum degree of a vertex is $\Delta$. Then the greedy algorithm
+  produces a $(\Delta+1)$-coloring of the vertices of $G$, and hence
+  $$
+  \chi(G) \leq \Delta+1
+  $$
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.1.6}
+  Let $G$ be a connected graph for which the maximum degree of a vertex is $\Delta$. If $G$ is 
+  neither a complete graph $K_n$ nor an odd cycle graph $C_n$, then $\chi(G) \leq \Delta$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.1.7}
+  Let $T$ be a tree of order $n$. Then
+  \[ p_T(k) = k(k-1)^{n-1}. \]
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.1.8}
+  Let $G$ be a graph of order $n \geq 1$. Then the number of $k$-colorings of $G$ is a polynomial 
+  in $k$ of degree equal to $n$ (with leading coefficient equal to $1$) and this polynomial-the 
+  chromatic polynomial of $G$-is computed correctly by the preceding algorithm. 
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.1.9}
+  Let $G$ be a graph and assume that $G$ contains a subgraph $H$ equal to a complete graph $K_r$. 
+  Then the chromatic polynomial of $G$ is divisible by the chromatic polynomial $[k]_r$ of $K_r$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.1.10}
+  Let $U$ be an articulation set of $G$ and suppose that the induced subgraph $G_U$ is a complete graph $K_r$. Let the connected components of $G_{V-U}$ be the induced subgraphs $G_{U_1}, \ldots, G_{U_t}$. For $i=1, \ldots, t$, let $H_i=G_{U \cup U_i}$ be the subgraph of $G$ induced by $U \cup U_i$. Then
+  $$
+  p_G(k)=\frac{p_{H_1}(k) \times \cdots \times p_{H_t}(k)}{\left([k]_r\right)^{t-1}}
+  $$
+  In particular, the chromatic number of $G$ is the largest of the chromatic numbers of $H_1, \ldots, H_t$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.2.1}
+  Let $G$ be a plane-graph of order $n$ with $e$ edge-curves and assume that $G$ is connected. Then the number $r$ of regions into which $G$ divides the planr satisfies
+  \begin{equation}\label{12.4}
+    r=e-n+2
+  \end{equation}
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.2.2}
+  Let $G$ be a connected planar graph. Then there is a vertex of $G$ whose degree is at most $5$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.2.3}
+  A graph $G$ is planar if and only if it does not have a subgraph that is a subdivision of a $K_5$
+  or of a $K_{3,3}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.2.4}
+  A graph $G$ is planar if and only if it does not contain a subgraph that contracts to a $K_5$ or
+  a $K_{3,3}$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.3.1}
+  Let there be given a $k$-coloring of the vertices of a graph $H=(U, F)$. Let two of the colors be red and blue, and let $W$ be the subset of vertices in $U$ that are assigned either the color red or the color blue. Let $H_{r, b}$ be the subgraph of $H$ induced by the vertices in $W$ and let $C_{r, b}$ be a connected component of $H_{r, b}$. Interchanging the colors red and blue assigned to the vertices of $C_{r, b}$, we obtain another $k$-coloring of $H$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.3.2}
+  The chromatic number of a planar graph is at most $5$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.3.3}
+  Hadwiger's conjecture holds for $p = 5$ if and only if every planar graph has a $4$-coloring.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.3.4}
+  Let $p \leq 3$. If $G$ is a connected graph with chromatic number $\chi(G) \geq p$, then $G$ can be contracted to a $K_p$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.4.1}
+  Let $G$ be a connected graph of order $n \geq 2$. Then
+  $$\text{dom}(G) \leq \left\lfloor \frac{n}{2} \right\rfloor.$$
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.4.2}
+  A graph $G$ is $\chi$-perfect if and only if it is $\theta$-perfect. Equivalently, $G$ is $\chi$-perfect if and only if $\bar{G}$ is $\chi$-perfect.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.4.3}
+  Every interval graph is a chordal graph.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.4.4}
+  Let $G=(V, E)$ be a connected graph and let $U$ be an articulation set of $G$ such that the subgraph $G_U$ induced by $U$ is a complete graph. Let the connected components of the induced subgraph $G_{V-U}$ be $G_1=\left(U_1, E_1\right), \ldots, G_t=\left(U_t, E_t\right)$. Assume that the induced graphs $G_{U_2 \cup U}$ satisfy
+  $$
+  \chi\left(G_{U_2 \cup U}\right)=\omega\left(G_{U_2 \cup U}\right) \quad(i=1,2, \ldots, t)
+  $$
+  Then
+  $$
+  \chi(G)=\omega(G)
+  $$
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.4.5}
+  Let $G = (V, E)$ be a connected chordal graph and let $U$ be a minimal articulation set of $G$. Then the subgraph $G_U$ induced by $U$ is a complete graph.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.4.6}
+  Every chordal graph is perfect.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:12.4.7}
+  Every interval graph is a perfect graph.
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:12.5.1}
+  Let $G=(V, E)$ be a bipartite graph with bipartition $X, Y$ with as sociated family $\mathcal{A}_G$ of subsets of $Y$. Let $t$ be a positive integer. Then from a subfamily
+  \begin{equation}\label{12.10}
+    \left(A_{i_1}, A_{i_2}, \ldots, A_{i_t}\right) \text { of } t \text { sets of } \mathcal{A}_G \text { with an } S D R\left(e_{i_1}, e_{i_2}, \ldots, e_{i_t}\right)
+  \end{equation}
+  we obtain a matching
+  \begin{equation}\label{12.11}
+    \left\{x_{i_1}, e_{i_1}\right\},\left\{x_{i_2}, e_{i_2}\right\}, \ldots,\left\{x_{i_t}, e_{i_t}\right\} \text { of } G \text { of } t \text { edges. }
+  \end{equation}
+  Conversely, from a matching (12.11) of $G$ of $t$ edges, we get a subfamily (12.10) of $\mathcal{A}_G$ of $t$ sets with $\left(e_{i_1}, e_{i_2}, \ldots, e_{i_t}\right)$ as $S D R$.
+  Thus the largest number of sets in a subfamily of $\mathcal{A}_G$ with an $S D R$ equals thr matching number $\rho(G)$ of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.5.2}
+  Let $G = (V, E)$ be a graph. Then a subset $W$ of the set $V$ of vertices is a cover if and only if the complementary set of vertices $V \setminus W$ is an independent set.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.5.3}
+  Let $G=(V, E)$ be a bipartite graph. Then
+  \begin{equation}\label{12.13}
+    \rho(G)=c(G)
+  \end{equation}
+  that is, the largest number of edges in a matching equals the smallest number of vertices in a cover.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.5.4}
+  Let $G=(V, E)$ be a graph. Then $G$ has a perfect matching if and only if
+  \begin{equation}\label{12.15}
+    \text { oc }\left(G_{V \backslash U}\right) \leq|U| \text { for every } U \subseteq V
+  \end{equation}
+  that is, removing a set of vertices does not create more odd components than the number of vertices removed.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.5.5}
+  Let $G(V, E)$ be a graph with $n$ vertices. Then
+  $$
+  \rho(G)=\min \left\{n-\left(o c\left(G_{V \backslash U}\right)-|U|\right)\right\}
+  $$
+  where the minimum is taken over all $U \subseteq V$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.6.1}
+  Let $G$ be a graph of order $n$. Then
+  $$
+  0 \leq \kappa(G) \leq n-1
+  $$
+  with equality on the left if and only if $G$ is disconnected and with equality on the right if and only if $G$ is a complete graph.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.6.2}
+  For each graph $G$, we have
+  $$ \kappa(G) \leq \lambda(G) \leq \delta(G) $$
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.6.3}
+  Let $G$ be a graph of order $n \geq 3$. Then the following three assertions are equivalent:
+  (1) $G$ is 2-connected.
+  (2) $G$ is connected and does not have an articulation vertex.
+  (3) For each triple of vertices $a, b, c$, there is a path joining a and b that does not contain $c$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.6.4}
+  Let $G=(V, E)$ be a connected graph of order $n \geq 2$, and let
+  $$
+  G_{U_1}=\left(U_1, E_1\right), G_{U_2}=\left(U_2, E_2\right), \ldots, G_{U_r}=\left(U_r, E_r\right)
+  $$
+  be the blocks of $G$. Then $E_1, E_2, \ldots, E_r$ is a partition of the set $E$ of edges of $G$, and each pair of blocks has at most one vertex in common.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:12.6.5}
+  Let $G = (V, E)$ be a graph of order $n \geq 3$. Then $G$ is $2$-connected if and only if, for each pair $a, b$ of distinct vertices, there is a cycle containing both $a$ and $b$.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:12.6.6}
+  Let $G$ be a graph with at least three vertices. Then $G$ is $2$-connected if and only if, for each pair $a, b$ of distinct vertices, there are two paths joining $a$ and $b$ whose only common vertices are $a$ and $b$.
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:12.6.7}
+  Let $k$ be a positive integer and let $G$ be a graph of order $n \geq k +1$. Then $G$ is $k$-connected if and only if, for each pair $a, b$ of distinct vertices, there are $k$ paths joining $a$ and $b$ such that each pair of paths has only the vertices $a$ and $b$ in common.
+\end{theorem}
+
+\chapter{Digraphs and Networks}
+
+\begin{theorem}
+  \label{thm:13.1.1}
+  In a general digraph the sum of the indegrees of the vertices equals the sum of the outdegrees, and each is equal to the number of arcs.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.1.2}
+  Let $D$ be a connected digraph. Then $D$ has a closed Eulerian directed trail if and only if the indegree of each vertex equals the outdegree.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.1.3}
+  Let $D$ be a connected digraph and let $x$ and $y$ be distinct vertices of $D$. Then there is a directed Eulerian trail from $x$ to $y$ if and only if
+  (i) the outdegree of $x$ exceeds its indegree by 1 ;
+  (ii) the indegree of $y$ exceeds its outdegree by 1 ;
+  (iii) for each vertex $z \neq x, y$, the indegree of $z$ equals its outdegree.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.1.4}
+  Let $D$ be a strongly connected digraph without any loops. If, for each vertex $x$, we have
+  $$
+  (\text { outdegree of } x)+(\text { indegree of } x) \geq n,
+  $$
+  then $D$ has a directed Hamilton cycle.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.1.5}
+  Every tournament has a Hamilton path.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.1.6}
+  Let $G = (V, E)$ be a connected graph. Then $G$ has a strongly connected orientation if and only if $G$ does not have any bridges.
+\end{theorem}
+
+\begin{lemma}
+  \label{lem:13.1.7}
+  Let $D$ be a digraph in which each vertex has outdegree at least $l$. Then there is a directed cycle in $D$.
+\end{lemma}
+
+\begin{corollary}
+  \label{cor:13.1.8}
+  Let $X$ be a set of $n$ elements and let $f: X \rightarrow X$ be a one-to-one function. Let $D_f=\left(X, A_f\right)$ be the digraph whose set of arcs is
+  $$
+  A_f=\{(x, f(x)): x \text { in } X\}
+  $$
+  Then the arcs of $D_f$ can be partitioned into directed cycles with each vertex belonging to exactly one directed cycle.
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:13.1.9}
+  Every trading problem has a core allocation.
+\end{theorem}
+
+\begin{lemma}
+  \label{lem:13.2.1}
+  Let $f$ be a flow in the network $N=(V, A, s, t, c)$ and let $U$ be a set of vertices containing the source $s$ but not the target $t$. Then
+  $$
+  \sum\limits_{\alpha \in \vec{U}} f(\alpha)-\sum\limits_{\alpha \in \overleftarrow{U}} f(\alpha)=\sum\limits_{\iota(\alpha)=s} f(\alpha)-\sum\limits_{\tau(\alpha)=s} f(\alpha)
+  $$
+\end{lemma}
+
+\begin{lemma}
+  \label{lem:13.2.2}
+  Let $N=(V, A, s, t, c)$ be a network with $C$ a minimal cut. Let U be the set of all vertices $x$ for which there exists a path from the source $s$ to $x$ thal contains no arc in $C$. Then $\vec{U}$ is a cut and $C=\vec{U}$.
+\end{lemma}
+
+\begin{theorem}
+  \label{thm:13.2.3}
+  Let $N=(V, A, s, t, c)$ be a network. Then the maximum value of a flow in $N$ equals the minimum capacity of a cut in $N$. In other words, the value of a maximum flow equals the capacity of a minimum cut. If the capacities of all the arcs are integers, then there is a maximum flow all of whose values are integers as well.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.2.4}
+  Let $s$ and $t$ be distinct vertices of a digraph $D = (V, A)$. Then the maximum number of pairwise arc-disjoint paths from $s$ to $t$ equals the minimum number of arcs in an st-separating set.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.2.5}
+  Let $G$ be a bipartite graph. Then $\rho(G) =c(G)$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.3.1}
+  Let $M$ be a matching in the bipartite graph $G$. Then $M$ is a max-matching if and only if there does not exist an $M$-alternating path.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:13.3.2}
+  Assume that nonbreakthrough has occured in the matching algorithm. Let $X^{u n}$ consist of all the unlabeled vertices of $X$, let $Y^{\text {lab }}$ consist of all the labeled vertices of $Y$, and let $S=X^{u n} \cup Y^{l a b}$. Then both of the following hold:
+  (i) $S$ is a min-cover of the bipartite graph $G$;
+  (ii) $|M|=|S|$ and $M$ is a max-matching.
+\end{theorem}
+
+\chapter{Po\'lya Counting}
+
+\begin{theorem}
+  \label{thm:14.2.1}
+  For each coloring $\mathbf{c}$, the stabilizer $G(\mathbf{c})$ of $\mathbf{c}$ is a permutation group. Moreover, for any permutations $f$ and $g$ in $G, g * \mathbf{c}=f * \mathbf{c}$ if and only if $f^{-1} \circ g$ is in $G(\mathbf{c})$.
+\end{theorem}
+
+\begin{corollary}
+  \label{cor:14.2.2}
+  Let $\mathbf{c}$ be a coloring in $\mathcal{C}$. The number
+  $$
+  \mid\{f * \mathbf{c}: f \text { in } G\} \mid
+  $$
+  of different colorings that are equivalent to $\mathbf{c}$ equals the number
+  $$
+  \frac{|G|}{|G(\mathbf{c})|}
+  $$
+  obtained by dividing the number of permutations in $G$ by the number of permutations in the stabilizer of $\mathbf{c}$.
+\end{corollary}
+
+\begin{theorem}
+  \label{thm:14.2.3}
+  Let $G$ be a group of permutations of $X$ and let $\mathcal{C}$ be a set of colorings of $X$ such that $f * \mathbf{c}$ is in $\mathcal{C}$ for all $f$ in $G$ and all $\mathbf{c}$ in $\mathcal{C}$. Then the number $N(G, \mathcal{C})$ of nonequivalent colorings in $\mathcal{C}$ is given by
+  \begin{equation}\label{14.7}
+    N(G, \mathcal{C})=\frac{1}{|G|} \sum_{f \in G}|\mathcal{C}(f)|
+  \end{equation}
+  In words, the number of nonequivalent colorings in $\mathcal{C}$ equals the average of the number of colorings fixed by the permutations in $G$.   
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:14.3.1}
+  Let $f$ be a permutation of a set $X$. Suppose we have $k$ colors available with which to color the elements of $X$. Let $\mathcal{C}$ be the set of all colorings of $X$. Then the number of colorings that are fixed by $f$ satisfies
+  $$
+  |\mathcal{C}(f)|=k^{\#(f)}
+  $$
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:14.3.2}
+  Let $X$ be a set of $n$ elements, and suppose we have a set of $k$ colors available with which to color the elements of $X$. Let $\mathcal{C}$ be the set of all $k^n$ colorings of $X$. Let $G$ be a group of permutations of $X$. Then the number of nonequivalent colorings is the number
+  $$
+  N(G, \mathcal{C})=P_G(k, k, \ldots, k)
+  $$
+  obtained by substituting $z_i=k,(i=1,2, \ldots, n)$ into the cycle index of $G$.
+\end{theorem}
+
+\begin{theorem}
+  \label{thm:14.3.3}
+  Let $X$ be a set of elements and let $G$ be a group of permutations of $X$. Let $\left\{u_1, u_2, \ldots, u_k\right\}$ be a set of $k$ colors, and let $\mathcal{C}$ be a set of all colorings of $X$. Then the generating function for the number of nonequivalent colorings of $\mathcal{C}$ according to the number of colors of each kind is the expression
+  \begin{equation}\label{14.20}
+    P_G\left(u_1+\cdots+u_k, u_1^2+\cdots+u_k^2, \ldots, u_1^n+\cdots+u_k^n\right)
+  \end{equation}
+  obtained from the cycle index $P_G\left(z_1, z_2, \ldots, z_n\right)$ by making the substitutions
+  $$
+  z_j=u_1^j+\cdots+u_k^j \quad(j=1,2, \ldots, n)
+  $$
+
+  In other words, the coefficient of
+  $$
+  u_1^{p_1} u_2^{p_2} \cdots u_k^{p_k}
+  $$
+  in (14.20) equals the number of nonequivalent colorings in $\mathcal{C}$ with $p_1$ elements of $X$ colored $u_1, p_2$ elements colored $u_2, \ldots, p_k$ elements colored $u_k$.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
