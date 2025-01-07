@@ -4,7 +4,7 @@ import Combinatorics.PermutationsCombinations.permutation
 
 open Nat Finset BigOperators
 
-
+  
 /-
 Theorem 2.3.1 For 0 ≤ r ≤ n, P(n, r) = r! × C(n, r). Hence, C(n, r) = n! / (r! × (n - r)!).
 -/
