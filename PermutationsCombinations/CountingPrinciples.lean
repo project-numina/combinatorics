@@ -1,4 +1,7 @@
-import Mathlib
+import Mathlib.Algebra.BigOperators.Ring
+import Mathlib.Algebra.Order.BigOperators.Group.Finset
+import Mathlib.Algebra.Order.Ring.Nat
+import Mathlib.Order.Partition.Finpartition
 
 /--
 Addition Principle: Suppose that a set S is partitioned into pairwise disjoint parts $S_1,S_2,
@@ -18,10 +21,10 @@ theorem multiplication_principle (s : Multiset α) (t : Multiset β) :
 
 /--
 Subtraction Principle: Let A be a set and let U be a larger set containing A. Let $\overline{A} = U
-\setminus A = \{ x \in U : x \notin A \}$ be the complement of A in U. Then the number |A} of
+\setminus A = \{ x \in U : x \notin A \}$ be the complement of A in U. Then the number |A| of
 objects in A is given by the rule: |A| = |U| - |$\overline{A}$|.
 -/
-theorem subtraction_principle {s t : Finset α} [DecidableEq α] (h : s ⊆ t) :
+theorem sub_card_sdiff {s t : Finset α} [DecidableEq α] (h : s ⊆ t) :
     s.card = t.card - (t \ s).card := by
   nth_rw 1 [← Finset.sdiff_union_of_subset h]
   rw [Finset.card_union_of_disjoint Finset.sdiff_disjoint]
@@ -32,7 +35,7 @@ Division Principle. Let S be a finite set that is partitioned into k parts in su
 part contains the same number of objects. Then the number of parts in the partition is given by the
 rule: k = $\frac{|S|}{\text{number of objects in a part}}$.
 -/
-theorem division_principle [DecidableEq α] {s t: Finset α} {P : Finpartition s}
+theorem card_parts_strict_eq_average [DecidableEq α] {s t: Finset α} {P : Finpartition s}
     (hP : ∀ a ∈ P.parts, ∀ b ∈ P.parts, a.card = b.card) (ht : t ∈ P.parts):
     P.parts.card = s.card / t.card := by
   specialize hP t ht

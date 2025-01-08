@@ -49,6 +49,51 @@
 \chapter{Permutations and Combinations}
 
 \begin{theorem}
+  \label{thm:2.1.1}
+  \leanok
+  Suppose that a set $S$ is partitioned into pairwise disjoint parts $S_1,S_2,
+  \ldots, S_m$. The number of objects in $S$ can be determined by finding the number of objects in each
+  of the parts, and adding the numbers so obtained:  $$ |S| = |S_1| + |S_2| + \cdots + |S_m| $$.
+\end{theorem}
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{theorem}
+  \label{thm:2.1.2}
+  \leanok
+  Let $S$ be a set of ordered pairs $(a, b)$ of objects, where the first object $a$ comes from a set of 
+  size $p$, and for each choice of object a there are $q$ choices for object $b$. Then
+  the size of $S$ is $p \times q$.
+\end{theorem}
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{theorem}
+  \label{thm:2.1.3}
+  \leanok
+  Let $A$ be a set and let $U$ be a larger set containing $A$. Let $\overline{A} = U
+  \setminus A = \{ x \in U : x \notin A \}$ be the complement of $A$ in $U$. Then the number $|A|$ of
+  objects in $A$ is given by the rule: $|A| = |U| - |\overline{A}|$.
+\end{theorem}
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{theorem}
+  \label{thm:2.1.4}
+  \leanok
+  Let $S$ be a finite set that is partitioned into $k$ parts in such a way that each
+  part contains the same number of objects. Then the number of parts in the partition is given by the
+  rule: $k = \frac{|S|}{\text{number of objects in a part}}$.
+\end{theorem}
+\begin{proof}
+  \uses{thm:2.1.1}
+  \leanok
+\end{proof}
+
+\begin{theorem}
     \label{thm:2.2.1}
     For $n$ and $r$ positive integers with $r\leq n$,
     \[P(n,r) = n\times(n-1)\times\cdots\times(n-r+1).\]  
