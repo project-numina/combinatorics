@@ -1,20 +1,17 @@
 import Mathlib.Data.Nat.Choose.Sum
 
 
-open Nat
+open Nat Finset BigOperators
 
-open Finset
-
-open BigOperators
-
-
-example {m n : ℕ} :
-   ∑ k in range (m + 1), choose (n + k) k = choose (n + m + 1) m := by
+/--
+Example For 0 ≤ m and 0 ≤ n, ∑ k ∈ range (m + 1), choose (n + k) k = choose (n + m + 1) m.
+-/
+theorem sum_choose_eq_choose {m n : ℕ} :
+   ∑ k ∈ range (m + 1), choose (n + k) k = choose (n + m + 1) m := by
    induction m with
    | zero =>
     simp only [zero_add, range_one, sum_singleton,
     add_zero, choose_zero_right]
-
    | succ m IH =>
     rw [sum_range_succ]
     simp only [IH]
