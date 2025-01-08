@@ -1,5 +1,5 @@
-import Mathlib
 import Combinatorics.PermutationsCombinations.permutation
+import Mathlib.Data.Nat.Choose.Sum
 
 
 open Nat Finset BigOperators
