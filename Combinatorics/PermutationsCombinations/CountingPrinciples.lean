@@ -8,14 +8,14 @@ Addition Principle: Suppose that a set S is partitioned into pairwise disjoint p
 \ldots, S_m$. The number of objects in S can be determined by finding the number of objects in each
 of the parts, and adding the numbers so obtained:  $|S| = |S_1| + |S_2| + \cdots + |S_m|$.
 -/
--- This is already formalized in mathlib which is named Finpartition.sum_card_parts.
+-- This theorem has already been formalized in Mathlib under the name Finpartition.sum_card_parts.
 
 /-
 Multiplication Principle: Let S be a set of ordered pairs (a, b) of objects, where the first object
 a comes from a set of size p, and for each choice of object a there are q choices for object b. Then
 the size of S is p x q.
 -/
--- This is already formalized in mathlib which is named Multiset.card_product.
+-- This theorem has already been formalized in Mathlib under the name Multiset.card_product.
 
 /--
 Subtraction Principle: Let A be a set and let U be a larger set containing A. Let $\overline{A} = U
