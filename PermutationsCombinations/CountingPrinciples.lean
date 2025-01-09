@@ -3,21 +3,19 @@ import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.Order.Ring.Nat
 import Mathlib.Order.Partition.Finpartition
 
-/--
+/-
 Addition Principle: Suppose that a set S is partitioned into pairwise disjoint parts $S_1,S_2,
 \ldots, S_m$. The number of objects in S can be determined by finding the number of objects in each
 of the parts, and adding the numbers so obtained:  $|S| = |S_1| + |S_2| + \cdots + |S_m|$.
 -/
-theorem addition_principle [DecidableEq α] {s : Finset α} (P : Finpartition s) :
-    ∑ i ∈ P.parts, i.card = s.card := Finpartition.sum_card_parts P
+-- This is already formalized in mathlib which is named Finpartition.sum_card_parts.
 
-/--
+/-
 Multiplication Principle: Let S be a set of ordered pairs (a, b) of objects, where the first object
 a comes from a set of size p, and for each choice of object a there are q choices for object b. Then
 the size of S is p x q.
 -/
-theorem multiplication_principle (s : Multiset α) (t : Multiset β) :
-    (s ×ˢ t).card = s.card * t.card := Multiset.card_product s t
+-- This is already formalized in mathlib which is named Multiset.card_product.
 
 /--
 Subtraction Principle: Let A be a set and let U be a larger set containing A. Let $\overline{A} = U
@@ -39,7 +37,7 @@ theorem card_parts_strict_eq_average [DecidableEq α] {s t: Finset α} {P : Finp
     (hP : ∀ a ∈ P.parts, ∀ b ∈ P.parts, a.card = b.card) (ht : t ∈ P.parts):
     P.parts.card = s.card / t.card := by
   specialize hP t ht
-  have hs := addition_principle P
+  have hs := Finpartition.sum_card_parts P
   by_cases ht' : t.card = 0
   · simp [ht'] at hP ⊢
     rw [Finpartition.parts_eq_empty_iff]
