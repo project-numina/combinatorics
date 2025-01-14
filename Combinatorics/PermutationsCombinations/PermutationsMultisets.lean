@@ -56,6 +56,7 @@ theorem Multiset_sum_perm [DecidableEq α] (n : ℕ) (s : Multiset α)
     n ! / ∏ i ∈ s.toFinset, (s.count i) ! := by
   sorry
 
+
 /--
 Theorem 2.4.3: Let $n$ be a positive integer and let $n_1, n_2, ...,n_k$ be positive integers with
 $n = n_1 + n_2 + ... + n_k$. The number of ways to partition a set of $n$ objects into $k$ labeled
@@ -63,12 +64,29 @@ boxes in which Box 1 contains $n_1$ objects, Box 2 contains $n_2$ objects, ..., 
 objects equals $\frac{n!}{n_1!n_2!\dots n_k!}$. If the boxes are not labeled, and $n_1 = n_2 =
 \cdots = n_k$, then the number of partitions equals $\frac{n!}{k!n_1!n_2!\dots n_k!}$.
 -/
+def Multiperm {α : Type} [BEq α]:
+    List ℕ → List α → List (List (List α))
+| [], _ => [[]]
+| a :: s, l => List.flatten ((List.sublistsLen a l).map (fun x => (List.product [x] (Multiperm s (l.diff x))).map (fun (a, b) => [a] ++ b)))
+
+#eval Multiperm [2, 1] [1, 2, 3]
+
 theorem partition_labeled (n k : ℕ) (x : n.Partition) (hx : x.parts.card = k) :
-    1 = n ! / ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i) := by
+    (Multiperm x.parts.toList (List.range n)).length =
+    n ! / ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i) := by
   sorry
 
-theorem partition_unlabeled (n k : ℕ) (x : n.Partition) (hx : x.parts.card = k) :
-    1 = n ! / (k ! * ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i)) := by
+def Multiperm_unlable {α : Type} [DecidableEq α]:
+    List ℕ → List α → Finset (Multiset (List α))
+| s, l => (Multiset.ofList ((Multiperm s l).map Multiset.ofList)).toFinset
+
+
+#check (Multiset.ofList ((Multiperm [2, 2] [1, 2, 3, 4]).map Multiset.ofList)).toFinset
+
+theorem partition_unlabeled (n k : ℕ) (x : n.Partition) (hx : x.parts.card = k)
+    (heq : ∀ i ∈ x.parts, ∀ j ∈ x.parts, i = j) :
+    (Multiperm_unlable x.parts.toList (List.range n)).card =
+    n ! / (k ! * ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i)) := by
   sorry
 
 /--
