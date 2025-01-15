@@ -69,8 +69,6 @@ def Multiperm {α : Type} [BEq α]:
 | [], _ => [[]]
 | a :: s, l => List.flatten ((List.sublistsLen a l).map (fun x => (List.product [x] (Multiperm s (l.diff x))).map (fun (a, b) => [a] ++ b)))
 
-#eval Multiperm [2, 1] [1, 2, 3]
-
 theorem partition_labeled (n k : ℕ) (x : n.Partition) (hx : x.parts.card = k) :
     (Multiperm x.parts.toList (List.range n)).length =
     n ! / ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i) := by
@@ -80,14 +78,16 @@ def Multiperm_unlable {α : Type} [DecidableEq α]:
     List ℕ → List α → Finset (Multiset (List α))
 | s, l => (Multiset.ofList ((Multiperm s l).map Multiset.ofList)).toFinset
 
-
-#check (Multiset.ofList ((Multiperm [2, 2] [1, 2, 3, 4]).map Multiset.ofList)).toFinset
-
 theorem partition_unlabeled (n k : ℕ) (x : n.Partition) (hx : x.parts.card = k)
     (heq : ∀ i ∈ x.parts, ∀ j ∈ x.parts, i = j) :
     (Multiperm_unlable x.parts.toList (List.range n)).card =
     n ! / (k ! * ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i)) := by
   sorry
+
+def label :
+    List α → List (α × ℕ)
+| [] => []
+| x :: xs => (x, 1) :: (label xs).map (fun ⟨y, n⟩ => ⟨y, n + 1⟩)
 
 /--
 Theorem 2.4.4: There are $n$ rooks of $k$ colors with $n_1$ rooks of the first color, $n_2$ rooks of
@@ -95,6 +95,11 @@ the second color, $\ldots$, and $n_k$ rooks of the kth color. The number of ways
 rooks on an n-by-n board so that no rook can attack another $n!\frac{n!}{n_1!n_2!\cdots n_k!}=
 \frac{(n!)^2}{n_1!n_2!\cdots n_k!}.$
 -/
+def no_attack_Multiperm {α : Type} [BEq α]:
+    List ℕ → List α → List (List (List (α × ℕ)))
+| s, l => List.flatten (((List.permutationsLength l.length l).map (fun x => label x)).map (fun x => Multiperm s x))
+
 theorem partition_labeled_noattack (n k : ℕ) (x : n.Partition) (hx : x.parts.card = k) :
-    1 = n ! * (n ! / ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i)) := by
-    sorry
+    (no_attack_Multiperm x.parts.toList (List.range n)).length =
+    n ! * (n ! / ∏ i ∈ x.parts.toFinset, i ! ^ (x.parts.count i)) := by
+  sorry
