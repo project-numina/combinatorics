@@ -14,7 +14,7 @@ class IsInfinite (S : MyMultiset α) : Prop where
 class IsFinite (S : MyMultiset α) : Prop where
   rep_finite : ∀ (a : α), S.rep a < ℵ₀
 
-variable {α : Type*}  (S : MyMultiset α)
+variable {α : Type u}  (S : MyMultiset α)
 
 noncomputable def repAsNat [h : S.IsFinite] (a : α) : ℕ :=
   Cardinal.lt_aleph0.1 (h.rep_finite a) |>.choose
@@ -42,7 +42,20 @@ noncomputable instance [Fintype α] : Fintype (S.perm r) :=
 
 -- thm 2.4.1
 theorem perm_count_of_infinity [Fintype α] [S.IsInfinite] :
-    Fintype.card (S.perm r) = (Fintype.card α)^r := sorry
+    Fintype.card (S.perm r) = (Fintype.card α)^r := by
+  classical
+  convert Fintype.induction_empty_option
+    (P := fun (β : Type u) _ ↦
+        ∀ (S : MyMultiset β) [S.IsInfinite] (r : ℕ), Fintype.card (S.perm r) = (Fintype.card β)^r)
+    _ _ _ α S r
+  · intro β β' _ e ih S _ r
+    sorry
+  · intro S _ r
+    simp only [Fintype.card_ofIsEmpty]
+
+    sorry
+  · intro β _ ih S _ r
+    sorry
 
 
 open scoped Nat
