@@ -32,7 +32,13 @@ structure IsPerm (l : List α) (r : ℕ) : Prop where
 
 def perm (r : ℕ) := { l : List α | S.IsPerm l r }
 
-instance [Fintype α] : Fintype (S.perm r) := sorry
+noncomputable instance [Fintype α] : Fintype (S.perm r) :=
+    Fintype.ofInjective (fun l : S.perm r ↦ (fun i ↦ l.1.get ⟨i, by
+      convert i.2; exact l.2.len⟩ : Fin r → α)) fun l l' h ↦ by
+    refine Subtype.ext <| List.ext_get ?_ fun n H H' ↦ ?_
+    · rw [l.2.len, l'.2.len]
+    apply congr_fun h ⟨n, ?_⟩
+    convert H; exact l.2.len.symm
 
 -- thm 2.4.1
 theorem perm_count_of_infinity [Fintype α] [S.IsInfinite] :
