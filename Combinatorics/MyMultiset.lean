@@ -12,6 +12,7 @@ set_option autoImplicit false
 
 universe u
 
+@[ext]
 structure MyMultiset (α : Type u) where
   rep : α → ℕ∞
 
@@ -19,8 +20,28 @@ namespace MyMultiset
 
 variable {α β : Type u}
 
-def comap (f : α → β) (S : MyMultiset β) : MyMultiset α :=
-  { rep := fun a ↦ S.rep (f a) }
+@[simps]
+def comap (f : α → β) (S : MyMultiset β) : MyMultiset α where
+  rep := fun a ↦ S.rep (f a)
+
+@[simps]
+def equiv (e : α ≃ β) : MyMultiset α ≃ MyMultiset β where
+  toFun := comap e.symm
+  invFun := comap e
+  left_inv := by intro S; ext a; simp [comap]
+  right_inv := by intro S; ext b; simp [comap]
+
+@[simps]
+def sumType : MyMultiset (α ⊕ β) ≃ MyMultiset α × MyMultiset β where
+  toFun S := ⟨⟨fun a ↦ S.rep (.inl a)⟩, ⟨fun b ↦ S.rep (.inr b)⟩⟩
+  invFun S := ⟨Sum.rec (fun a ↦ S.1.rep a) (fun b ↦ S.2.rep b)⟩
+  left_inv S := by
+    ext a; rcases a with a|b  <;> simp
+  right_inv S := rfl
+
+@[simps!]
+def optionType : MyMultiset (Option α) ≃ MyMultiset α × MyMultiset PUnit :=
+  equiv (Equiv.optionEquivSumPUnit _) |>.trans sumType
 
 class IsInfinite (S : MyMultiset α) : Prop where
   rep_infinite : ∀ (a : α), S.rep a = ⊤
@@ -37,6 +58,29 @@ lemma repAsNat_spec [h : S.IsFinite] (a : α) : S.repAsNat a = S.rep a :=
   S.rep a |>.untop_eq_iff (h.rep_finite a) |>.1 rfl |>.symm
 
 def total [h : S.IsFinite] [Fintype α] : ℕ := ∑ a : α, S.repAsNat a
+
+instance (S : MyMultiset (Option α)) [h : S.IsFinite] : IsFinite (optionType S).1 := ⟨fun a ↦ by
+  simpa using h.rep_finite _⟩
+
+instance (S : MyMultiset (Option α)) [h : S.IsFinite] : IsFinite (optionType S).2 := ⟨fun a ↦ by
+  simpa using h.rep_finite _⟩
+
+instance (e : α ≃ β) [h : S.IsFinite] : IsFinite (S.equiv e) := ⟨fun a ↦ by
+  simpa using h.rep_finite _⟩
+
+instance (T : MyMultiset PEmpty) : IsFinite T := ⟨fun a ↦ by cases a⟩
+
+@[simp]
+lemma total_empty (T : MyMultiset PEmpty) : T.total = 0 := by
+  simp only [total, Fintype.sum_empty]
+
+@[simp]
+lemma equiv_total [h : S.IsFinite] [Fintype α] [Fintype β] (e : α ≃ β) :
+    (S.equiv e).total = S.total := by
+  simp only [total, equiv_apply]
+  apply Fintype.sum_bijective e.symm e.symm.bijective
+  intro x
+  simp only [repAsNat, comap_rep]
 
 variable [DecidableEq α]
 
@@ -66,13 +110,11 @@ lemma Perm.ℓ_ext {r : ℕ} (l l' : Perm S r) : l.ℓ = l'.ℓ → l = l' := by
   ext i
   simp only [toFin, h, Fin.getElem_fin]
 
-
-instance : Subsingleton (S.Perm 0) := ⟨fun l l' => by ext ⟨i, hi⟩; simp at hi⟩
+instance perm_zero_subsingleton : Subsingleton (S.Perm 0) :=
+  ⟨fun l l' => by ext ⟨i, hi⟩; simp at hi⟩
 
 noncomputable instance {r : ℕ} [Fintype α] : Fintype (S.Perm r) :=
     Fintype.ofInjective (fun l : S.Perm r ↦ l.toFin) fun _ _ ↦ Perm.ext
-
--- thm 2.4.1
 
 lemma Perm.zero (l : S.Perm 0) : l.ℓ = [] := by
   apply List.ext_get
@@ -105,6 +147,39 @@ def Perm.succOfIsInfinite [inf : S.IsInfinite] (r : ℕ) : S.Perm (r + 1) ≃ (S
   right_inv := by
     rintro ⟨l, a⟩
     simp only [List.tail_cons, toFin, Fin.getElem_fin, Fin.val_zero, List.getElem_cons_zero]
+
+
+@[simps]
+def Perm.equiv [DecidableEq β] (e : α ≃ β) (r s : ℕ) (h : r = s) :
+    (S.equiv e).Perm r ≃ S.Perm s where
+  toFun l :=
+  { ℓ := l.ℓ.map e.symm
+    len := by simp [h, l.len]
+    count a := by
+      rw [show a = e.symm (e a) by simp]
+      rw [List.count_eq_countP, List.countP_map]
+      simp only [Equiv.symm_apply_apply, equiv_apply]
+      have := l.count (e a)
+      simp only [equiv_apply, comap_rep, Equiv.symm_apply_apply, List.count_eq_countP] at this
+      convert this using 3
+      aesop }
+  invFun l :=
+  { ℓ := l.ℓ.map e
+    len := by simp [h, l.len]
+    count b := by
+      rw [show b = e (e.symm b) by simp]
+      rw [List.count_eq_countP, List.countP_map]
+      simp only [Equiv.apply_symm_apply, equiv_apply, comap_rep]
+      have := l.count (e.symm b)
+      simp only [List.count_eq_countP] at this
+      convert this using 3
+      aesop }
+  left_inv l := by ext; simp [Perm.toFin]
+  right_inv l := by ext; simp [Perm.toFin]
+
+lemma Perm.card_eq_of_equiv [DecidableEq β] [Fintype α] [Fintype β] (e : α ≃ β) (r s : ℕ) (h : r = s) :
+    Fintype.card ((S.equiv e).Perm r) = Fintype.card (S.Perm s) := by
+  rwa [Fintype.card_congr (Perm.equiv ..)]
 
 -- thm 2.4.1
 variable (S) in
@@ -184,9 +259,32 @@ lemma example_2_4_1 (s : Finset ℕ) (hs : ∀ x, x ∈ s ↔ (Nat.digits 3 x).l
 
 #print axioms example_2_4_1
 
--- thm 2.4.2
--- example [Fintype α] [S.IsFinite] :
---     Fintype.card (S.Perm S.total) =
---     (S.total !) / (∏ a : α, (S.repAsNat a) !) := sorry
+example [Fintype α] [S.IsFinite] :
+    Fintype.card (S.Perm S.total) =
+    (S.total !) / (∏ a : α, (S.repAsNat a) !) := by
+  classical
+  convert Fintype.induction_empty_option
+    (P := fun β : Type u ↦ ∀ (T : MyMultiset β) [T.IsFinite], Fintype.card (T.Perm T.total) =
+      T.total ! / ∏ a : β, (T.repAsNat a)!)
+    (by
+      intro α β _ e ih S _
+      letI : Fintype α := Fintype.ofEquiv β e.symm
+      have eq1 := ih (S.equiv e.symm)
+      rw [Perm.card_eq_of_equiv (h := equiv_total ..), equiv_total] at eq1
+      rw [eq1]
+      congr 1
+      apply Fintype.prod_bijective e e.bijective
+      intro a
+      congr 1)
+    (by
+      intro T h
+      simp only [total_empty, Nat.factorial_zero, Finset.univ_eq_empty, Finset.prod_empty,
+        zero_lt_one, Nat.div_self]
+      convert Fintype.card_ofSubsingleton default
+      · infer_instance
+      · infer_instance)
+    (by
+      intro α _ ih S _
+      sorry) α S
 
 end MyMultiset
