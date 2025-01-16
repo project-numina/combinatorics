@@ -4,7 +4,8 @@ open Lake DSL
 package «Combinatorics» where
   leanOptions := #[
     ⟨`pp.unicode.fun, true⟩, -- pretty-prints `fun a ↦ b`
-    ⟨`pp.proofs.withType, false⟩
+    ⟨`pp.proofs.withType, false⟩,
+    ⟨`autoImplicit, false⟩
   ]
   -- add any package configuration options here
 
