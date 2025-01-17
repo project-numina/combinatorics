@@ -3,6 +3,8 @@ import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Mathlib.Algebra.Order.Ring.Nat
 import Mathlib.Order.Partition.Finpartition
 
+variable {α : Type*}
+
 /-
 Addition Principle: Suppose that a set S is partitioned into pairwise disjoint parts $S_1,S_2,
 \ldots, S_m$. The number of objects in S can be determined by finding the number of objects in each
