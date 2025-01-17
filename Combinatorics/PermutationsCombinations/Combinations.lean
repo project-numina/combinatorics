@@ -3,7 +3,7 @@ import Combinatorics.PermutationsCombinations.Permutations
 
 open Nat Finset
 
-
+variable {α : Type*}
 
 /--
 Generate all possible subsets of size k from a given finite set s .
