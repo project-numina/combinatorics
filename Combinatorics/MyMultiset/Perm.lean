@@ -230,7 +230,7 @@ lemma card_infiniteBooleanStream_perm (n r : ℕ) (h : r ≤ n) :
         card_infiniteBooleanStream_perm n r (by omega)]
       rw [add_comm]
 
-lemma count_eq_repAsNat [Fintype α] [S.IsFinite] (perm : S.Perm S.card) :
+lemma count_eq_repAsNat [Fintype α] [S.RepIsFinite] (perm : S.Perm S.card) :
     ∀ a, perm.ℓ.count a = S.repAsNat a := by
   let A : Finset α := Finset.filter (fun a ↦ perm.ℓ.count a = S.repAsNat a) .univ
   let B : Finset α := Finset.filter (fun a ↦ perm.ℓ.count a < S.repAsNat a) .univ
@@ -274,10 +274,10 @@ lemma count_eq_repAsNat [Fintype α] [S.IsFinite] (perm : S.Perm S.card) :
         simp [B]
       _ = ∑ a : α, S.repAsNat a := by
         rw [← Finset.sum_union dis, eq]
-      _ = S.card := rfl
+      _ = S.card := by rw [fintype_card S]
   simp only [lt_self_iff_false] at eq₁
 
-def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.IsFinite] :
+def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.RepIsFinite] :
     S.Perm S.card ≃
     S.original.Perm S.original.card ×
     { perm : infiniteBooleanStream.Perm S.card | perm.ℓ.count false = S.repAsNat .none } where
@@ -317,7 +317,7 @@ def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.IsFinite] :
         simp [List.length_eq_sum_count]
       trans (S.repAsNat .none)
       · rw [H]
-      · delta card; apply Finset.single_le_sum <;> aesop
+      · rw [fintype_card]; apply Finset.single_le_sum <;> aesop
     count := by
       rintro (⟨⟩|⟨a⟩)
       · rcases pair with ⟨item, ⟨bool, H⟩⟩
@@ -340,7 +340,7 @@ def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.IsFinite] :
           rw [Nat.sub_eq_iff_eq_add]
           · simp_rw [← bool.len]
             simp [List.length_eq_sum_count]
-          · rw [H]
+          · rw [H, fintype_card]
             apply Finset.single_le_sum <;> aesop) a
         simp only at eq₁
         have ineq₁ : item.ℓ.count a ≤ S.original.repAsNat a := by
@@ -378,22 +378,24 @@ def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.IsFinite] :
       simp only [Set.mem_setOf_eq] at H
       simp only [permItem.len, original_card, H', permBool.len, H]
 
-lemma insert_card [Fintype α] (S : MyMultiset (Option α)) [S.IsFinite]  :
+lemma insert_card [Fintype α] (S : MyMultiset (Option α)) [S.RepIsFinite]  :
     Fintype.card (S.Perm S.card) =
     Fintype.card (S.original.Perm S.original.card) *
     Nat.choose S.card (S.repAsNat .none) := by
-  rw [Fintype.card_congr (insertEquiv S), Fintype.card_prod, card_infiniteBooleanStream_perm]
-  delta card
-  aesop
+  rw [Fintype.card_congr (insertEquiv S), Fintype.card_prod, card_infiniteBooleanStream_perm,
+    fintype_card]
+  rw [fintype_card]
+  apply Finset.single_le_sum
+  · simp
+  · simp
 
-
-theorem card_total' [Fintype α] [S.IsFinite] :
+theorem card_total' [Fintype α] [S.RepIsFinite] :
     Fintype.card (S.Perm S.card) * (∏ a : α, (S.repAsNat a) !) =
     (S.card !) := by
   classical
   convert Fintype.induction_empty_option
     (P := fun β (_ : Fintype β) ↦
-      ∀ (S : MyMultiset β) (_ : S.IsFinite),
+      ∀ (S : MyMultiset β) (_ : S.RepIsFinite),
         letI : DecidableEq β := Classical.decEq β
         Fintype.card (S.Perm S.card) * (∏ a : β, (S.repAsNat a) !) =
     (S.card !)) ?_ ?_ ?_ α S inferInstance
@@ -405,13 +407,15 @@ theorem card_total' [Fintype α] [S.IsFinite] :
     · symm
       convert Perm.card_eq_of_equiv .. using 1
       convert equiv_card ..
+      exact Subsingleton.elim _ _
     · symm
       apply Fintype.prod_bijective e e.bijective
       intro a
       congr 1
-    · symm; convert equiv_card .. using 1
+    · symm; convert equiv_card ..; exact Subsingleton.elim _ _
   · intro T h
-    simp only [card_empty, Finset.univ_eq_empty, Finset.prod_empty, mul_one, Nat.factorial_zero]
+    erw [card_empty]
+    simp only [Finset.univ_eq_empty, Finset.prod_empty, mul_one, Nat.factorial_zero]
     convert Fintype.card_ofSubsingleton default
     · infer_instance
     · infer_instance
@@ -422,25 +426,29 @@ theorem card_total' [Fintype α] [S.IsFinite] :
   · congr!
   rw [mul_assoc, mul_comm _ (∏ _, _), ← mul_assoc]
   have eq₁ := ih S.original inferInstance
-  rw [← original_card', ← Nat.factorial_mul_ascFactorial, ← eq₁]
+  rw [← original_card', ← Nat.factorial_mul_ascFactorial]
+  convert congr($eq₁.symm * (S.original.card + 1).ascFactorial S.single.card) using 1
+  · congr!; exact Subsingleton.elim _ _
   simp only [Fintype.prod_option]
-  simp only [mul_assoc, mul_eq_mul_left_iff]
-  left
+  simp only [mul_assoc]
+  congr 1
+  · congr!; exact Subsingleton.elim _ _
+
   simp only [original_repAsNat_eq, ← mul_assoc]
   rw [mul_comm _ (∏ _, _)]
-  simp only [mul_assoc, mul_eq_mul_left_iff]
+  simp only [single_card, mul_assoc, mul_eq_mul_left_iff]
   left
   erw [Nat.add_choose, ← Nat.mul_div_assoc]
-  · apply Nat.eq_div_of_mul_eq_left
+  · symm
+    apply Nat.eq_div_of_mul_eq_left
     · simp only [ne_eq, mul_eq_zero, not_or]
       exact ⟨Nat.factorial_ne_zero _, Nat.factorial_ne_zero _⟩
     · conv_lhs => rw [mul_comm, mul_comm (S.original.card !), mul_assoc,
-        Nat.factorial_mul_ascFactorial, single_card]
-      rfl
+        Nat.factorial_mul_ascFactorial]
   · exact Nat.factorial_mul_factorial_dvd_factorial_add _ _
 
 -- theorem 2.4.2
-theorem card_total [Fintype α] [S.IsFinite] :
+theorem card_total [Fintype α] [S.RepIsFinite] :
     Fintype.card (S.Perm S.card) =
     (S.card !) / (∏ a : α, (S.repAsNat a) !) := by
   rw [← card_total']
