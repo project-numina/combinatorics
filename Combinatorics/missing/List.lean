@@ -376,5 +376,26 @@ lemma length_eq_sum_count {α : Type*} [Fintype α] [DecidableEq α] (l : List �
     refine Finset.sum_congr rfl fun a ha => ?_
     split_ifs with H <;> simp [H, add_comm]
 
+lemma length_eq_sum_count' {α : Type*} [DecidableEq α] (l : List α) :
+    l.length = ∑ a ∈ l.toFinset.filter (fun a ↦ l.count a ≠ 0), l.count a := by
+  classical
+  let L : List {x | x ∈ l} := l.attach
+  rw [← l.length_attach, length_eq_sum_count]
+
+  rw [← Finset.sum_subset (s₁ := Finset.univ.filter (fun (a : {x // x ∈ l}) ↦ l.count a.1 ≠ 0))]
+  pick_goal 2
+  · exact Finset.filter_subset _ _
+  pick_goal 2
+  · simp
+
+  fapply Finset.sum_bij'
+  · refine fun a ha ↦ a.1
+  · refine fun a ha => ⟨a, by aesop⟩
+  · simp [List.count_eq_zero]
+  · simp
+  · simp
+  · simp
+  · simp
+
 
 end List
