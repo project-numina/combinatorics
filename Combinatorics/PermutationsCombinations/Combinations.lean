@@ -10,14 +10,28 @@ def combinations (r : ℕ) (s : Finset α) : Finset (Finset α) :=
 
 theorem combinations_card (r : ℕ) (s : Finset α) :
   s.card.choose r = (combinations r s).card := by
-    rw [combinations]
+    unfold combinations
     exact (Finset.card_powersetCard r s).symm
 
 /--
 Theorem 2.3.1 For 0 ≤ r ≤ n, P(n, r) = r! × C(n, r). Hence, C(n, r) = n! / (r! × (n - r)!).
 -/
-theorem  combinations_Factorial  (r : ℕ) (s : Finset α) (h : r ≤ s.card) (hp: (permutationsLength r s).card = r.factorial * (combinations r s).card) :
-  (combinations r s).card = (Finset.card s).factorial / (r.factorial * (Finset.card s - r).factorial) := by sorry
+theorem  combinations_Factorial  (r : ℕ) (s : Finset α) (h : r ≤ s.card) :
+  (permutationsLength r s).card = r.factorial * (combinations r s).card →
+   (combinations r s).card = (Finset.card s).factorial / (r.factorial * (Finset.card s - r).factorial) := by
+    intro hp
+    obtain H := permutationsLength_card r s h
+    apply Nat.eq_of_mul_eq_mul_left (n := r.factorial)
+    . apply Nat.factorial_pos
+    . rw [← hp]
+      rw [H]
+      rw [← Nat.mul_div_assoc]
+      rw [Nat.mul_comm]
+      rw [← Nat.div_div_eq_div_mul]
+      obtain hr := Nat.factorial_pos r
+      conv_rhs => enter [1]; rw [Nat.mul_div_cancel (H := hr)]
+      apply Nat.factorial_mul_factorial_dvd_factorial
+      exact h
 
 
 /-
