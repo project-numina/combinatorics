@@ -33,7 +33,7 @@ example (s : Finset (List MSIP))
     | MSIP.S => 4
     | MSIP.I => 4
     | MSIP.P => 2 }
-  haveI : S.IsFinite := ⟨by intro a; cases a <;> aesop⟩
+  haveI : S.RepIsFinite := ⟨by intro a; cases a <;> aesop⟩
   have eqM : S.repAsNat MSIP.M = 1 := rfl
   have eqS : S.repAsNat MSIP.S = 4 := rfl
   have eqI : S.repAsNat MSIP.I = 4 := rfl
