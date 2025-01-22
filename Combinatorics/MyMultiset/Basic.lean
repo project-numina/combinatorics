@@ -72,6 +72,8 @@ def support [h : S.ObjIsFinite] : Finset α := h.support
 @[simp]
 lemma mem_support [h : S.ObjIsFinite] (a : α) : a ∈ S.support ↔ S.rep a ≠ 0 := h.obj_finite a
 
+instance [h : S.ObjIsFinite] : DecidablePred (fun a => a ∈ S.support) := h.dec
+
 lemma repAsNat_spec [h : S.RepIsFinite] (a : α) : S.repAsNat a = S.rep a :=
   S.rep a |>.untop_eq_iff (h.rep_finite a) |>.1 rfl |>.symm
 
