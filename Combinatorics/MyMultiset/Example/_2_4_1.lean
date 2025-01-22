@@ -61,7 +61,7 @@ lemma example_2_4_1 (s : Finset ℕ) (hs : ∀ x, x ∈ s ↔ (Nat.digits 3 x).l
 
   haveI : S.IsInfinite := ⟨fun a ↦ rfl⟩
 
-  have eq := Perm.count_of_infinity S 4
+  have eq := Perm.card_of_isInfinite S 4
   simp only [Fintype.card_fin, Nat.reducePow] at eq
   have eq' := Fintype.card_congr e
   simp only [Fintype.card_coe] at eq'
