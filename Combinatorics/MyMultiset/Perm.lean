@@ -111,7 +111,7 @@ lemma card_eq_of_equiv [DecidableEq β] [Fintype α] [Fintype β] (e : α ≃ β
 
 -- thm 2.4.1
 variable (S) in
-theorem count_of_infinity (r : ℕ) [Fintype α] [S.IsInfinite] :
+theorem card_of_isInfinite (r : ℕ) [Fintype α] [S.IsInfinite] :
     Fintype.card (S.Perm r) = (Fintype.card α)^r := by
   induction r with
   | zero =>
