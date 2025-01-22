@@ -3,6 +3,7 @@ import Combinatorics.MyMultiset.Basic
 import Combinatorics.MyMultiset.Comb
 import Combinatorics.MyMultiset.Example._2_4_1
 import Combinatorics.MyMultiset.Example._2_4_2
+import Combinatorics.MyMultiset.Example._2_5_1
 import Combinatorics.MyMultiset.Example.more
 import Combinatorics.MyMultiset.Perm
 import Combinatorics.PermutationsCombinations.Combinations
