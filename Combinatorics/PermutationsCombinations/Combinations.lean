@@ -3,6 +3,7 @@ import Combinatorics.PermutationsCombinations.Permutations
 
 open Nat Finset
 
+variable {α : Type*}
 
 
 /--

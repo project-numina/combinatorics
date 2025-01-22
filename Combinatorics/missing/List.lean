@@ -1,4 +1,4 @@
-import Mathlib.Data.List.Basic
+import Mathlib.Data.List.DropRight
 import Mathlib.Tactic.ApplyFun
 import Mathlib.Data.Fintype.BigOperators
 
@@ -72,7 +72,7 @@ lemma dropWhileRight_map {α β : Type u} (P : β → Bool)
     (l.dropWhileRight (P ∘ f)).map f = (l.map f).dropWhileRight P := by
   simp [dropWhileRight, ← dropWhile_map]
 
-lemma dropWhile_eq_self_iff {α : Type u} (P : α → Bool) (l : List α) :
+lemma dropWhile_eq_self_iff' {α : Type u} (P : α → Bool) (l : List α) :
     l.dropWhile P = l ↔ ∀ (h : l ≠ []), ¬ P (l.head h) := by
   cases l with
   | nil => simp
@@ -95,7 +95,7 @@ lemma dropWhile_eq_self_iff {α : Type u} (P : α → Bool) (l : List α) :
 lemma dropWhileRight_eq_self_iff {α : Type u} (P : α → Bool) (l : List α):
     l.dropWhileRight P = l ↔ ∀ (h : l ≠ []), ¬ P (l.getLast h) := by
   simp only [List.dropWhileRight, List.reverse_eq_iff, ne_eq, Bool.not_eq_true]
-  rw [List.dropWhile_eq_self_iff]
+  rw [List.dropWhile_eq_self_iff']
   simp
 
 @[simp]
