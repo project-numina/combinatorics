@@ -8,7 +8,7 @@ There are 8 athletes participating in a sprint competition. The referee needs to
 -/
 theorem case_12_v1: (Finset.permutationsLength 3 (range 8)).card = 336 := by
   rw [permutationsLength_card] <;> aesop
-
+  
 
 /--
 The group of 10 girls should be divided into two groups with at least four girls in each group. How many ways can this be done?
