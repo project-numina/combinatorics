@@ -62,7 +62,7 @@ example (r k : ℕ) : Fintype.card (Fin r →o Fin k) = (k + r - 1).choose r := 
           { support := { a | l.1.count a ≠ 0 }
             obj_finite := by simp
             dec := by simp only [ne_eq, Finset.mem_filter, Finset.mem_univ, true_and]; infer_instance }
-        rep_le a := by simp
+        rep_le a := by simp [S]
         card_eq := by
           simp only [ne_eq, id_eq, eq_mpr_eq_cast]
           rw [MyMultiset.fintype_card]
