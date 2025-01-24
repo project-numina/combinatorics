@@ -55,7 +55,7 @@ instance : Inhabited (S.Perm 0) := ⟨⟨[], rfl, fun a => by
   exact zero_le (S.rep a)⟩⟩
 
 variable (S) in
-def succOfIsInfinite [inf : S.IsInfinite] (r : ℕ) : S.Perm (r + 1) ≃ (S.Perm r) × α where
+def succOfIsInfinite [inf : S.IsTotallyInfinite] (r : ℕ) : S.Perm (r + 1) ≃ (S.Perm r) × α where
   toFun l := ⟨⟨l.ℓ.tail, by simp? [l.len], fun a ↦ by
     rw [inf.rep_infinite]
     exact OrderTop.le_top _⟩, l.toFin 0⟩
@@ -111,7 +111,7 @@ lemma card_eq_of_equiv [DecidableEq β] [Fintype α] [Fintype β] (e : α ≃ β
 
 -- thm 2.4.1
 variable (S) in
-theorem card_of_isInfinite (r : ℕ) [Fintype α] [S.IsInfinite] :
+theorem card_of_isInfinite (r : ℕ) [Fintype α] [S.IsTotallyInfinite] :
     Fintype.card (S.Perm r) = (Fintype.card α)^r := by
   induction r with
   | zero =>

@@ -59,7 +59,7 @@ lemma example_2_4_1 (s : Finset ℕ) (hs : ∀ x, x ∈ s ↔ (Nat.digits 3 x).l
           ext; aesop]
         simp_rw [l.len ▸ l.ℓ.dropWhileRight_eq_fillToLength 0] }
 
-  haveI : S.IsInfinite := ⟨fun a ↦ rfl⟩
+  haveI : S.IsTotallyInfinite := ⟨fun a ↦ rfl⟩
 
   have eq := Perm.card_of_isInfinite S 4
   simp only [Fintype.card_fin, Nat.reducePow] at eq

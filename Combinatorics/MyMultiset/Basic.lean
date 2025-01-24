@@ -8,24 +8,49 @@ import Mathlib.Algebra.Order.BigOperators.Group.Finset
 import Combinatorics.missing.List
 import Combinatorics.missing.Nat
 
-open scoped Nat
+/-!
+# Multisets
 
-set_option autoImplicit false
+This file defines multisets, which are possibly infinite collections of objects that may contain
+duplicates.
+
+The main definition is `MyMultiset α` is a wrapper around a function `rep : α → ℕ∞` that
+represents the number of each `a : α` if a multiset contains infinitely many `a` then `rep a = ⊤`.
+
+Note that we allow `rep a = 0` which means that `a` is not in the multiset.
+-/
+
+open scoped Nat
 
 universe u
 
+/--
+A multiset on `α` is a possibly infinite collection of objects, with duplicates allowed.
+
+If `α` is a finite type with cardinality `k` , then a multiset on `α` is said to have `k` type of
+objects. If we want to define a multiset with `k` type of objects, an obvious choice is to use
+`α = Fin k`.
+-/
 @[ext]
 structure MyMultiset (α : Type u) where
+  /-- for each `a : α`, `rep a` is the number of `a` in the multiset. -/
   rep : α → ℕ∞
 
 namespace MyMultiset
 
 variable {α β : Type u}
 
+/--
+If `S` is a multiset on `β` and `f : α → β` is a function, then `f⁻¹(S)` is the multiset on `α`
+given by for each `a : α`, the number of `a` in `f⁻¹(S)` is the number of `f a` in `S`.
+-/
 @[simps]
 def comap (f : α → β) (S : MyMultiset β) : MyMultiset α where
   rep := fun a ↦ S.rep (f a)
 
+/--
+If `α` and `β` are in bijection to each other, then their multisets are in bijection as well.
+-/
 @[simps]
 def equiv (e : α ≃ β) : MyMultiset α ≃ MyMultiset β where
   toFun := comap e.symm
@@ -33,6 +58,13 @@ def equiv (e : α ≃ β) : MyMultiset α ≃ MyMultiset β where
   left_inv := by intro S; ext a; simp [comap]
   right_inv := by intro S; ext b; simp [comap]
 
+/--
+If `S` is a multiset on `α ⊕ β`, then `S` can be split into two multisets on `α` and `β`
+respectively.
+
+In particular, if `S` is a multiset with `m + n` types of objects, then `S` can be split into two
+multisets with `m` and `n` types of objects respectively.
+-/
 @[simps]
 def sumType : MyMultiset (α ⊕ β) ≃ MyMultiset α × MyMultiset β where
   toFun S := ⟨⟨fun a ↦ S.rep (.inl a)⟩, ⟨fun b ↦ S.rep (.inr b)⟩⟩
@@ -41,20 +73,50 @@ def sumType : MyMultiset (α ⊕ β) ≃ MyMultiset α × MyMultiset β where
     ext a; rcases a with a|b  <;> simp
   right_inv S := rfl
 
+/--
+If `S` is a multiset on `Option α`, then `S` can be split into two multisets on `α` and `PUnit`.
+
+This corresponds to the fact that if `S` is a multiset with `n + 1` types of objects, then `S` can
+be split into two multisets with `n` and `1` types of objects respectively.
+-/
 @[simps!]
 def optionType : MyMultiset (Option α) ≃ MyMultiset α × MyMultiset PUnit :=
   equiv (Equiv.optionEquivSumPUnit _) |>.trans sumType
 
+/--
+If `S` is a multiset with `n + 1` types of objects {a₁, ..., aₙ, aₙ₊₁}, then `S.original` is the
+multiset with `n` types of objects {a₁, ..., aₙ}.
+-/
 abbrev original (S : MyMultiset (Option α)) : MyMultiset α := S.optionType.1
 
+/--
+If `S` is a multiset with `n + 1` types of objects {a₁, ..., aₙ, aₙ₊₁}, then `S.single` is the
+multiset with one type of objects {aₙ₊₁}. So basically `S.single` is the multiset counting how many
+obecjts of type `aₙ₊₁` are in `S`.
+-/
 abbrev single (S : MyMultiset (Option α)) : MyMultiset PUnit := S.optionType.2
 
+-- I have decided now to call it `IsTotallyInfinite`, because the book call it infinite multiset.
+/--
+If every type of objects in a multiset has a infinite repetition number, then the multiset is said
+to be infinite.
+-/
 class IsInfinite (S : MyMultiset α) : Prop where
   rep_infinite : ∀ (a : α), S.rep a = ⊤
 
+/--
+If every type of objects in a multiset has a finite repetition number, then the multiset is said to
+be finite.
+-/
 class RepIsFinite (S : MyMultiset α) : Prop where
   rep_finite : ∀ (a : α), S.rep a ≠ ⊤
 
+/--
+If a multiset has only finitely many types of objects with non-zero repetition numbers, then the
+multiset is said to have finitely many types of objects.
+
+In particular, if `α` is a finite type, then any multiset on `α` has finitely many types of objects.
+-/
 class ObjIsFinite (S : MyMultiset α) where
   support : Finset α
   obj_finite : ∀ a, a ∈ support ↔ S.rep a ≠ 0
@@ -62,11 +124,18 @@ class ObjIsFinite (S : MyMultiset α) where
 
 variable (S : MyMultiset α)
 
+/--
+If a multiset has finite repetition numbers for all types of objects, then we reinterpret the number
+of items of a given type as a natural number.
+-/
 def repAsNat [h : S.RepIsFinite] (a : α) : ℕ :=
   S.rep a |>.untop (h.rep_finite a)
 
 attribute [instance] ObjIsFinite.dec
 
+/--
+The support of a multiset is the set of types of objects that have non-zero repetition numbers.
+-/
 def support [h : S.ObjIsFinite] : Finset α := h.support
 
 @[simp]
@@ -77,17 +146,40 @@ instance [h : S.ObjIsFinite] : DecidablePred (fun a => a ∈ S.support) := h.dec
 lemma repAsNat_spec [h : S.RepIsFinite] (a : α) : S.repAsNat a = S.rep a :=
   S.rep a |>.untop_eq_iff (h.rep_finite a) |>.1 rfl |>.symm
 
+/--
+The cardinality of a multiset is the sum of non-zero repitition numbers.
+-/
 def card [S.RepIsFinite] [S.ObjIsFinite] : ℕ := ∑ a ∈ S.support, S.repAsNat a
 
+/--
+If `S` is a multiset with `n + 1` types of objects {a₁, ..., aₙ, aₙ₊₁} where all repitition numbers
+are finite, then the sub-multiset of `S`
+with `n` types of objects {a₁, ..., aₙ} has finite repetition number as well.
+-/
 instance (S : MyMultiset (Option α)) [h : S.RepIsFinite] : RepIsFinite (optionType S).1 := ⟨fun a ↦ by
   simpa using h.rep_finite _⟩
 
+/--
+If `S` is a multiset with `n + 1` types of objects {a₁, ..., aₙ, aₙ₊₁} where all repitition numbers
+are finite, then the sub-multiset of `S`
+with one type of objects {aₙ₊₁} has finite repetition number as well.
+-/
 instance (S : MyMultiset (Option α)) [h : S.RepIsFinite] : RepIsFinite (optionType S).2 := ⟨fun a ↦ by
   simpa using h.rep_finite _⟩
 
+/--
+If `S` is a multiset on `α` with finite repetition numbers for all types of objects and `α` is in
+bijection to `β`, then the corresponding multiset on `β` has finite repetition numbers for all types
+of objects as well.
+-/
 instance (e : α ≃ β) [h : S.RepIsFinite] : RepIsFinite (S.equiv e) := ⟨fun a ↦ by
   simpa using h.rep_finite _⟩
 
+/--
+If `S` is a multiset on `α` with only finitely many types of objects with non-zero repetition numbers
+and `α` is in bijection to `β`, then the corresponding multiset on `β` has only finitely many types of
+objects with non-zero repetition numbers as well.
+-/
 instance (e : α ≃ β) [h : S.ObjIsFinite] : ObjIsFinite (S.equiv e) where
   support := S.support.map e
   obj_finite a := by simp
@@ -96,6 +188,10 @@ instance (e : α ≃ β) [h : S.ObjIsFinite] : ObjIsFinite (S.equiv e) where
     simp only [Equiv.apply_symm_apply, Finset.mem_map_equiv, mem_support, ne_eq]
     infer_instance
 
+/--
+If `α` and `β` are in bijection to each other, then the support of a multiset `S` on `α` is in bijection
+to the support of the corresponding multiset on `β`.
+-/
 @[simps]
 def supportEquivEquiv (e : α ≃ β) [h : S.ObjIsFinite] : S.support ≃ (S.equiv e).support where
   toFun x := ⟨e x.1, by have := x.2; rw [mem_support] at this; simpa⟩
@@ -103,23 +199,40 @@ def supportEquivEquiv (e : α ≃ β) [h : S.ObjIsFinite] : S.support ≃ (S.equ
   left_inv x := by simp
   right_inv x := by simp
 
+/--
+If `S` is a multiset set with 0 types of object, then all repetition numbers are finite.
+-/
 instance (T : MyMultiset PEmpty) : RepIsFinite T := ⟨fun a ↦ by cases a⟩
 
+/--
+If `S` is a multiset with 0 types of object, then only finitely many objects has non-zero
+repitition numbers.
+-/
 instance (T : MyMultiset PEmpty) : ObjIsFinite T where
   support := ∅
   obj_finite a := a.elim
   dec := by infer_instance
 
+/-
+If `S` is a multiset with 0 types of object, then its support is empty
+-/
 @[simp]
 lemma support_empty (T : MyMultiset PEmpty) : T.support = ∅ := by
   ext a
   simp only [mem_support, iff_false]
   cases a
 
+/--
+If `S` is a multiset with 0 types of object, then the cardinality of `S` is 0.
+-/
 @[simp]
 lemma card_empty (T : MyMultiset PEmpty) : T.card = 0 := by
   simp only [card, support_empty, Finset.sum_empty]
 
+/--
+If `S` is a multiset with finitely many types of objects, then only finitely many types objects has
+non-zero repetition numbers.
+-/
 instance [Fintype α] : S.ObjIsFinite where
   support := Finset.univ.filter (fun a => S.rep a ≠ 0)
   obj_finite a := by simp
@@ -138,6 +251,9 @@ lemma fintype_support [Fintype α] : S.support = Finset.univ.filter (fun a => S.
   ext a
   simp only [mem_support, ne_eq, Finset.mem_filter, Finset.mem_univ, true_and]
 
+/--
+If `α` is a finite type, then the cardinality of a finite multiset is the sum of all repetition numbers.
+-/
 lemma fintype_card [Fintype α] [S.ObjIsFinite] [S.RepIsFinite] :
     S.card = ∑ a : α, S.repAsNat a := by
   rw [card]
@@ -150,6 +266,11 @@ lemma fintype_card [Fintype α] [S.ObjIsFinite] [S.RepIsFinite] :
   rw [repAsNat_spec, h]
   rfl
 
+/--
+If `S` is a multiset on `α ∪ {*}` with only finitely many types of objects with non-zero repetition
+number, then the subsetset of `S` with `α` as the type of objects has only finitely many types of
+objects with non-zero repetition number as well.
+-/
 instance [DecidableEq α] (S : MyMultiset (Option α)) [h : S.ObjIsFinite] :
     ObjIsFinite (S.optionType.1) where
   support := S.support \ {Option.none (α := α)} |>.attach.map
@@ -190,6 +311,11 @@ instance [DecidableEq α] (S : MyMultiset (Option α)) [h : S.ObjIsFinite] :
         simp only [reduceCtorEq, not_false_eq_true, and_true, Option.get_some] at h H
         contradiction
 
+/--
+If `S` is a multiset on `α ∪ {*}` with only finitely many types of objects with non-zero repetition
+number such that the repition number of * is 0, then the support of `S` is in bijection with the
+support of the subset of `S` with `α` as the type of objects.
+-/
 @[simps]
 def supportEquivOptionOriginalSupportOfNotMem [DecidableEq α]
     (S : MyMultiset (Option α)) [S.ObjIsFinite] (h : .none ∉ S.support) :
@@ -215,6 +341,12 @@ def supportEquivOptionOriginalSupportOfNotMem [DecidableEq α]
     rintro ⟨x, hx⟩
     simp
 
+/--
+
+If `S` is a multiset on `α ∪ {*}` with only finitely many types of objects with non-zero repetition
+number such that the repition number of * is non-zero, then the support of `S` is in bijection with
+the support of the subset of `S` with `α` as the type of objects together with *.
+-/
 def supportEquivOptionOriginalSupportOfMem [DecidableEq α]
     (S : MyMultiset (Option α)) [S.ObjIsFinite] (h : .none ∈ S.support) :
   S.support ≃ Option (S.original.support) where
@@ -230,6 +362,11 @@ def supportEquivOptionOriginalSupportOfMem [DecidableEq α]
   left_inv := by rintro ⟨⟨⟩|⟨x⟩, hx⟩ <;> simp
   right_inv := by rintro (⟨⟩|⟨x⟩) <;> simp
 
+/--
+If `S` is a multiset on `α ∪ {*}` with only finitely many types of objects with non-zero repetition,
+then the cardinality of the subset of `S` with `α` as the type of objects is equal to the cardinality
+of `S` minus the repetition number of *.
+-/
 lemma original_card [DecidableEq α] (S : MyMultiset (Option α)) [h : S.RepIsFinite] [S.ObjIsFinite] :
     S.original.card = S.card - S.repAsNat .none := by
   by_cases H : .none ∈ S.support
@@ -267,6 +404,10 @@ lemma original_card [DecidableEq α] (S : MyMultiset (Option α)) [h : S.RepIsFi
     simp only [tsub_zero]
     rfl
 
+/--
+If `S` is a multiset on `α ∪ {*}` and we split `S` into two multisets `S₁` on `α` and `S₂` with one
+type of object, then the cardinality of `S₂` is the repition number of * in `S`.
+-/
 @[simp]
 lemma single_card (S : MyMultiset (Option α)) [S.RepIsFinite] :
     S.single.card = S.repAsNat .none := by
@@ -281,6 +422,10 @@ lemma single_card (S : MyMultiset (Option α)) [S.RepIsFinite] :
     rw [repAsNat_spec, h]
     rfl
 
+/--
+If `S` is a multiset on `α ∪ {*}` and we split `S` into two multisets `S₁` on `α` and `S₂` with one
+type of object, then the cardinality of `S` is the sum of the cardinalities of `S₁` and `S₂`.
+-/
 lemma original_card' [DecidableEq α] (S : MyMultiset (Option α))
     [S.RepIsFinite] [S.ObjIsFinite] :
     S.original.card + S.single.card = S.card := by
@@ -297,12 +442,21 @@ lemma original_card' [DecidableEq α] (S : MyMultiset (Option α))
     rw [repAsNat_spec, H]
     rfl
 
+/--
+If `S` is a multiset on `α ∪ {*}` and we split `S` into two multisets `S₁` on `α` and `S₂` with one
+type of object, and `a : α`, then the repetition number of `a` in `S₁` is the same as the repetition
+number of `a` in `S`.
+-/
 @[simp]
 lemma original_repAsNat_eq
     (S : MyMultiset (Option α)) [h : S.RepIsFinite] (a : α) :
     (S.original.repAsNat a) = S.repAsNat (.some a) := by
   simp only [repAsNat, original, optionType_apply]
 
+/--
+If `S` is a multiset on `α` and `α` is in bijection to `β`, then the cardinality of `S` is the same
+as the cardinality of the corresponding multiset on `β`.
+-/
 @[simp]
 lemma equiv_card [S.RepIsFinite] [S.ObjIsFinite] (e : α ≃ β) :
     (S.equiv e).card = S.card := by

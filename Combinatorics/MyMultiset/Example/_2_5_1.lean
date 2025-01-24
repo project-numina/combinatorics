@@ -14,7 +14,7 @@ deriving DecidableEq, Fintype
 def shop : MyMultiset Doughnut where
   rep _ := ⊤
 
-instance : shop.IsInfinite := ⟨fun _ => rfl⟩
+instance : shop.IsTotallyInfinite := ⟨fun _ => rfl⟩
 
 lemma card_box : Fintype.card (shop.Comb 12) = Nat.choose 19 12 := by
   rw [MyMultiset.Comb.card_of_isInfinite_ofFintype]
@@ -34,7 +34,7 @@ are taken from 1,2, ... , k?
 -/
 example (r k : ℕ) : Fintype.card (Fin r →o Fin k) = (k + r - 1).choose r := by
   let S : MyMultiset (Fin k) := { rep _ := ⊤ }
-  haveI : S.IsInfinite := ⟨fun _ => rfl⟩
+  haveI : S.IsTotallyInfinite := ⟨fun _ => rfl⟩
   let e₁ : (Fin r →o Fin k) ≃ (l : List (Fin k)) ×' (l.length = r ∧ List.Sorted (· ≤ ·) l) :=
   { toFun f := ⟨List.ofFn f, by simp, by
       simp only [List.sorted_le_ofFn_iff]
