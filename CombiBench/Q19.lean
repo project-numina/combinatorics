@@ -8,8 +8,21 @@ edges of a three-dimensional cube.
 open SimpleGraph in
 abbrev Q_3 := (pathGraph 2) □ (pathGraph 2) □ (pathGraph 2)
 
-variable (n : ℕ)
+variable (n : ℕ) {V : Type*} (G : SimpleGraph V)
+open SimpleGraph BigOperators
 
-abbrev dominatingNum (V : Type u) [Fintype V] (A : SimpleGraph V): ℕ := sorry
+def SimpleGraph.IsDominatingSet (D : Set V) : Prop :=
+  ∀ v : V, ¬ (v ∈ D) →  ∃ u ∈ D, G.Adj u v
 
-theorem Q19 : n = dominatingNum _ Q_3 := by sorry
+lemma IsDominatingSet.univ : G.IsDominatingSet Set.univ := by simp [IsDominatingSet]
+
+noncomputable section
+open scoped Classical in
+def SimpleGraph.eDominationNum : ℕ∞ := iInf (fun s ↦ if
+  (G.IsDominatingSet s) then s.card else ⊤ : (Finset V) → ℕ∞)
+
+def SimpleGraph.dominationNum : ℕ := G.eDominationNum.toNat
+
+theorem Q19 : n = Q_3.dominationNum := by sorry
+
+end
