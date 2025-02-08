@@ -3,6 +3,8 @@ import Mathlib.Data.Nat.Factorial.Basic
 
 variable {α : Type*}
 
+variable {α : Type*}
+
 namespace List
 
 /--
