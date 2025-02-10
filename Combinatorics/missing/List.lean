@@ -149,7 +149,7 @@ def splitWhileRememberingPosition {α : Type*} :
     let res := splitWhileRememberingPosition l
     (true :: res.1, a::res.2)
 
-#eval splitWhileRememberingPosition [.none, .some 1, .none, .some 2]
+-- #eval splitWhileRememberingPosition [.none, .some 1, .none, .some 2]
 
 def mergingWithPosition {α : Type*} : (List Bool × List α) → List (Option α)
 | ([], []) => []
@@ -157,7 +157,7 @@ def mergingWithPosition {α : Type*} : (List Bool × List α) → List (Option �
 | (true::bs, x::xs) => .some x::mergingWithPosition (bs, xs)
 | _ => []
 
-#eval mergingWithPosition ([false, true, false, true], [1, 2])
+-- #eval mergingWithPosition ([false, true, false, true], [1, 2])
 
 @[simp]
 lemma splitWhileRememberingPosition_nil {α : Type*} :

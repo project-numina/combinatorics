@@ -66,5 +66,3 @@ lemma example_2_4_1 (s : Finset ℕ) (hs : ∀ x, x ∈ s ↔ (Nat.digits 3 x).l
   have eq' := Fintype.card_congr e
   simp only [Fintype.card_coe] at eq'
   rw [eq', eq]
-
-#print axioms example_2_4_1
