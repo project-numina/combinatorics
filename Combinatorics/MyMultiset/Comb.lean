@@ -166,7 +166,7 @@ instance {n : ℕ} [fin : S.ObjIsFinite] [DecidableEq α] : Fintype (S.Comb n) :
 variable (S) in
 @[simps!]
 def equivIntegerSolutionsOfIsInfinite
-    (n : ℕ) [fin : S.ObjIsFinite] [inf : S.IsInfinite] [DecidableEq α] :
+    (n : ℕ) [fin : S.ObjIsFinite] [inf : S.IsTotallyInfinite] [DecidableEq α] :
     S.Comb n ≃ (v : S.support → Fin (n + 1)) ×' (∑ i : S.support, (v i).1 = n) :=
   equivIntegerSolutions S n |>.trans
   { toFun v := ⟨v.1, v.2.2⟩
@@ -177,7 +177,7 @@ def equivIntegerSolutionsOfIsInfinite
 variable (S) in
 @[simps!]
 def equivIntegerSolutionsOfIsInfiniteOfFintype
-    (n : ℕ) [Fintype α] [inf : S.IsInfinite] [DecidableEq α] :
+    (n : ℕ) [Fintype α] [inf : S.IsTotallyInfinite] [DecidableEq α] :
     S.Comb n ≃ (v : α → Fin (n + 1)) ×' (∑ i : α, (v i).1 = n) :=
   equivIntegerSolutionsOfIsInfinite S n |>.trans
   { toFun v := ⟨fun a ↦ if h : a ∈ S.support then v.1 ⟨a, h⟩ else 0, by
@@ -225,7 +225,7 @@ def equivIntegerSolutionsOfIsInfiniteOfFintype
 variable (S) in
 @[simps!]
 def equivSymOfIsInfiniteOfFintype
-    (n : ℕ) [Fintype α] [inf : S.IsInfinite] [DecidableEq α] :
+    (n : ℕ) [Fintype α] [inf : S.IsTotallyInfinite] [DecidableEq α] :
     S.Comb n ≃ Sym α n :=
   equivIntegerSolutionsOfIsInfiniteOfFintype S n |>.trans
   { toFun v := ⟨∑ a : α, (v.1 a).1 • {a}, by simp [v.2]⟩
@@ -277,7 +277,7 @@ instance finite_zero : Fintype (S.Comb 0) where
     simpa using h
 
 -- theorem 2.5.1
-theorem card_of_isInfinite_ofFintype [Fintype α] [DecidableEq α] [S.IsInfinite] (n : ℕ) :
+theorem card_of_isInfinite_ofFintype [Fintype α] [DecidableEq α] [S.IsTotallyInfinite] (n : ℕ) :
     Fintype.card (S.Comb n) = (Fintype.card α + n - 1).choose n := by
   rw [← Sym.card_sym_eq_choose (α := α) n]
   apply Fintype.card_congr

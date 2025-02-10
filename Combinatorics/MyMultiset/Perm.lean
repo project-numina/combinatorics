@@ -56,7 +56,7 @@ instance : Inhabited (S.Perm 0) := ⟨⟨[], rfl, fun a => by
 
 variable (S) in
 def succOfIsInfinite [inf : S.IsTotallyInfinite] (r : ℕ) : S.Perm (r + 1) ≃ (S.Perm r) × α where
-  toFun l := ⟨⟨l.ℓ.tail, by simp? [l.len], fun a ↦ by
+  toFun l := ⟨⟨l.ℓ.tail, by simp [l.len], fun a ↦ by
     rw [inf.rep_infinite]
     exact OrderTop.le_top _⟩, l.toFin 0⟩
   invFun p :=
@@ -122,7 +122,7 @@ theorem card_of_isInfinite (r : ℕ) [Fintype α] [S.IsTotallyInfinite] :
 
 abbrev infiniteBooleanStream : MyMultiset Bool := ⟨fun _ ↦ ⊤⟩
 
-def infiniteBooleanStreamPerm (n r : ℕ) (h : r + 1 ≤ n) :
+def infiniteBooleanStreamPerm (n r : ℕ) (_ : r + 1 ≤ n) :
     { perm : infiniteBooleanStream.Perm (n + 1) | perm.ℓ.count false = r + 1 } ≃
     { perm : infiniteBooleanStream.Perm n | perm.ℓ.count false = r + 1 } ⊕
     { perm : infiniteBooleanStream.Perm n | perm.ℓ.count false = r } where
@@ -216,7 +216,7 @@ lemma card_infiniteBooleanStream_perm (n r : ℕ) (h : r ≤ n) :
         refine ⟨⟨⟨List.replicate (r + 1) false, by simp, by simp⟩, by simp⟩, ?_⟩
         intro x
         refine Subtype.ext <| ℓ_ext _ _ ?_
-        simp? [List.eq_replicate_iff, x.1.len, Bool.forall_bool, Bool.false_eq_true, imp_false,
+        simp [List.eq_replicate_iff, x.1.len, Bool.forall_bool, Bool.false_eq_true, imp_false,
           true_and, implies_true]
         intro rid
         have eq₁ : x.1.ℓ.count false = x.1.ℓ.length := by simp [← x.1.len, x.2]
@@ -336,7 +336,7 @@ def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.RepIsFinite] :
       · rcases pair with ⟨item, ⟨bool, H⟩⟩
         simp only [Set.mem_setOf_eq] at H ⊢
         have eq₁ := List.mergingWithPosition_count_some (bool.ℓ, item.ℓ) (by
-          simp? [item.len, original_card, ← H]
+          simp [item.len, original_card, ← H]
           rw [Nat.sub_eq_iff_eq_add]
           · simp_rw [← bool.len]
             simp [List.length_eq_sum_count]
