@@ -2,12 +2,6 @@ import Mathlib
 
 universe u
 
-/-!
-Let $t$ be a positive integer. Prove that, if there exists a Steiner triple system
-of index 1 having $v$ varieties, then there exists a Steiner triple system having
-$v^{t}$ varieties (cf. Exercise 33).
--/
-
 structure SteinerTripleSystem (t k n : ℕ) (α : Type u) where
   carrier : Finset α
   card_eq_n : carrier.card = n
@@ -17,5 +11,10 @@ structure SteinerTripleSystem (t k n : ℕ) (α : Type u) where
   block_inner : ∀ s : (Finset α), s.card = t ∧ s ⊆ carrier →
     ∃! b ∈ blocks, s ⊆ b
 
-theorem Q18 (t : ℕ+) (v : ℕ): Nonempty (SteinerTripleSystem v 2 3 α) →
+/--
+Let $t$ be a positive integer. Prove that, if there exists a Steiner triple system
+of index 1 having $v$ varieties, then there exists a Steiner triple system having
+$v^{t}$ varieties (cf. Exercise 33).
+-/
+theorem brualdi_18 (t : ℕ+) (v : ℕ): Nonempty (SteinerTripleSystem v 2 3 α) →
   Nonempty (SteinerTripleSystem (v^t.1) 2 3 α) := sorry
