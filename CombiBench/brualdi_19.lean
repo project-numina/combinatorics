@@ -1,10 +1,5 @@
 import Mathlib
 
-/-!
-Determine the domination number of the graph $Q_{3}$ of vertices and
-edges of a three-dimensional cube.
--/
-
 open SimpleGraph in
 abbrev Q_3 := (pathGraph 2) □ (pathGraph 2) □ (pathGraph 2)
 
@@ -23,6 +18,10 @@ def SimpleGraph.eDominationNum : ℕ∞ := iInf (fun s ↦ if
 
 def SimpleGraph.dominationNum : ℕ := G.eDominationNum.toNat
 
-theorem Q19 : n = Q_3.dominationNum := by sorry
+/--
+Determine the domination number of the graph $Q_{3}$ of vertices and
+edges of a three-dimensional cube.
+-/
+theorem brualdi_19 : n = Q_3.dominationNum := by sorry
 
 end
