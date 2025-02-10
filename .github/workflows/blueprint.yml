@@ -32,7 +32,7 @@ jobs:
         run: ~/.elan/bin/lake -Kenv=dev build Combinatorics
 
       - name: Cache mathlib docs
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             .lake/build/doc/Init
