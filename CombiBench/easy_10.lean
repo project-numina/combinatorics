@@ -1,5 +1,6 @@
 import Mathlib
 
+namespace easy_10
 
 open Finset
 /--

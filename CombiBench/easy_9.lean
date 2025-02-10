@@ -1,5 +1,7 @@
 import Mathlib
 
+namespace easy_9
+
 open Finset
 /--
 The father has six sons and ten identical, indistinguishable balls. How many ways can he give the balls to his sons if everyone gets at least one?

@@ -1,5 +1,6 @@
 import Mathlib
 
+namespace brualdi_23
 /--
 Determine the symmetry group and corner-symmetry group of an equilateral triangle.
 -/

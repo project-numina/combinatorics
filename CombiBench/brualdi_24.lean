@@ -1,5 +1,6 @@
 import Mathlib
 
+namespace brualdi_24
 /--
 Determine the generating function for the sequence of cubes \[ 0, 1, 8, \ldots, n^{3}, \ldots \]
 -/
