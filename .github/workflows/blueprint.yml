@@ -32,7 +32,7 @@ jobs:
         run: ~/.elan/bin/lake -Kenv=dev build Combinatorics
 
       - name: Cache mathlib docs
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: |
             .lake/build/doc/Init
@@ -79,7 +79,7 @@ jobs:
           cp -r .lake/build/doc docs/docs
 
       - name: Upload docs & blueprint artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: docs/
 
