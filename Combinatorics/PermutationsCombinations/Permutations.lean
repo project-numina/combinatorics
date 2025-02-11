@@ -1,6 +1,9 @@
-import Mathlib.Data.List.Perm.Basic
-import Mathlib.Data.Nat.Factorial.Basic
 import Mathlib.Data.Finset.Card
+import Mathlib.Data.Nat.Factorial.Basic
+
+variable {α : Type*}
+
+variable {α : Type*}
 
 namespace List
 
