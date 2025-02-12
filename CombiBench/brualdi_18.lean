@@ -19,9 +19,8 @@ def SimpleGraph.eDominationNum : ℕ∞ := iInf (fun s ↦ if
 def SimpleGraph.dominationNum : ℕ := G.eDominationNum.toNat
 
 /--
-Determine the domination number of the graph $Q_{3}$ of vertices and
-edges of a three-dimensional cube.
+Determine the domination number of the graph $Q_{3}$ of vertices and edges of a three-dimensional cube.
 -/
-theorem brualdi_19 : n = Q_3.dominationNum := by sorry
+theorem brualdi_18 : n = Q_3.dominationNum := by sorry
 
 end
