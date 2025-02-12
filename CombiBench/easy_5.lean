@@ -1,10 +1,5 @@
 import Mathlib.Probability.UniformOn
 
-/-!
-In this file we define picking the red marble being hitting the range 0 ≤ x < 10 in the
-finite set of size 20. The probability in this case is induced by the counting measure
-divided by 20.
--/
 open MeasureTheory ProbabilityTheory ENNReal
 
 /--
