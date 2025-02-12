@@ -101,7 +101,7 @@ abbrev single (S : MyMultiset (Option α)) : MyMultiset PUnit := S.optionType.2
 If every type of objects in a multiset has a infinite repetition number, then the multiset is said
 to be infinite.
 -/
-class IsInfinite (S : MyMultiset α) : Prop where
+class IsTotallyInfinite (S : MyMultiset α) : Prop where
   rep_infinite : ∀ (a : α), S.rep a = ⊤
 
 /--
