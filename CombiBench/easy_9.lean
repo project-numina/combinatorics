@@ -6,5 +6,4 @@ The father has six sons and ten identical, indistinguishable balls. How many way
 -/
 theorem easy_9 (sols : Finset (Fin 6 → ℕ))
     (h_sols : ∀ f, f ∈ sols ↔ ((∀ i, f i > 0) ∧ (∑ i, f i = 10))) :
-    sols.card = 126 := by
-  sorry
+    sols.card = 126 := by sorry

@@ -7,5 +7,4 @@ theorem easy_6: PMF.binomial (1/2 : _) ENNReal.half_le_self 2 1 +
     PMF.binomial (1/2 : _) ENNReal.half_le_self 2 2 = 3/4 ∧
     PMF.binomial (1/2 : _) ENNReal.half_le_self 2 0 +
     PMF.binomial (1/2 : _) ENNReal.half_le_self 2 1 = 3/4 ∧
-    PMF.binomial (1/2 : _) ENNReal.half_le_self 2 1 = 1/2 := by
-  sorry
+    PMF.binomial (1/2 : _) ENNReal.half_le_self 2 1 = 1/2 := by sorry
