@@ -9,7 +9,7 @@ Describe the cover relation for this partial order and then draw the diagram for
 
 
 
-variable {n: ℕ}
+variable {n: ℕ}   
 
 
 def inversion (σ: Equiv.Perm (Fin n)): Set (Fin n × Fin n) := { s | s.1 < s.2 ∧ σ s.1 > σ s.2 }

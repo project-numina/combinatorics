@@ -5,7 +5,7 @@ open Nat Finset Set
 
 variable {α : Type*} {n r : ℕ}
 
-def A (n : ℕ) := Finset.Icc 1 n
+def A (n : ℕ) := Finset.Icc 1 n  
 
 -- Define the complement
 def complement (n : ℕ) (a : Finset ℕ) : Finset ℕ :=

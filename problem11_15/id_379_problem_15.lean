@@ -23,3 +23,4 @@ theorem exists_permutation_satisfying_B :
   ∃ (σ : Fin m → Fin m), Function.Bijective σ ∧
     (∀ j i, count_occurrences (fun x => A (σ x) j) i = r i) :=
 sorry
+  

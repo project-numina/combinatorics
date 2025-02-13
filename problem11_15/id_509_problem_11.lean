@@ -11,3 +11,4 @@ theorem edge_removal_splits_tree_into_two {V : Type*} [Fintype V] [DecidableEq V
     T1.edgeSet ∪ T2.edgeSet = T.edgeSet \ {e} ∧
     Disjoint (T1.support) (T2.support) := by
   sorry
+   
