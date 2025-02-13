@@ -1,8 +1,16 @@
-import Combinatorics.PermutationsCombinations.Combinations
+import Mathlib
+
+namespace easy_7
+
+open Finset
 
 /--
-The group of 10 girls should be divided into two groups with at least four girls in each group. How many ways can this be done?
+The group of 10 girls should be divided into two groups with at least four girls in each group.
 -/
-theorem easy_7 (x y : ℕ) :
- ((Finset.powersetCard x ((Finset.range 10))).filter fun x ↦ x.card + y = 10 ∧
-  x.card ≥ 4 ∧ y ≥ 4).card = 462 := by sorry
+theorem easy_7
+    (sols : Finset (Fin 2 → ℕ))
+    (h_sols : ∀ f, f ∈ sols ↔ ((∀ i, f i ≥ 4) ∧ (∑ i, f i = 10))) :
+     sols.card = 462 := by
+  sorry
+
+end easy_7
