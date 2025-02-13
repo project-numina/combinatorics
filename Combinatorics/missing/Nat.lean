@@ -1,5 +1,4 @@
 import Mathlib.Data.Nat.Digits
-
 import Combinatorics.missing.List
 
 namespace Nat
