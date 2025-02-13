@@ -26,7 +26,7 @@ namespace example_2_5_1_2
 
 noncomputable instance (r k : ℕ) : Fintype (Fin r →o Fin k) :=
   Fintype.ofInjective (OrderHom.toFun) (
-    injective_of_le_imp_le OrderHom.toFun fun {x y} a ↦ a)
+    injective_of_le_imp_le OrderHom.toFun fun {_ _} a ↦ a)
 
 /-
 Example. What is the number of nondecreasing sequences of length r whose terms
