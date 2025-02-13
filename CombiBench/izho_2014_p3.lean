@@ -10,5 +10,5 @@ structure goodPairs (s : Fin 100 ↪ ℕ+) where
 deriving Fintype
 
 theorem izho_2014_p3 :
-    (∃ (s : Fin 100 ↪ ℕ+), Fintype.card (goodPairs s) = 942) ∧
-    (∀ (s : Fin 100 ↪ ℕ+), Fintype.card (goodPairs s) ≤ 942) := by sorry
+    (∃ (s : Fin 100 ↪ ℕ+), Fintype.card (goodPairs s) = 180) ∧
+    (∀ (s : Fin 100 ↪ ℕ+), Fintype.card (goodPairs s) ≤ 180) := by sorry
