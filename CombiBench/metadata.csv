@@ -13,11 +13,11 @@ brualdi_1,"Take any set of $2n$ points in the plane with no three collinear, and
 brualdi_2,"Let $q_{3}$ and $t$ be positive integers with $q_{3} \geq t$. Determine the Ramsey number $r_{t}\left(t, t, q_{3}\right)$.",brualdi
 brualdi_3,"Prove that of any five points chosen within a square of side length 2 , there are two whose distance apart is at most $\\sqrt{2}$.",brualdi
 brualdi_4,"Determine the number of permutations of $\{1,2, \ldots, 8\}$ in which no even integer is in its natural position.",brualdi
-brualdi_5,Prove that $D_{n}$ is an even number if and only if $n$ is an odd number.,brualdi
-brualdi_6,How many integers greater than 5400 have both of the following properties? (a) The digits are distinct. (b) The digits 2 and 7 do not occur.,brualdi
-brualdi_7,"Determine the total number of combinations (of any size) of a multiset of objects of $k$ different types with finite repetition numbers $n_{1}, n_{2}, \ldots, n_{k}$, respectively.",brualdi
-brualdi_8,"Let $R$ and $S$ be two partial orders on the same set $X$. Considering $R$ and $S$ as subsets of $X \times X$, we assume that $R \subseteq S$ but $R \neq S$. Show that there exists an ordered pair $(p, q)$, where $(p, q) \in S$ and $(p, q) \notin R$ such that $R^{\prime}=R \cup\{(p, q)\}$ is also a partial order on $X$. Show by example that not every $\operatorname{such}(p, q)$ has the property that $R^{\prime}$ is a partial order on $X$.",brualdi
-brualdi_9,Evaluate the sum $\sum_{k=0}^{n}(-1)^{k}\binom{n}{k} 10^{k}$.,brualdi
+brualdi_ch6_21,Prove that $D_{n}$ is an even number if and only if $n$ is an odd number.,brualdi
+brualdi_ch2_6,How many integers greater than 5400 have both of the following properties? (a) The digits are distinct. (b) The digits 2 and 7 do not occur.,brualdi
+brualdi_ch2_36,"Determine the total number of combinations (of any size) of a multiset of objects of $k$ different types with finite repetition numbers $n_{1}, n_{2}, \ldots, n_{k}$, respectively.",brualdi
+brualdi_ch5_51,"Let $R$ and $S$ be two partial orders on the same set $X$. Considering $R$ and $S$ as subsets of $X \times X$, we assume that $R \subseteq S$ but $R \neq S$. Show that there exists an ordered pair $(p, q)$, where $(p, q) \in S$ and $(p, q) \notin R$ such that $R^{\prime}=R \cup\{(p, q)\}$ is also a partial order on $X$.,brualdi
+brualdi_ch5_9,Evaluate the sum $\sum_{k=0}^{n}(-1)^{k}\binom{n}{k} 10^{k}$.,brualdi
 brualdi_10,Use the pigeonhole principle to prove that a graph of order $n \geq 2$ always has two vertices of the same degree. Does the same conclusion hold for multigraphs?,brualdi
 brualdi_11,Prove that the removal of an edge from a tree leaves a forest of two trees.,brualdi
 brualdi_12,"The complement $\bar{A}$ of an $r$-subset $A$ of $\{1,2, \ldots, n\}$ is the $(n-r)$-subset of $\{1,2, \ldots, n\}$, consisting of all those elements that do not belong to $A$. Let $M=\binom{n}{r}$, the number of $r$-subsets and, at the same time, the number of $(n-r)$ subsets of $\{1,2, \ldots, n\}$. Prove that, if $A_{1}, A_{2}, A_{3}, \ldots, A_{M}$ are the $r$-subsets in lexicographic order, then $\overline{A_{M}}, \ldots, \overline{A_{3}}, \overline{A_{2}}, \overline{A_{1}}$ are the $(n-r)$-subsets in lexicographic order.",brualdi
