@@ -6,7 +6,7 @@ A ferry with a capacity of 10 people takes a group of 13 men and 7 women across 
 theorem easy_8
     (sols : Finset ((Fin 13 → Fin 2) × (Fin 7 → Fin 2)))
     (h_women : ∀ f ∈ sols, ∀ i, f.2 i = 0)
-    (h_sols : ∀ f, f ∈ sols ↔ ∀ k, ((@Finset.univ (Fin 13)).filter (fun i => f.1 i = k)).card +
-      ((@Finset.univ (Fin 7)).filter (fun i => f.2 i = k)).card = 10) :
+    (h_sols : ∀ f, f ∈ sols ↔
+      ∀ k, ((List.ofFn f.1).count k  + (List.ofFn f.2).count k = 10)) :
     sols.card= 286 := by
   sorry
