@@ -29,7 +29,7 @@ brualdi_16,"A Latin square of order $n$ (based on $Z_{n}$) is idempotent, provid
 (2) Construct an example of a symmetric, idempotent Latin square of order 5.",brualdi
 brualdi_17,"Let $t$ be a positive integer. Prove that, if there exists a Steiner triple system of index 1 having $v$ varieties, then there exists a Steiner triple system having $v^{t}$ varieties (cf. Exercise 33).",brualdi
 brualdi_18,Determine the domination number of the graph $Q_{3}$ of vertices and edges of a three-dimensional cube.,brualdi
-brualdi_19,"Let $G$ be a graph. Prove that $G$ is 2-connected if and only if, for each vertex $x$ and each edge $\alpha$, there is a cycle that contains both the vertex $x$ and the edge $\alpha$.",brualdi
+brualdi_ch12_62,"Let $G$ be a graph. Prove that $G$ is 2-connected if and only if, for each vertex $x$ and each edge $\alpha$, there is a cycle that contains both the vertex $x$ and the edge $\alpha$.",brualdi
 brualdi_20,Let $T$ be any tournament. Prove that it is possible to change the direction of at most one arc in order to obtain a tournament with a directed Hamilton cycle.,brualdi
 brualdi_21,* Formulate and prove a theorem that gives necessary and sufficient conditions so that a network with multiple sources and sinks has a flow that simultaneously meets all prescribed demands with available supplies.\\,brualdi
 brualdi_ch14_45,"Let $n$ be an odd prime number. Prove that each of the permutations, $\rho_{n}, \rho_{n}^{2}, \ldots, \rho_{n}^{n}$ of $\{1,2, \ldots, n\}$ is an $n$-cycle. (Recall that $\rho_{n}$ is the permutation that sends 1 to 2,2 to $3, \ldots, n-1$ to $n$, and $n$ to 1.)",brualdi
