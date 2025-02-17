@@ -3,7 +3,6 @@ import Mathlib
 namespace easy_9
 open Finset
 
--- #time
 -- #eval (Finset.filter (fun f : Fin 6 → Fin 11 => (∀ i, f i > 0) ∧ ∑ i, (f i : ℕ) = 10) (@Finset.univ (Fin 6 → Fin 11) _)).card, indeed 126
 
 /--
