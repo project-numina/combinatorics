@@ -10,7 +10,7 @@ easy_8,A ferry with a capacity of 10 people takes a group of 13 men and 7 women 
 easy_9,"The father has six sons and ten identical, indistinguishable balls. How many ways can he give the balls to his sons if everyone gets at least one?",easy
 easy_10,How many different ways can three people divide seven pears and five apples?,easy
 brualdi_1,"Take any set of $2n$ points in the plane with no three collinear, and then arbitrarily color each point red or blue. Prove that it is always possible to pair up the red points with the blue points by drawing line segments connecting them so that no two of the line segments intersect.",brualdi
-brualdi_2,"Let $q_{3}$ and $t$ be positive integers with $q_{3} \geq t$. Determine the Ramsey number $r_{t}\left(t, t, q_{3}\right)$.",brualdi
+brualdi_ch1_11,"How many sets of three integers between 1 and 20 are possible if no two consec- utive integers are to be in a set?",brualdi
 brualdi_ch3_18,"Prove that of any five points chosen within a square of side length 2 , there are two whose distance apart is at most $\\sqrt{2}$.",brualdi
 brualdi_ch6_11,"Determine the number of permutations of $\{1,2, \ldots, 8\}$ in which no even integer is in its natural position.",brualdi
 brualdi_ch6_21,Prove that $D_{n}$ is an even number if and only if $n$ is an odd number.,brualdi
