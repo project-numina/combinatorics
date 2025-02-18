@@ -21,7 +21,7 @@ def touches_interior_or_edge (s1: Square) (s2: Square): Prop :=
 /-- 30
 Let $n \\geq 5$ be an integer. Consider $n$ squares with side lengths $1,2, \\ldots, n$, respectively. The squares are arranged in the plane with their sides parallel to the $x$ and $y$ axes. Suppose that no two squares touch, except possibly at their vertices.\nShow that it is possible to arrange these squares in a way such that every square touches exactly two other squares.
 -/
-theorem apmo_2023_p1 (n : ℕ) (h_n: n > 5) :
+theorem apmo_2023_p1 (n : ℕ) (h_n: n ≥ 5) :
   ∃ position: Fin n → ℝ × ℝ,
   (∀ n1 n2 : Fin n, n1 ≠ n2 → ¬ touches_interior_or_edge ⟨position n1, n1 + 1⟩ ⟨position n2, n2 + 1⟩)
   ∧ ∀m : Fin n, ∃ l k, m ≠ l ∧ m ≠ k ∧ l ≠ k
