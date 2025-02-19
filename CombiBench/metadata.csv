@@ -32,12 +32,8 @@ brualdi_20,Let $T$ be any tournament. Prove that it is possible to change the di
 brualdi_21,* Formulate and prove a theorem that gives necessary and sufficient conditions so that a network with multiple sources and sinks has a flow that simultaneously meets all prescribed demands with available supplies.\\,brualdi
 brualdi_ch14_45,"Let $n$ be an odd prime number. Prove that each of the permutations, $\rho_{n}, \rho_{n}^{2}, \ldots, \rho_{n}^{n}$ of $\{1,2, \ldots, n\}$ is an $n$-cycle. (Recall that $\rho_{n}$ is the permutation that sends 1 to 2,2 to $3, \ldots, n-1$ to $n$, and $n$ to 1.)",brualdi
 brualdi_23,Determine the symmetry group and corner-symmetry group of an equilateral triangle.,brualdi
-brualdi_ch7_15,"Determine the generating function for the sequence of cubes
-\[
-0,1,8, \ldots, n^{3}, \ldots
-\]",brualdi
+brualdi_ch7_15,"Determine the generating function for the sequence of cubes \[ 0,1,8, \ldots, n^{3}, \ldots \]",brualdi
 brualdi_ch8_6,"Let the sequence $h_{0}, h_{1}, \ldots, h_{n}, \ldots$ be defined by $h_{n}=2 n^{2}-n+3,(n \geq 0)$. Find a formula for $\sum_{k=0}^{n} h_{k}$.",brualdi
-
 apmo_1991_p2,"Suppose there are 997 points given in a plane. If every two points are joined by a line segment with its midpoint coloured in red, show that there are at least 1991 red points in the plane. Can you find a special case with exactly 1991 red points?",imo
 apmo_2023_p1,"Let $n \\geq 5$ be an integer. Consider $n$ squares with side lengths $1,2, \\ldots, n$, respectively. The squares are arranged in the plane with their sides parallel to the $x$ and $y$ axes. Suppose that no two squares touch, except possibly at their vertices.\nShow that it is possible to arrange these squares in a way such that every square touches exactly two other squares.",imo
 balticway_2015_p7,"There are 100 members in a ladies' club. Each lady has had tea (in private) with exactly 56 of the other members of the club. The Board, consisting of the 50 most distinguished ladies, have all had tea with one another. Prove that the entire club may be split into two groups in such a way that, within each group, any lady has had tea with any other.",imo
