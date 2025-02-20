@@ -10,7 +10,6 @@ easy_8,A ferry with a capacity of 10 people takes a group of 13 men and 7 women 
 easy_9,"The father has six sons and ten identical, indistinguishable balls. How many ways can he give the balls to his sons if everyone gets at least one?",easy
 easy_10,How many different ways can three people divide seven pears and five apples?,easy
 brualdi_1,"Take any set of $2n$ points in the plane with no three collinear, and then arbitrarily color each point red or blue. Prove that it is always possible to pair up the red points with the blue points by drawing line segments connecting them so that no two of the line segments intersect.",brualdi
-brualdi_2,"Let $q_{3}$ and $t$ be positive integers with $q_{3} \geq t$. Determine the Ramsey number $r_{t}\left(t, t, q_{3}\right)$.",brualdi
 brualdi_ch3_18,"Prove that of any five points chosen within a square of side length 2 , there are two whose distance apart is at most $\\sqrt{2}$.",brualdi
 brualdi_ch6_11,"Determine the number of permutations of $\{1,2, \ldots, 8\}$ in which no even integer is in its natural position.",brualdi
 brualdi_ch6_21,Prove that $D_{n}$ is an even number if and only if $n$ is an odd number.,brualdi
@@ -21,8 +20,6 @@ brualdi_ch5_9,Evaluate the sum $\sum_{k=0}^{n}(-1)^{k}\binom{n}{k} 10^{k}$.,brua
 brualdi_10,Use the pigeonhole principle to prove that a graph of order $n \geq 2$ always has two vertices of the same degree. Does the same conclusion hold for multigraphs?,brualdi
 brualdi_ch11_59,Prove that the removal of an edge from a tree leaves a forest of two trees.,brualdi
 brualdi_ch4_35,"The complement $\bar{A}$ of an $r$-subset $A$ of $\{1,2, \ldots, n\}$ is the $(n-r)$-subset of $\{1,2, \ldots, n\}$, consisting of all those elements that do not belong to $A$. Let $M=\binom{n}{r}$, the number of $r$-subsets and, at the same time, the number of $(n-r)$ subsets of $\{1,2, \ldots, n\}$. Prove that, if $A_{1}, A_{2}, A_{3}, \ldots, A_{M}$ are the $r$-subsets in lexicographic order, then $\overline{A_{M}}, \ldots, \overline{A_{3}}, \overline{A_{2}}, \overline{A_{1}}$ are the $(n-r)$-subsets in lexicographic order.",brualdi
-brualdi_ch4_51,"Let $n$ be a positive integer, and let $X_{n}$ be the set of $n$ ! permutations of $\{1,2, \ldots, n\}$. Let $\pi$ and $\sigma$ be two permutations in $X_{n}$, and define $\pi \leq \sigma$ provided that the set of inversions of $\pi$ is a subset of the set of inversions of $\sigma$. Verify that this defines a partial order on $X_{n}$, called the inversion poset. Describe the cover relation for this partial order and then draw the diagram for the inversion poset $\left(H_{4}, \leq\right)$.",brualdi
-brualdi_14,"* Extend the deferred acceptance algorithm to the case in which there are more men than women. In such a case, not all of the men will get partners.",brualdi
 brualdi_15,"* Let $A$ be a matrix with $n$ columns, with integer entries taken from the set $S=\{1,2, \ldots, k\}$. Assume that each integer $i$ in $S$ occurs exactly $n r_{i}$ times in $A$, where $r_{i}$ is an integer. Prove that it is possible to permute the entries in each row of $A$ to obtain a matrix $B$ in which each integer $i$ in $S$ appears $r_{i}$ times in each column. ${ }^{14}",brualdi
 brualdi_16,"A Latin square of order $n$ (based on $Z_{n}$) is idempotent, provided that its entries on the diagonal running from upper left to lower right are $0,1,2,\ldots,n-1$.\\
 (1) Construct an example of an idempotent Latin square of order 5.\\
@@ -33,7 +30,6 @@ brualdi_19,"Let $G$ be a graph. Prove that $G$ is 2-connected if and only if, fo
 brualdi_20,Let $T$ be any tournament. Prove that it is possible to change the direction of at most one arc in order to obtain a tournament with a directed Hamilton cycle.,brualdi
 brualdi_21,* Formulate and prove a theorem that gives necessary and sufficient conditions so that a network with multiple sources and sinks has a flow that simultaneously meets all prescribed demands with available supplies.\\,brualdi
 brualdi_ch14_45,"Let $n$ be an odd prime number. Prove that each of the permutations, $\rho_{n}, \rho_{n}^{2}, \ldots, \rho_{n}^{n}$ of $\{1,2, \ldots, n\}$ is an $n$-cycle. (Recall that $\rho_{n}$ is the permutation that sends 1 to 2,2 to $3, \ldots, n-1$ to $n$, and $n$ to 1.)",brualdi
-brualdi_23,Determine the symmetry group and corner-symmetry group of an equilateral triangle.,brualdi
 brualdi_ch7_15,"Determine the generating function for the sequence of cubes
 \[
 0,1,8, \ldots, n^{3}, \ldots
