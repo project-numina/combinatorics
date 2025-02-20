@@ -1,7 +1,6 @@
 import Mathlib
 
 abbrev easy_1_solution : ℕ := sorry
--- 1716
 
 /--
 How many ways can a teacher select a group of 6 students to sit in the front row if the class has 13 students?

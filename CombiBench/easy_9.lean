@@ -1,7 +1,6 @@
 import Mathlib
 
 abbrev easy_9_solution : ℕ := sorry
--- 126
 
 /--
 The father has six sons and ten identical, indistinguishable balls. How many ways can he give the balls to his sons if everyone gets at least one?

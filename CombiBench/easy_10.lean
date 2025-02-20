@@ -1,7 +1,6 @@
 import Mathlib
 
 abbrev easy_10_solution : ℕ := sorry
--- 756
 
 /--
 How many different ways can three people divide seven pears and five apples?
