@@ -9,8 +9,8 @@ A_{M}$ are the $r$-subsets in lexicographic order, then $\overline{A_{M}}, \ldot
 \overline{A_{1}}$ are the $(n-r)$-subsets in lexicographic order.
 -/
 theorem brualdi_ch4_35 (r n M : ℕ) (hM : M = ((@Finset.univ (Fin n)).powersetCard r).card)
-    (h : Fin M → (Finset.powersetCard r (@Finset.univ (Fin M) _))) :
+    (A : Fin M → (Finset.powersetCard r (@Finset.univ (Fin M) _))) :
     ∀ i j, (List.Lex (fun x1 x2 : Fin M => x1 ≤ x2)
-    (Finset.sort (· ≤ ·) (h i)) (Finset.sort (· ≤ ·) (h j))) →
+    (Finset.sort (· ≤ ·) (A i)) (Finset.sort (· ≤ ·) (A j))) →
     (List.Lex (fun x1 x2 : Fin M => x1 ≤ x2)
-    (Finset.sort (· ≤ ·) (h j)ᶜ) (Finset.sort (· ≤ ·) (h i)ᶜ)) := by sorry
+    (Finset.sort (· ≤ ·) (A j)ᶜ) (Finset.sort (· ≤ ·) (A i)ᶜ)) := by sorry
