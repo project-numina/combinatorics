@@ -6,11 +6,14 @@ import Mathlib
 structure PreDiagonal where
   pt1 : Fin 2006
   pt2 : Fin 2006
-  is_diagonal : pt1.1 + 1 = pt2.1 ∨ pt1 = pt2.1 + 1
+  is_diagonal : (finRotate _)^[2] pt1 = pt2 ∨ (finRotate _)^[2] pt2 = pt1
 
 def PreDiagonal.distinct (x : PreDiagonal) : x.pt1 ≠ x.pt2 := by
   intro h
-  refine x.is_diagonal |>.recOn ?_ ?_ <;> simp [h]
+  refine x.is_diagonal |>.recOn ?_ ?_  <;>
+  · rintro (H : finRotate _ (finRotate _ _) = _)
+    simp only [h, finRotate_succ_apply, Nat.reduceAdd, Fin.isValue] at H
+    omega
 
 
 -- we want unoriented, so we quotient
