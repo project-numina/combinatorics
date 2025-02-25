@@ -1,5 +1,7 @@
-import Mathlib
-
+import Mathlib.Algebra.BigOperators.Group.Finset.Defs
+import Mathlib.Data.Fintype.Pi
+import Mathlib.Data.Nat.Factorial.Basic
+import Mathlib.Data.Rat.Defs
 
 abbrev A : Fin n → Finset (Fin n) := fun i ↦ ⊤\{i}
 
@@ -20,7 +22,6 @@ noncomputable instance (n : ℕ) (A : Fin n → Finset (Fin n)) : Fintype (SDR n
           rw [h1.choose_spec]; exact h1.choose.2 i, fun i j hij ↦ by
           rw [h1.choose_spec]; exact h1.choose.3 i j hij⟩
         else Classical.choice (α := (SDR n A)) h) <| fun g ↦ ⟨g, by simp⟩
-
   else exact fintypeOfNotInfinite (fun h1 ↦ by aesop)
 
 /-- Let n > 1, and let A = (A1,A2,…,An) be the family of subsets of 1,2,…,n
