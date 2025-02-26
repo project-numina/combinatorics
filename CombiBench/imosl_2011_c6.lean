@@ -1,6 +1,5 @@
 import Mathlib
 
-
 def appears (W : ℤ → Fin 2) (U : Σ n, Fin n → Fin 2) : Prop :=
     ∃ k, ∀ i : Fin U.1, U.2 i = W (k + i)
 
