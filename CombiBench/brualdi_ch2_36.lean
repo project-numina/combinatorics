@@ -1,7 +1,6 @@
 import Mathlib
 
-abbrev brualdi_ch2_36_solution (n : Fin k → ℕ) : ℕ :=
-    ∑ i : Fin k, (n i + 1)
+abbrev brualdi_ch2_36_solution (n : Fin k → ℕ) : ℕ := sorry
 
 /--
 Determine the total number of combinations (of any size) of a multiset of objects of $k$ different types with finite repetition numbers $n_{1}, n_{2}, \ldots, n_{k}$, respectively.
