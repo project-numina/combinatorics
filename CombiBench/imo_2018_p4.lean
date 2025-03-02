@@ -47,8 +47,7 @@ def updateOneTurn (a : AmyStrategy) (b : BenStrategy) (g : Game) : Option Game :
 -- at the nth turn, amy and ben has both placed n stones
 def updateGame (a : AmyStrategy) (b : BenStrategy) (g : Game) : ℕ → Option Game
 | 0 => .some g
-| 1 => updateOneTurn a b g
-| (n + 2) => updateOneTurn a b g >>= (updateGame a b · (n + 1))
+| (n + 1) => updateOneTurn a b g >>= (updateGame a b · n)
 
 def AmyCanEnsureAtLeastKRedStones (a : AmyStrategy) (b : BenStrategy) : ℕ → Prop
 | 0 => True -- amy can always place at least 0 stones
