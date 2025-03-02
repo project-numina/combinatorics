@@ -33,9 +33,14 @@ def Digraph.Walk.support {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G
 def Digraph.Walk.IsPath {V : Type u} {G : Digraph V} {u v : V} (p : Digraph.Walk G u v) : Prop :=
   p.support.Nodup
 
+structure Digraph.Walk.IsHamiltonianCycle
+    {V : Type u} {G : Digraph V} {u : V} (p : Digraph.Walk G u u) : Prop :=
+  is_path : p.IsPath
+  visit_all (v : V) : v ∈ p.support
+
 /--
 Prove that a tournament is strongly connected if and only if it has a directed Hamilton cycle.
 -/
 theorem brualdi_ch13_9 {V : Type u} (T : Digraph V) (hT : IsTournament T) :
     T.StronglyConnected ↔
-    ∃ (u : V) (p : T.Walk u u), p.IsPath := by sorry
+    ∃ (u : V) (p : T.Walk u u), p.IsHamiltonianCycle := by sorry
