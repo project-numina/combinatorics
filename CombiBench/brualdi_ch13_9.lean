@@ -4,7 +4,7 @@ universe u
 
 structure IsTournament {V : Type u} (G : Digraph V) : Prop where
   irrefl : ∀ (u : V), ¬ G.Adj u u
-  adj : ∀ (u v : V), u ≠ v → G.Adj u v ∨ G.Adj v u
+  adj : ∀ (u v : V), u ≠ v → (G.Adj u v ↔ ¬ G.Adj v u)
 
 -- a walk is a sequence of edges such that the end of the `i`-th edge is the start of the `i+1`-th edge
 inductive Digraph.Walk {V : Type u} (G : Digraph V) : V → V → Type u
