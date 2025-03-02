@@ -35,18 +35,11 @@ def Digraph.Walk.IsPath {V : Type u} {G : Digraph V} {u v : V} (p : Digraph.Walk
   p.support.Nodup
 
 def Digraph.Walk.length {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G u v → ℕ
-| .nil h => 1
+| .nil h => 0
 | .cons _ p => 1 + p.length
-
-lemma Digraph.Walk.length_eq_support_length {V : Type u} {G : Digraph V} {u v : V} (p : Digraph.Walk G u v) :
-  p.length = p.support.length := by
-  induction p with
-  | nil h => rfl
-  | cons h p ih =>
-    simp [Digraph.Walk.length, Digraph.Walk.support, ih, add_comm]
 
 /--
 Prove that every tournament contains a vertex $u$ such that, for every other vertex $x$, there is a path from $u$ to $x$ of length at most 2.
 -/
 theorem brualdi_ch13_10 {V : Type u} (T : Digraph V) (hT : IsTournament T) :
-    ∃ (u : V), ∀ (x : V), ∃ (p : T.Walk u x), p.length ≤ 2 := by sorry
+    ∃ (u : V), ∀ (x : V), ∃ (p : T.Walk u x), p.IsPath ∧ p.length ≤ 2 := by sorry
