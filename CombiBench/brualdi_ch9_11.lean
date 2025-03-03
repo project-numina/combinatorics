@@ -24,8 +24,8 @@ noncomputable instance (n : ℕ) (A : Fin n → Finset (Fin n)) : Fintype (SDR n
         else Classical.choice (α := (SDR n A)) h) <| fun g ↦ ⟨g, by simp⟩
   else exact fintypeOfNotInfinite (fun h1 ↦ by aesop)
 
-/-- Let n > 1, and let A = (A1,A2,…,An) be the family of subsets of 1,2,…,n
-, where[A_{i}={1,2, \ldots, n}-{i}, \quad(i=1,2, \ldots, n)]. Prove that
-A has an SDR and that the number of SDRs is the $n$th derangement number Dn.-/
+/-- 
+Let $n&gt;1$, and let $\mathcal{A}=\left(A_{1}, A_{2}, \ldots, A_{n}\right)$ be the family of subsets of ${1,2, \ldots, n}$, where $A_{i}={1,2, \ldots, n}-{i}, \quad(i=1,2, \ldots, n)$. Prove that $\mathcal{A}$ has an SDR and that the number of SDRs is the $n$th derangement number $D_{n}$.
+-/
 theorem brualdi_ch9_11 (n : ℕ) (h_n: n > 1) : Nonempty (SDR n A) ∧
   Fintype.card (SDR n A) = n! * (∑ i : Fin n, ((-1)^i.1 : ℤ) * (1/(Nat.factorial i.1) : ℚ)):= sorry
