@@ -1,6 +1,5 @@
 import Mathlib
 
-
 universe u
 
 structure IsTournament {V : Type u} (G : Digraph V) : Prop where
@@ -12,17 +11,6 @@ inductive Digraph.Walk {V : Type u} (G : Digraph V) : V → V → Type u
   | nil {u : V} (h : G.Adj u u) : Digraph.Walk G u u
   | cons {u v w : V} (h : G.Adj u v) (p : Digraph.Walk G v w) : Digraph.Walk G u w
   deriving DecidableEq
-
--- a connected digraph is one such that for any distinct vertices `u` and `v`, there is a walk from
--- `u` to `v` or from `v` to `u`
-structure Diagraph.Connected {V : Type u} (G : Digraph V) : Prop where
-  exists_walk ⦃u v : V⦄ (neq : u ≠ v) : Nonempty (Digraph.Walk G u v) ∨ Nonempty (Digraph.Walk G v u)
-
--- a strongly connected digraph is one such that for any distinct vertices `u` and `v`, there is a
--- walk from `u` to `v` and from `v` to `u`. Note that since `u ≠ v ↔ v ≠ u`, we only need to assert
--- that there is a walk from `u` to `v`.
-structure Digraph.StronglyConnected {V : Type u} (G : Digraph V) : Prop where
-  exists_walk ⦃u v : V⦄ (neq : u ≠ v) : Nonempty (Digraph.Walk G u v)
 
 -- the support of a walk is the list of vertices that the walk traverses in order.
 def Digraph.Walk.support {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G u v → List V
