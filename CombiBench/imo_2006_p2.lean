@@ -15,7 +15,6 @@ def PreDiagonal.distinct (x : PreDiagonal) : x.pt1 ≠ x.pt2 := by
     simp only [h, finRotate_succ_apply, Nat.reduceAdd, Fin.isValue] at H
     omega
 
-
 -- we want unoriented, so we quotient
 instance PreDiagonal.setoid : Setoid PreDiagonal where
   r x y := ({x.pt1, x.pt2} : Finset (Fin 2006)) = {y.pt1, y.pt2}
@@ -108,11 +107,11 @@ noncomputable def Configuration.numOfIsoscelesTriangle (c : Configuration) : ℕ
   (∑ i : Fin 2003, ∑ j : Fin 2003,
       if (c.d i).IsIsoscelesByTwoDiagonal (c.d j) then 1 else 0)
 
-def sols : ℕ := sorry
+def imo_2006_p2_solution : ℕ := sorry
 
-def sols_cond := ∃ (c : Configuration), c.numOfIsoscelesTriangle = sols
+def sols_cond := ∃ (c : Configuration), c.numOfIsoscelesTriangle = imo_2006_p2_solution
 
-def sols_max := ∀ (c : Configuration), c.numOfIsoscelesTriangle ≤ sols
+def sols_max := ∀ (c : Configuration), c.numOfIsoscelesTriangle ≤ imo_2006_p2_solution
 
 /--
 Let $P$ be a regular 2006-gon. A diagonal of $P$ is called good if its endpoints divide the boundary of $P$ into two parts, each composed of an odd number of sides of $P$. The sides of $P$ are also called good. Suppose $P$ has been dissected into triangles by 2003 diagonals, no two of which have a common point in the interior of $P$. Find the maximum number of isosceles triangles having two good sides that could appear in such a configuration.
