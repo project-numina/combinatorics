@@ -22,9 +22,9 @@ noncomputable instance : Fintype  PerfectCover :=
     rintro ⟨d, _⟩ ⟨d', _⟩ (rfl : d = d')
     rfl
 
-def brualdi_chi1_5_sol : ℕ := sorry
+def brualdi_chi1_5_solution : ℕ := sorry
 
 /--
 Find the number of different perfect covers of a 3-by-4 chessboard by dominoes.
 -/
-theorem brualdi_chi1_5 : Fintype.card PerfectCover = brualdi_chi1_5_sol  := sorry
+theorem brualdi_chi1_5 : Fintype.card PerfectCover = brualdi_chi1_5_solution  := sorry
