@@ -1,18 +1,21 @@
 import Mathlib
 
-def turn_state (f : Fin k → Fin (2 * n)) :=
-  List.foldr (fun a b => List.zipWith (fun i j : Fin 2 => i + j) a b)
-  (List.ofFn (fun _ : Fin (2 * n) => 0))
-  (List.map (fun i => (List.ofFn (fun x => if x = i then (1 : Fin 2) else 0))) (List.ofFn f))
+def turn_one (n : ℕ+) (i : Fin (2 * n)) (a : List Bool) : List Bool :=
+  List.zipWith (fun x (y : Bool) => if x = i then ¬y else y) (List.ofFn (fun i : Fin (2 * n) => i)) a
 
-def final_goal (n : ℕ+) := List.ofFn (fun (i : Fin (2 * n)) => if i < n then (1 : Fin 2) else 0)
+def turn_state (n : ℕ+) (l : List (Fin (2 * n))) : List Bool :=
+  match l with
+  | [] => (List.ofFn (fun _ : Fin (2 * n) => false))
+  | h :: t => turn_one n h (turn_state n t)
+
+def final_goal (n : ℕ+) := List.ofFn (fun (i : Fin (2 * n)) => if i < n then true else false)
 
 def N (n k : ℕ+) := @Finset.univ (Fin k → Fin (2 * n)) _ |>.filter
-  (fun f => turn_state f = final_goal n) |>.card
+  (fun f => turn_state n (List.ofFn f) = final_goal n) |>.card
 
 def M (n k : ℕ+) := @Finset.univ (Fin k → Fin (2 * n)) _ |>.filter
-  (fun f => ∃ (i : Fin k), f i < (n : Fin (2 * n))) |>.filter
-  (fun f => turn_state f = final_goal n) |>.card
+  (fun f => ∀ (i : Fin k), f i < (n : Fin (2 * n))) |>.filter
+  (fun f => turn_state n (List.ofFn f) = final_goal n) |>.card
 
 abbrev imo_2008_p5_solution (n k : ℕ+) : ℝ := sorry
 
