@@ -8,7 +8,6 @@ def formsDomino (i j : board) : Prop :=
   -- i and j are on the same column and (i is above j or j is above i)
   (i.2 = j.2 ∧ (finRotate _ i.1 = j.1 ∨ finRotate _ j.1 = i.1))
 
-
 structure PerfectCover where
   -- the collections of tiles
   d : Fin 6 → (board × board)
@@ -27,4 +26,4 @@ def brualdi_ch1_5_solution : ℕ := sorry
 /--
 Find the number of different perfect covers of a 3-by-4 chessboard by dominoes.
 -/
-theorem brualdi_chi1_5 : Fintype.card PerfectCover = brualdi_ch1_5_solution  := sorry
+theorem brualdi_chi1_5 : Fintype.card PerfectCover = brualdi_ch1_5_solution := by sorry
