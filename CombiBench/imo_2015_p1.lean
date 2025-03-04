@@ -1,7 +1,5 @@
 import Mathlib
 
--- (2) n is odd
-
 def balanced (S : Set (ℝ × ℝ)) : Prop :=
   ∀ A ∈ S, ∀ B ∈ S, A ≠ B → (∃ C ∈ S, dist A C = dist B C)
 
