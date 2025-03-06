@@ -14,7 +14,7 @@ theorem imo_2017_p5 (N : ℕ) (h_N: N ≥ 2) (heights: List ℝ)
   let newRow : List ℝ := eraseIdxs heights players_to_be_removed
   let newRowWithIdxs : List (ℕ × ℝ) := List.zip (List.range (2 * N)) newRow
   let rowWithIdxsSortedByHeight : List (ℕ × ℝ) := newRowWithIdxs.insertionSort (λ a b => a.2 < b.2)
-  ∀ i : Fin n,
-  (rowWithIdxsSortedByHeight.get! (2*i)).1 = (rowWithIdxsSortedByHeight.get! (2*i + 1)).1 + 1
-  ∨ (rowWithIdxsSortedByHeight.get! (2*i)).1 = (rowWithIdxsSortedByHeight.get! (2*i + 1)).1 - 1 :=
+  ∀ i : Fin (2 * N), i < N ∧
+  ((rowWithIdxsSortedByHeight.get! (2*i)).1 = (rowWithIdxsSortedByHeight.get! (2*i + 1)).1 + 1
+  ∨ (rowWithIdxsSortedByHeight.get! (2*i)).1 = (rowWithIdxsSortedByHeight.get! (2*i + 1)).1 - 1) := by
   sorry
