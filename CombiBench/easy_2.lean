@@ -1,13 +1,11 @@
-import Mathlib.Data.Fintype.Basic
-import Mathlib.Data.Fintype.Card
-import Combinatorics.PermutationsCombinations.Permutations
+import Mathlib
 
-open Finset
+abbrev easy_2_solution : ℕ := sorry
 
 /--
 There are 8 athletes participating in a sprint competition. The referee needs to select 3 athletes and assign them specific rankings (first place, second place, and third place). How many different arrangements are possible?
 -/
-theorem easy_2 : (permutationsLength 3 (@univ (Fin 8) _)).card = 336 := by
-  rw [permutationsLength_card]
-  . rfl
-  . simp
+theorem easy_2 (sols : Finset (Fin 8 → Fin 4))
+    (h_sols : ∀ f, f ∈ sols ↔
+      ((List.ofFn f).count 0 = 1) ∧ ((List.ofFn f).count 1 = 1) ∧ ((List.ofFn f).count 2 = 1)) :
+    sols.card = easy_2_solution := by sorry
