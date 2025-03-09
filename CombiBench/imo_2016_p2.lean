@@ -41,5 +41,3 @@ Find all integers $n$ for which each cell of $n \times n$ table can be filled wi
 -/
 theorem imo_2016_p2 : {n | Condition n} = imo_2016_p2_solution := by
   sorry
-
-#eval Finset.Icc (-1) (1)
