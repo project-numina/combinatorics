@@ -5,7 +5,7 @@ structure PreNecklaces where
   deriving Fintype
 
 def myDihedralGroup (n : ℕ) : Subgroup (Equiv.Perm (Fin n)) :=
-  Subgroup.closure { finRotate n, Fin.revPerm }
+  Subgroup.closure {finRotate n, Fin.revPerm}
 
 instance Necklaces.setoid : Setoid PreNecklaces where
   r n1 n2 := ∃ s ∈ myDihedralGroup 7, n1.c = n2.c ∘ s
@@ -29,7 +29,9 @@ noncomputable instance : Fintype Necklaces := by
   have := Quotient.finite (Necklaces.setoid)
   exact Fintype.ofFinite Necklaces
 
-def sols : ℕ := sorry
+abbrev brualdi_ch14_26_solution : ℕ := sorry
 
-/-- How many different necklaces are there that contain four red and three blue beads? -/
-theorem brualdi_ch14_26  : Fintype.card Necklaces = sols := by sorry
+/--
+How many different necklaces are there that contain four red and three blue beads?
+-/
+theorem brualdi_ch14_26 : Fintype.card Necklaces = brualdi_ch14_26_solution := by sorry
