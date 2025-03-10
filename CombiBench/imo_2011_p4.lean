@@ -1,9 +1,5 @@
 import Mathlib
 
--- "σ" represents which one to place, "f" represents whether to place it on the left or the right side, with 0 being the right side and 1 being the left side, and "weights" represents the weights.
-def right_le_left {n : ℕ} (σ : Equiv.Perm (Fin n)) (f : Fin n → Fin 2) : Prop :=
-  ∀ i, ∑ j with f j = 0 ∧ σ j < i, 2 ^ j.1 ≤ ∑ j with f j = 1 ∧ σ j < i, 2 ^ j.1
-
 abbrev imo_2011_p4_solution : ℕ → ℕ := sorry
 
 /--
