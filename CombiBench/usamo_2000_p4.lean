@@ -3,7 +3,7 @@ import Mathlib
 def colored_card : Finset ℕ :=
   (Finset.image (fun s => s.card)
   (@Finset.univ (Finset (Fin 1000 × Fin 1000)) _ |>.filter
-  (fun s => ∃ a ∈ s, ∃ b ∈ s, ∃ c ∈ s, a.1 = b.1 ∧ a.2 = b.2)))
+  (fun s => ∃ a ∈ s, ∃ b ∈ s, ∃ c ∈ s, a ≠ b ∧ b ≠ c ∧ a ≠ c ∧ a.1 = b.1 ∧ a.2 = c.2)))
 
 abbrev usamo_2000_p4_solution : ℕ+ := sorry
 
