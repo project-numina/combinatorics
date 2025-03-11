@@ -1,6 +1,5 @@
 import Mathlib
 
-
 def leftNeighbors {n : ℕ+} (people : Fin (2*n+1) → ZMod 2) (k : ℕ+) (i : Fin (2*n+1)) : Fin k → ZMod 2 :=
     fun j ↦ people <| (finRotate (2*n+1))^[j.1 + 1] i
 
