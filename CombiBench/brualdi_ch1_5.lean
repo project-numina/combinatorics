@@ -1,8 +1,8 @@
 import Mathlib
 
-abbrev board := Fin 3 × Fin 4
+abbrev Board := Fin 3 × Fin 4
 
-def formsDomino (i j : board) : Bool :=
+def formsDomino (i j : Board) : Bool :=
   -- i and j are on the same row and (i is left to j or j is left to i)
   (i.1.val = j.1.val ∧ (i.2.val + 1 = j.2.val ∨ j.2.val + 1 = i.2.val)) ∨ -- or
   -- i and j are on the same column and (i is above j or j is above i)
@@ -10,15 +10,15 @@ def formsDomino (i j : board) : Bool :=
 
 structure PerfectCover where
   -- the collections of tiles
-  d : Fin 6 → (board × board)
+  tiles : Fin 6 → (Board × Board)
   -- each tile is a domino
-  domino : ∀ i, formsDomino (d i).1 (d i).2
+  domino : ∀ i, formsDomino (tiles i).1 (tiles i).2
   -- every position on the board is covered by some dominos
-  covers : ∀ i : board, ∃ j, i = (d j).1 ∨ i = (d j).2
+  covers : ∀ i : Board, ∃ j, i = (tiles j).1 ∨ i = (tiles j).2
 
 noncomputable instance : Fintype PerfectCover :=
-  Fintype.ofInjective PerfectCover.d <| by
-    rintro ⟨d, _⟩ ⟨d', _⟩ (rfl : d = d')
+  Fintype.ofInjective PerfectCover.tiles <| by
+    rintro ⟨tiles, _⟩ ⟨tiles', _⟩ (rfl : tiles = tiles')
     rfl
 
 abbrev brualdi_ch1_5_solution : ℕ := sorry
