@@ -1,8 +1,9 @@
 import Mathlib
 
+open Finset
+
 abbrev brualdi_ch2_11_solution : ℕ := sorry
 
-open Finset
 /--
 How many sets of three integers between 1 and 20 are possible if no two consecutive integers are to be in a set?
 -/
