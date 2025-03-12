@@ -1,21 +1,14 @@
 import Mathlib
 
-def eraseIdxs : List α → List (Fin n) → List α :=
-  List.foldl (fun currentList idxToBeRemoved => currentList.eraseIdx idxToBeRemoved)
-
-def areAdjacent (pos1 : ℕ) (pos2 : ℕ) : Prop :=
-  (pos1 = pos2 + 1) ∨ (pos1 = pos2 - 1)
+open Equiv Finset
 
 /--
 An integer $N \ge 2$ is given. A collection of $N(N + 1)$ soccer players, no two of whom are of the same height, stand in a row. Sir Alex wants to remove $N(N - 1)$ players from this row leaving a new row of $2N$ players in which the following $N$ conditions hold: ($1$) no one stands between the two tallest players, ($2$) no one stands between the third and fourth tallest players, $\cdots$ ($N$) no one stands between the two shortest players. Show that this is always possible.
 -/
-theorem imo_2017_p5 (N : ℕ) (h_N: N ≥ 2) (heights: List ℝ)
-  (row_length: heights.length = N * (N + 1))
-  (distinct_heights: heights.Nodup) :
-  ∃ players_to_be_removed: List (Fin (N * (N + 1))),
-  players_to_be_removed.length = N * (N - 1) ∧
-  let newRow : List ℝ := eraseIdxs heights players_to_be_removed
-  let newRowWithIdxs : List (ℕ × ℝ) := List.zip (List.range (2 * N)) newRow
-  let rowWithIdxsSortedByHeight : List (ℕ × ℝ) := newRowWithIdxs.insertionSort (λ a b => a.2 < b.2)
-  ∀ i : Fin N, areAdjacent (rowWithIdxsSortedByHeight.get! (2*i)).1 (rowWithIdxsSortedByHeight.get! (2*i + 1)).1 := by
-  sorry
+theorem imo_2017_p5 (N : ℕ) (h_N: N ≥ 2) (height : Perm (Fin (N * (N + 1)))) :
+  ∃ kept : Fin (2 * N) ↪o Fin (N * (N + 1)),
+  ∀ i j,
+    Even #{l | height (kept l) < height (kept i)} →
+    (height (kept j) = (height (kept i)).1 + 1) →
+    kept i ⋖ kept j ∨ kept j ⋖ kept i := by
+    sorry
