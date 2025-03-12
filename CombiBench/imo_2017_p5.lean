@@ -9,6 +9,6 @@ theorem imo_2017_p5 (N : ℕ) (h_N: N ≥ 2) (height : Perm (Fin (N * (N + 1))))
   ∃ kept : Fin (2 * N) ↪o Fin (N * (N + 1)),
   ∀ i j,
     Even #{l | height (kept l) < height (kept i)} →
-    (height (kept j) = (height (kept i)).1 + 1) →
+    (∀ k, height (kept i) < height (kept k) ↔ height (kept j) ≤ height (kept k)) →
     kept i ⋖ kept j ∨ kept j ⋖ kept i := by
     sorry
