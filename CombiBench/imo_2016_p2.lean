@@ -33,7 +33,6 @@ def Condition (n : ℕ) : Prop :=
   ∀ k ∈ Finset.range (2 * n - 1), diagonal_I n k A ∧
   ∀ k ∈ Finset.Icc (-(n : ℤ) + 1) (n - 1), diagonal_II n k A
 
-
 abbrev imo_2016_p2_solution : Set ℕ := sorry
 
 /--
