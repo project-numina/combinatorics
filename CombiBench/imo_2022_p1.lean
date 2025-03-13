@@ -14,7 +14,6 @@ abbrev sortedList (n : ℕ) := (List.range (2 * n))|>.map
        i1 := i1 - 1 else break
    return (i0, i1)
 
-
 abbrev action (n k : ℕ) : List ℕ → List ℕ := fun L ↦
    (List.range ((checkList k L).2 - (checkList k L).1)).map (fun i ↦ L[(checkList k L).1 + i - 1]!) ++
      (List.range (checkList k L).1).map (fun i ↦ L[i - 1]!) ++
