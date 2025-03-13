@@ -8,19 +8,19 @@ def diagonal_I_set (n k : ℕ) : Finset (Fin n × Fin n) :=
   (@Finset.univ (Fin n × Fin n) _ |>.filter (fun (i, j) => i.1 + j.1 = k))
 
 def diagonal_I (n k : ℕ) (A : Matrix (Fin n) (Fin n) IMO) : Prop :=
-    3 ∣ (diagonal_I_set n k).card →
-    (diagonal_I_set n k).card / 3 = (∑ x ∈ diagonal_I_set n k, if A x.1 x.2 = IMO.I then 1 else 0) ∧
-    (diagonal_I_set n k).card / 3 = (∑ x ∈ diagonal_I_set n k, if A x.1 x.2 = IMO.M then 1 else 0) ∧
-    (diagonal_I_set n k).card / 3 = ∑ x ∈ diagonal_I_set n k, if A x.1 x.2 = IMO.O then 1 else 0
+  3 ∣ (diagonal_I_set n k).card →
+  (diagonal_I_set n k).card = 3 * (∑ x ∈ diagonal_I_set n k, if A x.1 x.2 = IMO.I then 1 else 0) ∧
+  (diagonal_I_set n k).card = 3 * (∑ x ∈ diagonal_I_set n k, if A x.1 x.2 = IMO.M then 1 else 0) ∧
+  (diagonal_I_set n k).card = 3 * ∑ x ∈ diagonal_I_set n k, if A x.1 x.2 = IMO.O then 1 else 0
 
 def diagonal_II_set (n : ℕ) (k : ℤ) : Finset (Fin n × Fin n) :=
   (@Finset.univ (Fin n × Fin n) _ |>.filter (fun (i, j) => (i.1 : ℤ) - (j.1 : ℤ) = k))
 
 def diagonal_II (n : ℕ) (k : ℤ) (A : Matrix (Fin n) (Fin n) IMO) : Prop :=
-    3 ∣ (diagonal_II_set n k).card →
-    (diagonal_II_set n k).card / 3 = (∑ x ∈ diagonal_II_set n k, if A x.1 x.2 = IMO.I then 1 else 0) ∧
-    (diagonal_II_set n k).card / 3 = (∑ x ∈ diagonal_II_set n k, if A x.1 x.2 = IMO.M then 1 else 0) ∧
-    (diagonal_II_set n k).card / 3 = ∑ x ∈ diagonal_II_set n k, if A x.1 x.2 = IMO.O then 1 else 0
+  3 ∣ (diagonal_II_set n k).card →
+  (diagonal_II_set n k).card = 3 * (∑ x ∈ diagonal_II_set n k, if A x.1 x.2 = IMO.I then 1 else 0) ∧
+  (diagonal_II_set n k).card = 3 * (∑ x ∈ diagonal_II_set n k, if A x.1 x.2 = IMO.M then 1 else 0) ∧
+  (diagonal_II_set n k).card = 3 * ∑ x ∈ diagonal_II_set n k, if A x.1 x.2 = IMO.O then 1 else 0
 
 def Condition (n : ℕ) : Prop :=
   ∃ (A : Matrix (Fin n) (Fin n) IMO),
