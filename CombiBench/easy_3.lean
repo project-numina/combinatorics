@@ -3,6 +3,6 @@ import Mathlib
 abbrev easy_3_solution : ℕ := sorry
 
 /--
-An ice cream machine has 3 flavors - vanilla, chocolate, and strawberry. The ice cream can be served in 2 ways - in a cone or in a cup. Along with the ice cream, there are 5 options for toppings - hot fudge, caramel, nuts, cherries, and sprinkles.
+How many four-digit numbers can be formed from the numbers 3 5 8 9 if they are not allowed to be repeated?
 -/
-theorem easy_3 : Fintype.card (Fin 3 × Fin 2 × Fin 5) = easy_3_solution := by sorry
+theorem easy_3 : 1 = 1 := by sorry
