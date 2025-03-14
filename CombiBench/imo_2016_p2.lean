@@ -24,12 +24,12 @@ def diagonal_II (n : ℕ) (k : ℤ) (A : Matrix (Fin n) (Fin n) IMO) : Prop :=
 
 def Condition (n : ℕ) : Prop :=
   ∃ (A : Matrix (Fin n) (Fin n) IMO),
-  (∀ i : Fin n, (List.ofFn (fun j => A i j) |>.count IMO.I) = n / 3 ∧
-  (List.ofFn (fun j => A i j) |>.count IMO.M) = n / 3 ∧
-  (List.ofFn (fun j => A i j) |>.count IMO.O) = n / 3) ∧
-  (∀ j : Fin n, (List.ofFn (fun i => A i j) |>.count IMO.I) = n / 3 ∧
-  (List.ofFn (fun i => A i j) |>.count IMO.M) = n / 3 ∧
-  (List.ofFn (fun i => A i j) |>.count IMO.O) = n / 3) ∧
+  (∀ i : Fin n, (List.ofFn (fun j => A i j) |>.count IMO.I) * 3 = n ∧
+  (List.ofFn (fun j => A i j) |>.count IMO.M) * 3 = n ∧
+  (List.ofFn (fun j => A i j) |>.count IMO.O) * 3 = n) ∧
+  (∀ j : Fin n, (List.ofFn (fun i => A i j) |>.count IMO.I) * 3 = n ∧
+  (List.ofFn (fun i => A i j) |>.count IMO.M) * 3 = n ∧
+  (List.ofFn (fun i => A i j) |>.count IMO.O) * 3 = n) ∧
   ∀ k ∈ Finset.range (2 * n - 1), diagonal_I n k A ∧
   ∀ k ∈ Finset.Icc (-(n : ℤ) + 1) (n - 1), diagonal_II n k A
 
