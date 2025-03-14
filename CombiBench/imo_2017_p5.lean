@@ -10,5 +10,5 @@ theorem imo_2017_p5 (N : ℕ) (h_N: N ≥ 2) (height : Perm (Fin (N * (N + 1))))
   ∀ i j,
     Even #{l | height (kept l) < height (kept i)} →
     (∀ k, height (kept i) < height (kept k) ↔ height (kept j) ≤ height (kept k)) →
-    kept i ⋖ kept j ∨ kept j ⋖ kept i := by
+    (∀ k, kept i < kept k ↔ kept j ≤ kept k) ∨ (∀ k, kept j < kept k ↔ kept i ≤ kept k) := by
     sorry
