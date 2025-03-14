@@ -9,8 +9,8 @@ structure Colombian_config : Type where
     ¬ ∃ t : ℝ, t ≠ 0 ∧ t * (q.1 - p.1) = (r.1 - p.1) ∧ t * (q.2 - p.2) = (r.2 - p.2))
 
 def Good_arrange (C : Colombian_config) (L : Finset (ℝ × ℝ × ℝ)) : Prop :=
-  ∀ l ∈ L, l.1 ≠ 0 ∨ l.2.1 ≠ 0 ∧
-  ∀ p ∈ C.R ∪ C.B, ∀ l ∈ L, l.1 * p.1 + l.2.1 * p.2 + l.2.2 ≠ 0 ∧
+  (∀ l ∈ L, l.1 ≠ 0 ∨ l.2.1 ≠ 0) ∧
+  (∀ p ∈ C.R ∪ C.B, ∀ l ∈ L, l.1 * p.1 + l.2.1 * p.2 + l.2.2 ≠ 0) ∧
     ¬ (∃ q ∈ C.R, ∃ p ∈ C.B, ∀ l ∈ L,
       Real.sign (l.1 * p.1 + l.2.1 * p.2 + l.2.2) = Real.sign (l.1 * q.1 + l.2.1 * q.2 + l.2.2))
 
