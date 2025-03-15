@@ -3,24 +3,22 @@ import Mathlib
 structure Index (n : ℕ+) where
   row : ℕ
   col : ℕ
-  le_row : 1 ≤ row -- counting from 1
+  -- counting from 1
+  le_row : 1 ≤ row
   row_le : row ≤ n
-  le_col : 1 ≤ col -- counting from 1
+  -- counting from 1
+  le_col : 1 ≤ col
   col_le : col ≤ row
 
-/-
-       x
-      q x
-    p x x
--/
+--     x
+--   q x
+-- p x x
 def Index.atBottomLeft {n : ℕ+} (p q : Index n) : Prop :=
   q.row + 1 = p.row ∧ q.col = p.col
 
-/-
-       x
-      q x
-    x p x
--/
+--     x
+--   q x
+-- x p x
 def Index.atBottomRight {n : ℕ+} (p q : Index n) : Prop :=
   q.row + 1 = p.row ∧ q.col + 1 = p.col
 
@@ -48,7 +46,7 @@ def NinjaPath.countRed {n : ℕ+} {jt : JapaneseTriangle n} (p : NinjaPath jt) :
     then 1
     else 0
 
-noncomputable abbrev imo_2023_p5_solution (n : ℕ+) : ℕ := sorry
+noncomputable abbrev imo_2023_p5_solution : ℕ+ → ℕ := sorry
 
 /--
 Let $n$ be a positive integer. A Japanese triangle consists of $1 + 2 + \dots + n$ circles arranged in an equilateral triangular shape such that for each $i = 1$, $2$, $\dots$, $n$, the $i^{th}$ row contains exactly $i$ circles, exactly one of which is coloured red. A ninja path in a Japanese triangle is a sequence of $n$ circles obtained by starting in the top row, then repeatedly going from a circle to one of the two circles immediately below it and finishing in the bottom row. In terms of $n$, find the greatest $k$ such that in each Japanese triangle there is a ninja path containing at least $k$ red circles.
