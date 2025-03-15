@@ -1,6 +1,7 @@
 import Mathlib
 
-variable (V : Type*) (G : SimpleGraph V)
-
-/-- Prove that the complement of a disconnected graph is connected.-/
-theorem brualdi_ch12_34 (h : ¬ G.Connected): Gᶜ.Connected := sorry
+/--
+Prove that the complement of a disconnected graph is connected.
+-/
+theorem brualdi_ch12_34 {V : Type*} (G : SimpleGraph V) (h : ¬ G.Connected) :
+  Gᶜ.Connected := by sorry
