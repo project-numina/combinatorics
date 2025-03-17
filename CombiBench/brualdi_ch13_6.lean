@@ -22,5 +22,5 @@ def Digraph.Walk.support {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G
 /--
 Prove that a digraph is strongly connected if and only if there is a closed, directed walk that contains each vertex at least once.
 -/
-theorem brualdi_ch13_10 {V : Type u} (T : Digraph V) :
+theorem brualdi_ch13_6 {V : Type u} (T : Digraph V) :
     T.StronglyConnected ↔ ∃ (u : V) (p : T.Walk u u), ∀ v : V, v ∈ p.support := by sorry
