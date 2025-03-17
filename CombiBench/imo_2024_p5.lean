@@ -2,52 +2,52 @@ import Mathlib
 
 namespace Imo_2024_p5
 
-/-- A cell on the board for the game. -/
+-- A cell on the board for the game.
 abbrev Cell (N : ℕ) : Type := Fin (N + 2) × Fin (N + 1)
 
-/-- A row that is neither the first nor the last (and thus contains a monster). -/
+-- A row that is neither the first nor the last (and thus contains a monster).
 abbrev InteriorRow (N : ℕ) : Type := (Set.Icc 1 ⟨N, by omega⟩ : Set (Fin (N + 2)))
 
-/-- Data for valid positions of the monsters. -/
+-- Data for valid positions of the monsters.
 abbrev MonsterData (N : ℕ) : Type := InteriorRow N ↪ Fin (N + 1)
 
-/-- The cells with monsters as a Set, given an injection from rows to columns. -/
+-- The cells with monsters as a Set, given an injection from rows to columns.
 def MonsterData.monsterCells (m : MonsterData N) :
     Set (Cell N) :=
   Set.range (fun x : InteriorRow N ↦ ((x : Fin (N + 2)), m x))
 
-/-- Whether two cells are adjacent. -/
+-- Whether two cells are adjacent.
 def Adjacent (x y : Cell N) : Prop :=
   Nat.dist x.1 y.1 + Nat.dist x.2 y.2 = 1
 
-/-- A valid path from the first to the last row. -/
+-- A valid path from the first to the last row.
 structure Path (N : ℕ) where
-  /-- The cells on the path. -/
+  -- The cells on the path.
   cells : List (Cell N)
   nonempty : cells ≠ []
   head_first_row : (cells.head nonempty).1 = 0
   last_last_row : (cells.getLast nonempty).1 = N + 1
   valid_move_seq : cells.Chain' Adjacent
 
-/-- The first monster on a path, or `none`. -/
+-- The first monster on a path, or `none`.
 noncomputable def Path.firstMonster (p : Path N) (m : MonsterData N) : Option (Cell N) :=
   letI := Classical.propDecidable
   p.cells.find? (fun x ↦ (x ∈ m.monsterCells : Bool))
 
-/-- A strategy, given the results of initial attempts, returns a path for the next attempt. -/
+-- A strategy, given the results of initial attempts, returns a path for the next attempt.
 abbrev Strategy (N : ℕ) : Type := ⦃k : ℕ⦄ → (Fin k → Option (Cell N)) → Path N
 
-/-- Playing a strategy, k attempts. -/
+-- Playing a strategy, k attempts.
 noncomputable def Strategy.play (s : Strategy N) (m : MonsterData N) :
     (k : ℕ) → Fin k → Option (Cell N)
 | 0 => Fin.elim0
 | k + 1 => Fin.snoc (s.play m k) ((s (s.play m k)).firstMonster m)
 
-/-- The predicate for a strategy winning within the given number of attempts. -/
+-- The predicate for a strategy winning within the given number of attempts.
 def Strategy.WinsIn (s : Strategy N) (m : MonsterData N) (k : ℕ) : Prop :=
   none ∈ Set.range (s.play m k)
 
-/-- Whether a strategy forces a win within the given number of attempts. -/
+-- Whether a strategy forces a win within the given number of attempts.
 def Strategy.ForcesWinIn (s : Strategy N) (k : ℕ) : Prop :=
   ∀ m, s.WinsIn m k
 
