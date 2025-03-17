@@ -6,5 +6,5 @@ def invNum {n : ℕ} (σ : Equiv.Perm (Fin n)) : ℕ :=
 /--
 Show that the largest number of inversions of a permutation of ${1, 2, ... , n}$ equals $\frac{n(n -1)}{2}$.
 -/
-theorem brualdi_ch4_59 (n : ℕ) :
+theorem brualdi_ch4_9 (n : ℕ) :
   IsGreatest {k | ∃ σ : Equiv.Perm (Fin n), k = invNum σ} (n * (n - 1) / 2) := by sorry
