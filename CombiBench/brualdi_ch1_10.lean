@@ -1,15 +1,11 @@
 import Mathlib
 
-structure Matrix.IsMagicSquare {n : ℕ} (m : Matrix (Fin n) (Fin n) ℕ) (s : ℕ) : Prop where
-  distinct : m.uncurry.Injective
-  elem_in i j : m i j ∈ Finset.Icc 1 (n^2)
-  row_eq i : ∑ j, m i j = s
-  col_eq i : ∑ j, m j i = s
-  diag₁_eq : ∑ i, m i i = s
-  diag₂_eq : ∑ i, m i i.rev = s
+structure IsMagicSquare {n : ℕ} (M : Matrix (Fin n) (Fin n) ℕ) : Prop where
+  mem : ∀ i j, M i j ∈ Finset.Icc 1 (n * n)
+  pairwise : ∀ i j i' j', i ≠ i' ∨ j ≠ j' → M i j ≠ M i' j'
+  same_sum : ∃ s, (∀ i, ∑ j, M i j = s) ∧ (∀ j, ∑ i, M i j = s) ∧ (∑ i, M i i.rev = s) ∧ ∑ i, M i i = s
 
 /-
 Verify that there is no magic square of order 2.
 -/
-theorem brualdi_chi1_10 :
-  ∀ (m : Matrix (Fin 2) (Fin 2) ℕ) (s : ℕ), ¬ m.IsMagicSquare s := sorry
+theorem brualdi_chi1_10 : ¬∃ (M : Matrix (Fin 2) (Fin 2) ℕ), IsMagicSquare M := by sorry
