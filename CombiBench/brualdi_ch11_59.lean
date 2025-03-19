@@ -1,6 +1,7 @@
 import Mathlib
 
 open SimpleGraph
+
 /--
 Prove that the removal of an edge from a tree leaves a forest of two trees.
 -/
