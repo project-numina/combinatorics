@@ -8,5 +8,5 @@ structure LatinSquare (n : ℕ) where
 /--
 Prove that a symmetric, idempotent Latin square has odd order.
 -/
-theorem brualdi_ch10_59 {n : ℕ} (L : LatinSquare n) :
+theorem brualdi_ch10_60 {n : ℕ} (L : LatinSquare n) :
   IsIdempotentElem L.1 ∧ L.1.IsSymm  → Odd n := by sorry
