@@ -1,6 +1,6 @@
 import Mathlib
 
--- 1003
+open Real Classical
 
 -- this is oriented
 structure PreDiagonal where
@@ -26,7 +26,7 @@ instance PreDiagonal.setoid : Setoid PreDiagonal where
 def Diagonal := Quotient (PreDiagonal.setoid)
 
 def Diagonal.endPoints : Diagonal → (Finset (Fin 2006)) :=
-Quotient.lift (fun x => {x.pt1, x.pt2}) fun _ _ => id
+  Quotient.lift (fun x => {x.pt1, x.pt2}) fun _ _ => id
 
 @[simp]
 lemma Diagonal.endPoints_preDiagonal (x : PreDiagonal) :
@@ -46,12 +46,11 @@ lemma Diagonal.exists_pts_in_endPoints (x : Diagonal) :
   obtain ⟨pt1, pt2, h1, h2⟩ := this
   refine ⟨pt1, ?_, pt2, ?_, h1, h2⟩ <;> rw [h2] <;> aesop
 
-
 noncomputable def Diagonal.pt1 (x : Diagonal) : Fin 2006 :=
-    x.exists_pts_in_endPoints.choose
+  x.exists_pts_in_endPoints.choose
 
 lemma Diagonal.pt1_mem (x : Diagonal) : x.pt1 ∈ x.endPoints :=
-    x.exists_pts_in_endPoints.choose_spec.1
+  x.exists_pts_in_endPoints.choose_spec.1
 
 noncomputable def Diagonal.pt2 (x : Diagonal) : Fin 2006 :=
   x.exists_pts_in_endPoints.choose_spec.2.choose
@@ -68,7 +67,6 @@ lemma Diagonal.endPoints_eq_pt1_pt2 (x : Diagonal) : x.endPoints = {x.pt1, x.pt2
 def Diagonal.good (x : Diagonal) : Prop :=
   Odd (max x.pt1 x.pt2 - min x.pt1 x.pt2 : ℕ)
 
-open Real
 noncomputable def toPointsOnCircle (n : Fin 2006) : ℂ := Complex.exp (2 * π * Complex.I * n.1 / 2006)
 
 -- excluding the endpoints
@@ -101,7 +99,6 @@ structure Configuration where
   d : Fin 2003 ↪ Diagonal
   valid : ∀ i j, i ≠ j → ¬ (d i).intersects (d j)
 
-open Classical in
 noncomputable def Configuration.numOfIsoscelesTriangle (c : Configuration) : ℕ :=
   (∑ i : Fin 2003, if (c.d i).IsIsoscelesByOneDiagonal then 1 else 0) +
   (∑ i : Fin 2003, ∑ j : Fin 2003,
