@@ -2,7 +2,7 @@ import Mathlib
 
 def move (k : Fin 2021) (order : Fin 2021 ≃ Fin 2021) : Fin 2021 ≃ Fin 2021 :=
   -- order.symm k is the number of the hole of the k-th walnut
-  order.trans (Equiv.swap (finRotate _ (order.symm k)) ((finRotate _).symm (order.symm k)))
+  order.trans (Equiv.swap (order (finRotate _ (order.symm k))) (order ((finRotate _).symm (order.symm k))))
 
 def performMoves (originalOrder : Fin 2021 ≃ Fin 2021) : (Fin 2021) → (Fin 2021 ≃ Fin 2021)
 | 0 => originalOrder
