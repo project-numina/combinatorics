@@ -5,7 +5,6 @@ Let $A$ be a matrix with $n$ columns, with integer entries taken from the set $S
 -/
 theorem brualdi_ch9_13 (n m : ℕ) (k : ℕ+) (A : Matrix (Fin m) (Fin n) ℕ)
   (hA : ∀ i j, A i j ∈ Finset.Icc 1 k.1) :
-  ∃ (σ1 : Equiv.Perm (Fin n))
-  (σ2 : Equiv.Perm (Fin m)), ∀ j : Fin m, ∀ x ∈ Set.Icc 1 k.1,
-  List.count x ((List.finRange n).map ((A.submatrix σ2 σ1) j)) =
-  ∑ x : Fin m, List.count i ((List.finRange n).map (A x) : List ℕ) := by sorry
+  ∃ (rσ : Fin m → Equiv.Perm (Fin n)), ∀ j : Fin n, ∀ i ∈ Set.Icc 1 k.1,
+  (∑ x : Fin m, if A x ((rσ x).symm j) = x then 1 else 0) * n =
+  (∑ x : Fin m, ∑ y : Fin n, if A x y = i then 1 else 0) := by sorry

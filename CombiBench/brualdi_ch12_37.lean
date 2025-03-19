@@ -1,24 +1,24 @@
 import Mathlib
 
-open SimpleGraph in
-abbrev Q_3 := (pathGraph 2) □ (pathGraph 2) □ (pathGraph 2)
+open SimpleGraph BigOperators Classical
 
 variable (n : ℕ) {V : Type*} (G : SimpleGraph V)
-open SimpleGraph BigOperators
 
 def SimpleGraph.IsDominatingSet (D : Set V) : Prop :=
   ∀ v : V, ¬ (v ∈ D) →  ∃ u ∈ D, G.Adj u v
 
 lemma IsDominatingSet.univ : G.IsDominatingSet Set.univ := by simp [IsDominatingSet]
 
-noncomputable section
-open scoped Classical in
-def SimpleGraph.eDominationNum : ℕ∞ := iInf (fun s ↦ if
+noncomputable def SimpleGraph.eDominationNum : ℕ∞ := iInf (fun s ↦ if
   (G.IsDominatingSet s) then s.card else ⊤ : (Finset V) → ℕ∞)
 
-def SimpleGraph.dominationNum : ℕ := G.eDominationNum.toNat
+noncomputable def SimpleGraph.dominationNum : ℕ := G.eDominationNum.toNat
+
+abbrev Q_3 := (pathGraph 2) □ (pathGraph 2) □ (pathGraph 2)
+
+abbrev brualdi_ch12_37_soulution : ℕ := sorry
 
 /--
 Determine the domination number of the graph $Q_{3}$ of vertices and edges of a three-dimensional cube.
 -/
-theorem brualdi_ch12_37 : n = Q_3.dominationNum := by sorry
+theorem brualdi_ch12_37 : Q_3.dominationNum = brualdi_ch12_37_soulution:= by sorry
