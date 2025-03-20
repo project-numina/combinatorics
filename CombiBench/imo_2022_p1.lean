@@ -36,11 +36,10 @@ abbrev checkLeft (n : ℕ) : List ℕ → Bool := fun L ↦ Id.run do
 
 def initial (n : ℕ) : Finset (List ℕ) := (List.replicate n 0 ++ List.replicate n 1).permutations.toFinset
 
-abbrev imo_2022_p1_soluition (n : ℕ) : Set (ℕ × ℕ) := {p | p.1 = n ∧ p.2 ≤ ⌈(3 * n : ℝ) / 2⌉₊ ∧ p.2 ≥ n}
+abbrev imo_2022_p1_soluition : ℕ → Set (ℕ × ℕ) := sorry
 
  /--
  The Bank of Oslo issues two types of coin: aluminium (denoted A) and bronze (denoted B). Marianne has $n$ aluminium coins and $n$ bronze coins, arranged in a row in some arbitrary initial order. A chain is any subsequence of consecutive coins of the same type. Given a fixed positive integer $k\le 2n$, Marianne repeatedly performs the following operation: she identifies the longest chain containing the $k^{th}$ coin from the left, and moves all coins in that chain to the left end of the row. For example, if $n = 4$ and $k = 4$, the process starting from the ordering AABBBABA would be $AABBBABA \rightarrow BBBAAABA \rightarrow AAABBBBA \rightarrow BBBBAAAA \rightarrow BBBBAAAA \rightarrow \ldots$. Find all pairs $(n, k)$ with $1 \le k \le 2n$ such that for every initial ordering, at some moment during the process, the leftmost $n$ coins will all be of the same type.
  -/
  theorem imo_2022_p1 (n : ℕ) (hn : n > 0) :
-  {(n', k) | n = n' ∧ k ≥ 1 ∧ k ≤ 2 * n ∧ (∀ I ∈ initial n, ∃ m : ℕ, checkLeft n' (pown k m I))} = imo_2022_p1_soluition n := by
-  sorry
+  {(n', k) | n = n' ∧ k ≥ 1 ∧ k ≤ 2 * n ∧ (∀ I ∈ initial n, ∃ m : ℕ, checkLeft n' (pown k m I))} = imo_2022_p1_soluition n := by sorry
