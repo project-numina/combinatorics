@@ -1,41 +1,36 @@
 import Mathlib
 
-variable (users :  SimpleGraph (Fin 2019))
-noncomputable instance : Fintype (users.neighborSet a) := Fintype.ofFinite ↑(users.neighborSet a)
+noncomputable instance (users : SimpleGraph (Fin 2019)) : Fintype (users.neighborSet a) :=
+  Fintype.ofFinite ↑(users.neighborSet a)
 
-
--- a triple of distinct users a, b, c such that a is friends with b and c, but b and c are not friends.
-structure triple where
-  (a b c : Fin 2019)
-  (hab : users.Adj a b)
-  (hac : users.Adj a c)
-  (hbc : ¬ users.Adj b c)
-  (hbc' : b ≠ c)
+def IsTriple (l : List (Fin 2019)) (G : SimpleGraph (Fin 2019)) : Prop :=
+  l.length = 3 ∧ G.Adj l[0]! l[1]! ∧ G.Adj l[0]! l[2]! ∧ ¬ G.Adj l[1]! l[2]! ∧ l[1]! ≠ l[2]!
 
 @[simp]
-lemma triple.hab' (t : triple users) : t.b = t.c ↔ False := by
+lemma triple.hab' (l : List (Fin 2019)) (users : SimpleGraph (Fin 2019)) (h : IsTriple l users) :
+  l[1]! = l[2]! ↔ False := by
   constructor
-  · exact (t.hbc' ·)
+  · exact (h.2.2.2.2 ·)
   · tauto
 
-attribute [local aesop safe] SimpleGraph.Adj.symm triple.hbc'
+attribute [local aesop safe] SimpleGraph.Adj.symm IsTriple
 
 -- For any such triple of users a, b, c, b and c becomes friends now, but a is no longer friends with b, and no longer friends with c.
-def update (t : triple users) :
+def update (l : List (Fin 2019)) (users : SimpleGraph (Fin 2019)) (h : IsTriple l users) :
   SimpleGraph (Fin 2019) where
     Adj x y :=
-      if x = t.a then
-        if y = t.b then False
-        else if y = t.c then False
-        else users.Adj t.a y
-      else if x = t.b then
-        if y = t.a then False
-        else if y = t.c then True
-        else users.Adj t.b y
-      else if x = t.c then
-        if y = t.a then False
-        else if y = t.b then True
-        else users.Adj t.c y
+      if x = l[0]! then
+        if y = l[1]! then False
+        else if y = l[2]! then False
+        else users.Adj l[0]! y
+      else if x = l[1]! then
+        if y = l[0]! then False
+        else if y = l[2]! then True
+        else users.Adj l[1]! y
+      else if x = l[2]! then
+        if y = l[0]! then False
+        else if y = l[1]! then True
+        else users.Adj l[2]! y
       else users.Adj x y
     symm := by
       simp only [if_false_left, if_true_left]
@@ -45,33 +40,33 @@ def update (t : triple users) :
     loopless := by
       intro x
       simp only [if_false_left, if_true_left, SimpleGraph.irrefl, if_false_right]
-      split_ifs with h1 h2 <;> try aesop
+      split_ifs with h1 h2
+      · aesop
+      · subst h2
+        simp_all only [not_false_eq_true, SimpleGraph.irrefl, imp_false, Decidable.not_not, true_and]
+        apply Aesop.BuiltinRules.not_intro
+        intro a_1
+        apply h.2.2.2.2; simp [a_1]
+      · aesop
 
--- The question is asking to prove that there exists a sequence of such events after which each user is friends with at most one other user. So suppose the sequence has length (n + 1) (note that the sequence can not have length 0, because the initial state does not satisfy the condition)
-def imo_2019_p3_solutionSeq_length
-  (cond : ∃ (A B : Finset (Fin 2019)),
-    A.card = 1010 ∧ B.card = 1009 ∧
-    (∀ a ∈ A, (users.neighborFinset a).card = 1009) ∧
-    (∀ b ∈ B, (users.neighborFinset b).card = 1010)) : ℕ := sorry
+structure ExpectSeq where
+  l : List (SimpleGraph (Fin 2019) × List (Fin 2019))
+  h_length : l.length > 0
+  h_card : ∀ li ∈ l, li.2.length = 3
+  h_triple : ∀ li ∈ l, IsTriple li.2 li.1
+  h_update : ∀ i : Fin l.length, (finRotate _ i).1 ≠ 0 →
+    update l[i].2 l[i].1 (h_triple l[i] (by simp)) = l[finRotate _ i].1
 
---Then a sequence is like this
--- 0 : U₀ : users,     T₀ : a triple of U₀
--- 1 : U₁ : update T₀, T₁ : a triple of U₁
--- 2 : U₂ : update T₁, T₂ : a triple of U₂
--- ...
-def seq (cond) : (Fin (imo_2019_p3_solutionSeq_length users cond + 1)) → Σ (u : SimpleGraph (Fin 2019)), triple u
-| ⟨0, _⟩ => ⟨users, sorry⟩
-| ⟨n+1, h⟩ => ⟨update (seq cond ⟨n, lt_trans (by omega) h⟩).1 (seq cond ⟨n, lt_trans (by omega) h⟩).2, sorry⟩
-
--- At the end of the sequence, each user is friends with at most one other user.
+def final_state (seq : ExpectSeq) : SimpleGraph (Fin 2019) :=
+  update seq.l[((finRotate seq.l.length).symm ⟨0, by simp [seq.h_length]⟩ )]!.2
+    seq.l[((finRotate seq.l.length).symm ⟨0, by simp [seq.h_length]⟩)]!.1
+    (seq.h_triple seq.l[((finRotate seq.l.length).symm ⟨0, by simp [seq.h_length]⟩)]! (by simp))
 
 /--
 A social network has $2019$ users, some pairs of whom are friends. Whenever user $A$ is friends with user $B$, user $B$ is also friends with user $A$. Events of the following kind may happen repeatedly, one at a time: Three users $A$, $B$, and $C$ such that $A$ is friends with both $B$ and $C$, but $B$ and $C$ are not friends, change their friendship statuses such that $B$ and $C$ are now friends, but $A$ is no longer friends with $B$, and no longer friends with $C$. All other friendship statuses are unchanged. Initially, $1010$ users have $1009$ friends each, and $1009$ users have $1010$ friends each. Prove that there exists a sequence of such events after which each user is friends with at most one other user.
 -/
-theorem imo_2019_p3
-  (cond : ∃ (A B : Finset (Fin 2019)),
-    A.card = 1010 ∧ B.card = 1009 ∧
-    (∀ a ∈ A, (users.neighborFinset a).card = 1009) ∧
-    (∀ b ∈ B, (users.neighborFinset b).card = 1010)) :
-  ∀ i : Fin 2019,
-      (seq _ cond (Fin.last _) |>.1.neighborFinset i).card ≤ 1 := by sorry
+theorem imo_2019_p3 (users : SimpleGraph (Fin 2019))
+  (cond : ∃ (A B : Finset (Fin 2019)), A.card = 1010 ∧ B.card = 1009 ∧
+  (∀ a ∈ A, (users.neighborFinset a).card = 1009) ∧
+  (∀ b ∈ B, (users.neighborFinset b).card = 1010)) :
+  ∃ seq : ExpectSeq, ∀ i, ((final_state seq).neighborFinset i).card ≤ 1 := by sorry
