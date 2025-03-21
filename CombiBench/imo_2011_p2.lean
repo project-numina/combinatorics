@@ -18,7 +18,8 @@ end List
 instance : Fact (Module.finrank ℝ (EuclideanSpace ℝ (Fin 2)) = 2) := ⟨by simp⟩
 
 -- The value of the following doesn't matter. All that matters is that it exists
-instance : Module.Oriented ℝ (EuclideanSpace ℝ n) n where positiveOrientation := sorry
+instance : Module.Oriented ℝ (EuclideanSpace ℝ n) n where positiveOrientation :=
+  ⟨(Pi.basisFun _ _).orientation⟩
 
 structure IsWindmillProcess (S : Set (EuclideanSpace ℝ (Fin 2)))
     (f : ℕ → EuclideanSpace ℝ (Fin 2)) where
