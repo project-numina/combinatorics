@@ -1,7 +1,6 @@
 import Mathlib
 
-open Equiv Fintype
-open scoped Finset
+open Equiv Fintype Finset
 
 def IsBeautiful (e : Perm (Fin (n + 1))) : Prop :=
   ∀ ⦃a b⦄, a < b → ∀ ⦃c⦄, b < c → ∀ ⦃d⦄, c < d → a.val + d.val = b.val + c.val →
