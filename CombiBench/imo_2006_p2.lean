@@ -104,13 +104,10 @@ noncomputable def Configuration.numOfIsoscelesTriangle (c : Configuration) : ℕ
   (∑ i : Fin 2003, ∑ j : Fin 2003,
       if (c.d i).IsIsoscelesByTwoDiagonal (c.d j) then 1 else 0)
 
-def imo_2006_p2_solution : ℕ := sorry
-
-def sols_cond := ∃ (c : Configuration), c.numOfIsoscelesTriangle = imo_2006_p2_solution
-
-def sols_max := ∀ (c : Configuration), c.numOfIsoscelesTriangle ≤ imo_2006_p2_solution
+abbrev imo_2006_p2_solution : ℕ := sorry
 
 /--
 Let $P$ be a regular 2006-gon. A diagonal of $P$ is called good if its endpoints divide the boundary of $P$ into two parts, each composed of an odd number of sides of $P$. The sides of $P$ are also called good. Suppose $P$ has been dissected into triangles by 2003 diagonals, no two of which have a common point in the interior of $P$. Find the maximum number of isosceles triangles having two good sides that could appear in such a configuration.
 -/
-theorem imo_2006_p2 : sols_cond ∧ sols_max := by sorry
+theorem imo_2006_p2 :
+  IsGreatest {k | ∃ c : Configuration, c.numOfIsoscelesTriangle = k} imo_2006_p2_solution := by sorry
