@@ -33,6 +33,6 @@ abbrev A : Fin 6 → Finset ℕ := fun i ↦ match i with
 abbrev brualdi_ch9_8_solution : ℕ := sorry
 
 /--
-Let A = (A1, A2, A3, A4, A5, A6) where `A1 = {1,2}`,`A2 = {2,3}`, `A3 = {3,4}`, `A4 = {4,5}`, `A5 = {5,6}`, `A6 = {6,1}`. Determine the number of different SDRs that A has.
+Let $\mathcal{A}=\left(A_{1}, A_{2}, A_{3}, A_{4}, A_{5}, A_{6}\right)$, where \[ \begin{aligned} & A_{1}=\{1,2\}, A_{2}=\{2,3\}, A_{3}=\{3,4\} \\ & A_{4}=\{4,5\}, A_{5}=\{5,6\}, A_{6}=\{6,1\} \end{aligned} \] Determine the number of different SDRs that $\mathcal{A}$ has.
 -/
 theorem brualdi_ch9_8 : Fintype.card (SDR A) = brualdi_ch9_8_solution := by sorry

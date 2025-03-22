@@ -20,8 +20,8 @@ structure Digraph.StronglyConnected {V : Type u} (G : Digraph V) : Prop where
 
 -- the support of a walk is the list of vertices that the walk traverses in order.
 def Digraph.Walk.support {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G u v → List V
-| .nil h => [u]
-| .cons _ p => u :: p.support
+  | .nil h => [u]
+  | .cons _ p => u :: p.support
 
 -- a walk is a path if it does not visit the same vertex twice, hence a Hamilton cycle is a path
 -- that starts and ends at the same vertex.

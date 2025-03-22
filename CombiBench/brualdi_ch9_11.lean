@@ -23,8 +23,8 @@ noncomputable instance {n : ℕ} (A : Fin n → Finset α) : Fintype (SDR A) := 
   else exact fintypeOfNotInfinite (fun h1 ↦ by aesop)
 
 /--
-Let $n > 1$, and let $\mathcal{A}=\left(A_{1}, A_{2}, \ldots, A_{n}\right)$ be the family of subsets of ${1,2, \ldots, n}$, where $A_{i}={1,2, \ldots, n}-{i}, \quad(i=1,2, \ldots, n)$. Prove that $\mathcal{A}$ has an SDR and that the number of SDRs is the $n$th derangement number $D_{n}$.
+Let $n>1$, and let $\mathcal{A}=\left(A_{1}, A_{2}, \ldots, A_{n}\right)$ be the family of subsets of $\{1,2, \ldots, n\}$, where \[ A_{i}=\{1,2, \ldots, n\}-\{i\}, \quad(i=1,2, \ldots, n) \] Prove that $\mathcal{A}$ has an SDR and that the number of SDRs is the $n$th derangement number $D_{n}$.
 -/
 theorem brualdi_ch9_11 (n : ℕ) (hn : n > 1) (A : Fin n → Finset ℕ)
-  (hA : ∀ i, A i = Finset.Icc 1 n \ {i.1 + 1}) :
-  Nonempty (SDR A) ∧ Fintype.card (SDR A) = numDerangements n := by sorry
+    (hA : ∀ i, A i = Finset.Icc 1 n \ {i.1 + 1}) :
+    Nonempty (SDR A) ∧ Fintype.card (SDR A) = numDerangements n := by sorry

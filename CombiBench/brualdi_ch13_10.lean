@@ -14,8 +14,8 @@ inductive Digraph.Walk {V : Type u} (G : Digraph V) : V → V → Type u
 
 -- the support of a walk is the list of vertices that the walk traverses in order.
 def Digraph.Walk.support {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G u v → List V
-| .nil h => [u]
-| .cons _ p => u :: p.support
+  | .nil h => [u]
+  | .cons _ p => u :: p.support
 
 -- a walk is a path if it does not visit the same vertex twice, hence a Hamilton cycle is a path
 -- that starts and ends at the same vertex.
@@ -23,8 +23,8 @@ def Digraph.Walk.IsPath {V : Type u} {G : Digraph V} {u v : V} (p : Digraph.Walk
   p.support.Nodup
 
 def Digraph.Walk.length {V : Type u} {G : Digraph V} {u v : V} : Digraph.Walk G u v → ℕ
-| .nil h => 0
-| .cons _ p => 1 + p.length
+  | .nil h => 0
+  | .cons _ p => 1 + p.length
 
 /--
 Prove that every tournament contains a vertex $u$ such that, for every other vertex $x$, there is a path from $u$ to $x$ of length at most 2.

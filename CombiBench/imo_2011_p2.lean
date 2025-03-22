@@ -34,5 +34,4 @@ Let $\mathcal{S}$ be a finite set of at least two points in the plane. Assume th
 theorem imo_2011_p2 (l : List (EuclideanSpace ℝ (Fin 2)))
     (hl : l.Triplewise (¬ Collinear ℝ {·, ·, ·})) :
     ∃ f : ℕ → EuclideanSpace ℝ (Fin 2),
-      IsWindmillProcess {x | x ∈ l} f ∧ ∀ x ∈ l, ∃ᶠ n in atTop, f n = x :=
-  sorry
+      IsWindmillProcess {x | x ∈ l} f ∧ ∀ x ∈ l, ∃ᶠ n in atTop, f n = x := by sorry
