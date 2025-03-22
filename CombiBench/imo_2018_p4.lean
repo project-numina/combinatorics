@@ -6,9 +6,9 @@ abbrev Site := Fin 20 × Fin 20
 def Site.asPoint (s : Site) : ℝ × ℝ := (s.1.1 + 1, s.2.1 + 1)
 
 inductive State
-| red
-| blue
-| unoccupied
+  | red
+  | blue
+  | unoccupied
 
 abbrev Game := Site → State
 
@@ -44,16 +44,17 @@ def updateOneTurn (a : AmyStrategy) (b : BenStrategy) (g : Game) : Option Game :
 -- at the first turn, amy and ben has both placed one stone
 -- at the nth turn, amy and ben has both placed n stones
 def updateGame (a : AmyStrategy) (b : BenStrategy) (g : Game) : ℕ → Option Game
-| 0 => .some g
-| (n + 1) => updateOneTurn a b g >>= (updateGame a b · n)
+  | 0 => .some g
+  | (n + 1) => updateOneTurn a b g >>= (updateGame a b · n)
 
 def CanPlaceKRedStones (a : AmyStrategy) (b : BenStrategy) : ℕ → Prop
-| 0 => True -- amy can always place at least 0 stones
-| n+1 => -- amy can places (n+1) stones when:
-  ∃ (h : updateGame a b initialGame n |>.isSome), -- the game is not over at n-th turn
-    a ((updateGame a b initialGame n).get h) |>.isSome -- amy can still make a move at (n+1)-th turn
+  | 0 => True -- amy can always place at least 0 stones
+  | n+1 => -- amy can places (n+1) stones when:
+    ∃ (h : updateGame a b initialGame n |>.isSome), -- the game is not over at n-th turn
+      a ((updateGame a b initialGame n).get h) |>.isSome -- amy can still make a move at (n+1)-th turn
 
 abbrev imo_2018_p4_solution : ℕ := sorry
+
 /--
 A site is any point $(x, y)$ in the plane such that $x$ and $y$ are both positive integers less than or equal to 20. Initially, each of the 400 sites is unoccupied. Amy and Ben take turns placing stones with Amy going first. On her turn, Amy places a new red stone on an unoccupied site such that the distance between any two sites occupied by red stones is not equal to $\sqrt{5}$. On his turn, Ben places a new blue stone on any unoccupied site. (A site occupied by a blue stone is allowed to be at any distance from any other occupied site.) They stop as soon as a player cannot place a stone. Find the greatest $K$ such that Amy can ensure that she places at least $K$ red stones, no matter how Ben places his blue stones.
 -/
