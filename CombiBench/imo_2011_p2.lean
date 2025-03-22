@@ -7,7 +7,7 @@ namespace List
 variable {α β : Type*}
 
 -- This is already in a later version of mathlib than the one we are depending on
-/-- Whether a predicate holds for all ordered triples of elements of a list. -/
+-- Whether a predicate holds for all ordered triples of elements of a list.
 @[mk_iff]
 inductive Triplewise (p : α → α → α → Prop) : List α → Prop
   | nil : [].Triplewise p
