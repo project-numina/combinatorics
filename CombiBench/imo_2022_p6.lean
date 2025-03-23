@@ -43,10 +43,19 @@ lemma UphilPath_length_le {n : ℕ} (sq : NordicSquare n) (x : UphillPath sq) :
       exact ⟨m2, m1, by omega, h1.symm⟩
   obtain ⟨m1, m2, hm, hxxm⟩ := hm
   have hxxm' : sq.board (x m1) < sq.board (x m2) := by
-    have := x.1.3
-    refine Nat.le_induction (m := m1) ?_ ?_ m2 (le_of_lt hm)
-    · sorry
-    · sorry
+    obtain ⟨m1, h1⟩ := m1
+    obtain ⟨m2, h2⟩ := m2
+    rw [Fin.mk_lt_mk] at hm
+    have hm' := le_of_lt hm
+    induction m2, hm' using Nat.le_induction with
+    | base => simp at hm
+    | succ n' hmn hh =>
+      obtain ⟨hn1', hn2'⟩ := x.1.3 ⟨n', by omega⟩
+      simp [adjacent] at hn1'
+      cases hn1' with
+      | inl h =>
+        sorry
+      | inr h => sorry
 
   exact (ne_of_lt hxxm') (congr_arg _ hxxm)
 
