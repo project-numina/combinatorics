@@ -17,10 +17,40 @@ structure UphillPath {n : ℕ} (sq : NordicSquare n) extends RelSeries (α := Fi
     (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y) where
   head : valley toRelSeries.head sq
 
+instance {n : ℕ} (sq : NordicSquare n) : CoeFun (UphillPath sq)
+    (fun x ↦ Fin (x.length + 1) → Fin n × Fin n) :=
+  {coe f := f.1}
+
 instance [NeZero n] (sq : NordicSquare n) : Inhabited (UphillPath sq) := sorry
 
--- lemma
+lemma UphilPath_length_le {n : ℕ} (sq : NordicSquare n) (x : UphillPath sq) :
+    x.length ≤ n ^ 2 := by
+  by_contra! hn
+  have hm : ∃ m1 m2 : Fin (x.length + 1), m1 < m2 ∧ x m1 = x m2 := by
+    have hx : ¬ Function.Injective x := by
+      by_contra hx
+      have : Nat.card (Fin (x.length + 1)) ≤ Nat.card (Fin n × Fin n) := by
+        exact Nat.card_le_card_of_injective x.toFun hx
+      simp at this
+      have : x.length ≤ n * n := by omega
+      linarith!
+    delta Function.Injective at hx
+    push_neg at hx
+    obtain ⟨m1, m2, h1, h2⟩ := hx
+    if m1 < m2 then
+      exact ⟨m1, m2, by assumption, h1⟩
+    else
+      exact ⟨m2, m1, by omega, h1.symm⟩
+  obtain ⟨m1, m2, hm, hxxm⟩ := hm
+  have hxxm' : sq.board (x m1) < sq.board (x m2) := by
+    have := x.1.3
+    refine Nat.le_induction (m := m1) ?_ ?_ m2 (le_of_lt hm)
+    · sorry
+    · sorry
 
+  exact (ne_of_lt hxxm') (congr_arg _ hxxm)
+
+#exit
 instance {n : ℕ} (sq : NordicSquare n) : Finite (UphillPath sq) := by sorry
   -- classical
   -- if h : n = 0 then
@@ -38,8 +68,18 @@ instance {n : ℕ} (sq : NordicSquare n) : Finite (UphillPath sq) := by sorry
   -- haveI : NeZero n := ⟨h⟩
   -- exact Finite.of_surjective (α := RelSeries (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y))
   --   (fun x ↦ if h : valley x.head sq then ⟨x, h⟩ else default) <| fun x ↦ ⟨x.1, by simp [x.2]⟩
+-- f : UphillPath sq → Finset (Fin n × Fin n)
+-- f : a ↦ a.range?????
+noncomputable instance {n : ℕ} (sq : NordicSquare n) : Fintype (UphillPath sq) :=
+  .ofInjective (β := Set (Fin n × Fin n)) (fun f ↦ Set.range f.toFun) <| fun x y h ↦ by
+    simp at h
+    have hx : Finset.card (Set.range x.toFun) = x.length + 1 := by
+      sorry
+    have hl : x.length = y.length := by
 
-noncomputable instance {n : ℕ} (sq : NordicSquare n) : Fintype (UphillPath sq) := Fintype.ofFinite (UphillPath sq)
+      sorry
+
+    sorry
 
 abbrev imo_2022_p6_solution : ℕ → ℕ := sorry
 
