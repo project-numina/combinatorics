@@ -13,12 +13,13 @@ def adjacent {n : ℕ} (x y : Fin n × Fin n) : Prop :=
 def valley {n : ℕ} (x : Fin n × Fin n) (sq : NordicSquare n) : Prop :=
   ∀ y : Fin n × Fin n, adjacent x y → sq.board x ≤ sq.board y
 
-structure UphillPath {n : ℕ} (sq : NordicSquare n) where
-  seq : RelSeries (α := Fin n × Fin n)
-    (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y)
-  head : valley seq.head sq
+structure UphillPath {n : ℕ} (sq : NordicSquare n) extends RelSeries (α := Fin n × Fin n)
+    (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y) where
+  head : valley toRelSeries.head sq
 
 instance [NeZero n] (sq : NordicSquare n) : Inhabited (UphillPath sq) := sorry
+
+-- lemma
 
 instance {n : ℕ} (sq : NordicSquare n) : Finite (UphillPath sq) := by sorry
   -- classical
