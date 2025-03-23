@@ -1,8 +1,8 @@
 import Mathlib
 
 structure NordicSquare (n : ℕ) where
-  board : (Fin n × Fin n) → (Set.Icc 1 (n ^ 2))
-  surj : Function.Surjective board
+  board : (Fin n × Fin n) → (Finset.Icc 1 (n ^ 2))
+  bij : Function.Bijective board
 
 def adjacent {n : ℕ} (x y : Fin n × Fin n) : Prop :=
   (x.1.1 = y.1.1 ∧ x.2.1 = y.2.1 + 1) ∨ -- x and y are in the same column, x is one row above y
@@ -18,8 +18,25 @@ structure UphillPath {n : ℕ} (sq : NordicSquare n) where
     (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y)
   head : valley seq.head sq
 
-instance {n : ℕ} (sq : NordicSquare n) : Finite (UphillPath sq) := by
-  sorry
+instance [NeZero n] (sq : NordicSquare n) : Inhabited (UphillPath sq) := sorry
+
+instance {n : ℕ} (sq : NordicSquare n) : Finite (UphillPath sq) := by sorry
+  -- classical
+  -- if h : n = 0 then
+  -- have : IsEmpty (UphillPath sq) := {
+  --   false x := by
+  --     have := x.1
+  --     subst h
+  --     simp at this
+  --     haveI : IsEmpty (Fin 0 × Fin 0) := by exact Prod.isEmpty_right
+  --     haveI : IsEmpty (RelSeries (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y)) := inferInstance
+  --     exact IsEmpty.false (α := (RelSeries (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y))) x.1
+  -- }
+  -- exact Finite.of_subsingleton
+  -- else
+  -- haveI : NeZero n := ⟨h⟩
+  -- exact Finite.of_surjective (α := RelSeries (fun x y ↦ adjacent x y ∧ sq.board x < sq.board y))
+  --   (fun x ↦ if h : valley x.head sq then ⟨x, h⟩ else default) <| fun x ↦ ⟨x.1, by simp [x.2]⟩
 
 noncomputable instance {n : ℕ} (sq : NordicSquare n) : Fintype (UphillPath sq) := Fintype.ofFinite (UphillPath sq)
 
