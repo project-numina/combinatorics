@@ -4,26 +4,25 @@ open scoped Finset
 
 set_option autoImplicit false
 
-/-- A strategy for Alice in the liar guessing game consists of: -/
+-- A strategy for Alice in the liar guessing game consists of:
 structure AliceStrategy where
-  /-- A natural number `N`. -/
+  -- A natural number `N`.
   N : ℕ
-  /-- A natural number less than `N`. -/
+  -- A natural number less than `N`.
   x : Fin N
-  /-- For each history, a question, in the form of a set of natural numbers. -/
+  -- For each history, a question, in the form of a set of natural numbers.
   nextAnswer : List (Set (Fin N) × Bool) → Set (Fin N) → Bool
 
-/-- A strategy for Bob in the liar guessing game consists of: -/
+-- A strategy for Bob in the liar guessing game consists of:
 structure BobStrategy where
-  /-- For each history, a question, in the form of a set of natural numbers. -/
+  -- For each history, a question, in the form of a set of natural numbers.
   nextQuestion N : List (Set (Fin N) × Bool) → Set (Fin N)
-  /-- For each history, a guess as to what `x` is, in the form of a small set of natural numbers. -/
+  -- For each history, a guess as to what `x` is, in the form of a small set of natural numbers.
   guess N : List (Set (Fin N) × Bool) → Finset (Fin N)
 
 variable {k n : ℕ}
 
-/-- The history of the game is the list of question-answer pairs asked by Bob and answered by
-Alice. -/
+-- The history of the game is the list of question-answer pairs asked by Bob and answered by Alice.
 def history (A : AliceStrategy) (B : BobStrategy) : ℕ → List (Set (Fin A.N) × Bool)
   | 0 => []
   | t + 1 =>
@@ -31,19 +30,17 @@ def history (A : AliceStrategy) (B : BobStrategy) : ℕ → List (Set (Fin A.N) 
       A.nextAnswer (history A B t) (B.nextQuestion A.N (history A B t)))
         :: history A B t
 
-/-- A strategy for Alice is valid if every interval of `k` consecutive answers contains some true
-answer. -/
+-- A strategy for Alice is valid if every interval of `k` consecutive answers contains some true answer.
 def AliceStrategy.IsValid (A : AliceStrategy) (B : BobStrategy) (k : ℕ) : Prop :=
   ∀ t₀ : ℕ, ∃ t ∈ Finset.Ico t₀ (t₀ + k),
     A.nextAnswer (history A B t) (B.nextQuestion A.N (history A B t))
       = (A.x ∈ B.nextQuestion A.N (history A B t))
 
-/-- A strategy for Bob is valid at time `t` if the guessing set is of size at most `n`. -/
+-- A strategy for Bob is valid at time `t` if the guessing set is of size at most `n`.
 def BobStrategy.IsValid (A : AliceStrategy) (B : BobStrategy) (n t : ℕ) : Prop :=
   #(B.guess A.N (history A B t)) ≤ n
 
-/-- A strategy for Bob is winning if, for all valid strategies for Alice, there is some time `t` at
-which the strategy for Bob is valid and `x` belongs in the guessing set. -/
+-- A strategy for Bob is winning if, for all valid strategies for Alice, there is some time `t` at which the strategy for Bob is valid and `x` belongs in the guessing set.
 def BobStrategy.IsWinning (B : BobStrategy) (k n : ℕ) : Prop :=
   ∀ (A : AliceStrategy), A.IsValid B k → ∃ t, B.IsValid A n t ∧ A.x ∈ B.guess A.N (history A B t)
 
@@ -58,5 +55,4 @@ theorem imo_2012_p3 :
       ∃ k₀,
         ∀ k ≥ k₀,
           ∃ n : ℕ, n ≥ (1.99 : ℝ) ^ k ∧
-            ∀ B : BobStrategy, ¬ B.IsWinning k n := by
-  sorry
+            ∀ B : BobStrategy, ¬ B.IsWinning k n := by sorry
