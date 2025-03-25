@@ -6,20 +6,18 @@ open Real Classical
 structure PreDiagonal where
   pt1 : Fin 2006
   pt2 : Fin 2006
-  is_diagonal : (finRotate _)^[2] pt1 = pt2 ∨ (finRotate _)^[2] pt2 = pt1
+  is_diagonal :
+    pt1 ≠ pt2 ∧ -- two points must be distinct
+    finRotate _ pt1 ≠ pt2 ∧ -- pt1 can't be directly left to pt2
+    finRotate _ pt2 ≠ pt1 -- pt2 can't be directly left to pt1
 
-def PreDiagonal.distinct (x : PreDiagonal) : x.pt1 ≠ x.pt2 := by
-  intro h
-  refine x.is_diagonal |>.recOn ?_ ?_  <;>
-  · rintro (H : finRotate _ (finRotate _ _) = _)
-    simp only [h, finRotate_succ_apply, Nat.reduceAdd, Fin.isValue] at H
-    omega
+def PreDiagonal.distinct (x : PreDiagonal) : x.pt1 ≠ x.pt2 := (x.is_diagonal.1 ·)
 
 -- we want unoriented, so we quotient
 instance PreDiagonal.setoid : Setoid PreDiagonal where
   r x y := ({x.pt1, x.pt2} : Finset (Fin 2006)) = {y.pt1, y.pt2}
   iseqv :=
-  { refl x := by rfl
+  { refl _ := rfl
     symm := Eq.symm
     trans := Eq.trans }
 
@@ -73,8 +71,10 @@ noncomputable def toPointsOnCircle (n : Fin 2006) : ℂ := Complex.exp (2 * π *
 noncomputable def Diagonal.clockwiseArc (d : Diagonal) : Finset (Fin 2006) :=
   Finset.Ioo (min d.pt1 d.pt2) (max d.pt1 d.pt2)
 
-def Diagonal.intersects (d d' : Diagonal) :=
-  d'.endPoints ≤ d.clockwiseArc
+def Diagonal.intersects (d d' : Diagonal) : Prop :=
+  (d.endPoints ⊓ d'.endPoints ≠ ∅) ∨ -- share at least one common point
+  (d'.pt1 ∈ d.clockwiseArc ∧ d'.pt2 ∈ d.clockwiseArc) ∨ -- one endpoint of d' is inside the clockwise arc of d while the other is outside
+  (d'.pt2 ∈ d.clockwiseArc ∧ d'.pt2 ∈ d.clockwiseArc) -- one endpoint of d is inside the clockwise arc of d' while the other is outside
 
 -- if the two end points of d differ by exactly 2, then it makes an isosceles triangle with two sides
 def Diagonal.IsIsoscelesByOneDiagonal (d : Diagonal) : Prop :=
@@ -100,9 +100,8 @@ structure Configuration where
   valid : ∀ i j, i ≠ j → ¬ (d i).intersects (d j)
 
 noncomputable def Configuration.numOfIsoscelesTriangle (c : Configuration) : ℕ :=
-  (∑ i : Fin 2003, if (c.d i).IsIsoscelesByOneDiagonal then 1 else 0) +
-  (∑ i : Fin 2003, ∑ j : Fin 2003,
-      if (c.d i).IsIsoscelesByTwoDiagonal (c.d j) then 1 else 0)
+  (∑ i : Fin 2003 with (c.d i).IsIsoscelesByOneDiagonal, 1) +
+  (∑ i : Fin 2003, ∑ j : Fin 2003 with (c.d i).IsIsoscelesByTwoDiagonal (c.d j), 1)
 
 abbrev imo_2006_p2_solution : ℕ := sorry
 
