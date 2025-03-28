@@ -1,107 +1,132 @@
 import Mathlib
 
-open Real Classical
+instance {α : Type*} [LinearOrder α] : CircularOrder α where
+  btw a b c := a ≤ b ∧ b ≤ c ∨ b ≤ c ∧ c ≤ a ∨ c ≤ a ∧ a ≤ b
+  sbtw a b c := a < b ∧ b < c ∨ b < c ∧ c < a ∨ c < a ∧ a < b
+  btw_refl a := by simp
+  btw_cyclic_left {a b c} := Or.rotate
+  sbtw_iff_btw_not_btw {a b c} := by
+    simp only [not_or, not_and_or]
+    constructor
+    · rintro (⟨hab, hbc⟩ | ⟨hbc, hca⟩ | ⟨hca, hab⟩)
+      · exact ⟨.inl ⟨hab.le, hbc.le⟩, .inr hab.not_le, .inl hab.not_le, .inr hbc.not_le⟩
+      · exact ⟨.inr <| .inl ⟨hbc.le, hca.le⟩, .inl hbc.not_le, .inr hca.not_le, .inl hca.not_le⟩
+      · exact ⟨.inr <| .inr ⟨hca.le, hab.le⟩, .inr hab.not_le, .inr hca.not_le, .inl hca.not_le⟩
+    · rintro ⟨⟨hab, hbc⟩ | ⟨hbc, hca⟩ | ⟨hca, hab⟩, hcb | hba, hba | hac, hac | hcb⟩
+      · exact .inl ⟨hab.lt_of_not_le hba, hbc.lt_of_not_le hcb⟩
+      · exact .inl ⟨hab.lt_of_not_le hba, hbc.lt_of_not_le hcb⟩
+      · cases hac <| hab.trans hbc
+      · cases hac <| hab.trans hbc
+      · cases hac <| hab.trans hbc
+      · exact .inl ⟨hab.lt_of_not_le hba, hbc.lt_of_not_le hcb⟩
+      · cases hac <| hab.trans hbc
+      · cases hac <| hab.trans hbc
+      · cases hba <| hbc.trans hca
+      · cases hba <| hbc.trans hca
+      · exact .inr <| .inl ⟨hbc.lt_of_not_le hcb, hca.lt_of_not_le hac⟩
+      · exact .inr <| .inl ⟨hbc.lt_of_not_le hcb, hca.lt_of_not_le hac⟩
+      · cases hba <| hbc.trans hca
+      · cases hba <| hbc.trans hca
+      · cases hba <| hbc.trans hca
+      · cases hba <| hbc.trans hca
+      · cases hcb <| hca.trans hab
+      · cases hcb <| hca.trans hab
+      · cases hcb <| hca.trans hab
+      · cases hcb <| hca.trans hab
+      · exact .inr <| .inr ⟨hca.lt_of_not_le hac, hab.lt_of_not_le hba⟩
+      · cases hcb <| hca.trans hab
+      · exact .inr <| .inr ⟨hca.lt_of_not_le hac, hab.lt_of_not_le hba⟩
+      · exact .inr <| .inr ⟨hca.lt_of_not_le hac, hab.lt_of_not_le hba⟩
+  sbtw_trans_left {a b c d} := by
+    rintro (⟨hab, hbc⟩ | ⟨hbc, hca⟩ | ⟨hca, hab⟩) (⟨hbd, hdc⟩ | ⟨hdc, hcb⟩ | ⟨hcb, hbd⟩)
+    · exact .inl ⟨hab.trans hbd, hdc⟩
+    · cases hbc.not_lt hcb
+    · cases hbc.not_lt hcb
+    · exact .inr <| .inl ⟨hdc, hca⟩
+    · exact .inr <| .inl ⟨hdc, hca⟩
+    · cases hbc.not_lt hcb
+    · exact .inr <| .inl ⟨hdc, hca⟩
+    · exact .inr <| .inl ⟨hdc, hca⟩
+    · exact .inr <| .inr ⟨hca, hab.trans hbd⟩
+  btw_antisymm {a b c} := by
+    rintro (⟨hab, hbc⟩ | ⟨hbc, hca⟩ | ⟨hca, hab⟩) (⟨hcb, hba⟩ | ⟨hba, hac⟩ | ⟨hac, hcb⟩)
+    · exact .inl <| hab.antisymm hba
+    · exact .inl <| hab.antisymm hba
+    · exact .inr <| .inl <| hbc.antisymm hcb
+    · exact .inr <| .inl <| hbc.antisymm hcb
+    · exact .inr <| .inr <| hca.antisymm hac
+    · exact .inr <| .inr <| hca.antisymm hac
+    · exact .inl <| hab.antisymm hba
+    · exact .inl <| hab.antisymm hba
+    · exact .inr <| .inr <| hca.antisymm hac
+  btw_total {a b c} := by
+    obtain hab | hba := le_total a b <;> obtain hbc | hcb := le_total b c <;>
+      obtain hca | hac := le_total c a
+    · exact .inl <| .inl ⟨hab, hbc⟩
+    · exact .inl <| .inl ⟨hab, hbc⟩
+    · exact .inl <| .inr <| .inr ⟨hca, hab⟩
+    · exact .inr <| .inr <| .inr ⟨hac, hcb⟩
+    · exact .inl <| .inr <| .inl ⟨hbc, hca⟩
+    · exact .inr <| .inr <| .inl ⟨hba, hac⟩
+    · exact .inr <| .inl ⟨hcb, hba⟩
+    · exact .inr <| .inl ⟨hcb, hba⟩
 
--- this is oriented
-structure PreDiagonal where
-  pt1 : Fin 2006
-  pt2 : Fin 2006
-  is_diagonal :
-    pt1 ≠ pt2 ∧ -- two points must be distinct
-    finRotate _ pt1 ≠ pt2 ∧ -- pt1 can't be directly left to pt2
-    finRotate _ pt2 ≠ pt1 -- pt2 can't be directly left to pt1
+variable {α : Type*} [CircularOrder α] {a b c d : α}
 
-def PreDiagonal.distinct (x : PreDiagonal) : x.pt1 ≠ x.pt2 := (x.is_diagonal.1 ·)
+/-- In a circular order, the property that `a, b, c, d` are in that order. -/
+def SBtw₄ (a b c d : α) : Prop := sbtw a b c ∧ sbtw c d a
 
--- we want unoriented, so we quotient
-instance PreDiagonal.setoid : Setoid PreDiagonal where
-  r x y := ({x.pt1, x.pt2} : Finset (Fin 2006)) = {y.pt1, y.pt2}
-  iseqv :=
-  { refl _ := rfl
-    symm := Eq.symm
-    trans := Eq.trans }
+lemma sbtw₄_swap : SBtw₄ a b c d ↔ SBtw₄ c d a b := and_comm
 
-def Diagonal := Quotient (PreDiagonal.setoid)
+open scoped Classical Finset
 
-def Diagonal.endPoints : Diagonal → (Finset (Fin 2006)) :=
-  Quotient.lift (fun x => {x.pt1, x.pt2}) fun _ _ => id
+variable {N : ℕ}
 
-@[simp]
-lemma Diagonal.endPoints_preDiagonal (x : PreDiagonal) :
-  Diagonal.endPoints ⟦x⟧ = {x.pt1, x.pt2} := rfl
+/-- The diagonals of the `N`-gon. -/
+abbrev Diagonal (N : ℕ) := {e : Sym2 (Fin N) // ¬ e.IsDiag}
 
-@[simp]
-lemma Diagonal.endPoints_card_eq_two (x : Diagonal) : x.endPoints.card = 2 := by
-  induction x using Quotient.inductionOn with | h x =>
-  simp only [endPoints_preDiagonal, Finset.card_eq_two, ne_eq]
-  use x.pt1, x.pt2, x.distinct
+namespace Diagonal
 
-@[simp]
-lemma Diagonal.exists_pts_in_endPoints (x : Diagonal) :
-    ∃ pt1 ∈ x.endPoints, ∃ pt2 ∈ x.endPoints, pt1 ≠ pt2 ∧ x.endPoints = {pt1, pt2} := by
-  have := x.endPoints_card_eq_two
-  rw [Finset.card_eq_two] at this
-  obtain ⟨pt1, pt2, h1, h2⟩ := this
-  refine ⟨pt1, ?_, pt2, ?_, h1, h2⟩ <;> rw [h2] <;> aesop
+def Intersect (d₁ d₂ : Diagonal N) : Prop :=
+  Sym2.lift₂ {
+    val a b c d := SBtw₄ a c b d ∨ SBtw₄ a d b c
+    property a b c d := by
+      simp only [eq_iff_iff]; constructor <;> rw [sbtw₄_swap, or_comm, sbtw₄_swap]
+  } d₁.1 d₂.1
 
-noncomputable def Diagonal.pt1 (x : Diagonal) : Fin 2006 :=
-  x.exists_pts_in_endPoints.choose
+def Good (d : Diagonal N) : Prop :=
+  Sym2.lift {
+    val a b := Odd (a.val + b.val : ℕ)
+    property a b := by simp [add_comm]
+  } d.1
 
-lemma Diagonal.pt1_mem (x : Diagonal) : x.pt1 ∈ x.endPoints :=
-  x.exists_pts_in_endPoints.choose_spec.1
+end Diagonal
 
-noncomputable def Diagonal.pt2 (x : Diagonal) : Fin 2006 :=
-  x.exists_pts_in_endPoints.choose_spec.2.choose
+-- if a collection of `2N - 3` distinct diagonal are pairwise non-intersecting, they dissect the
+-- N-gon
+structure TriangleDissection (N : ℕ) where
+  diagonals : Fin (2 * N - 3) ↪ Diagonal N
+  pairwise_not_intersect_diagonals : Pairwise fun i j ↦ ¬ (diagonals i).Intersect (diagonals j)
 
-lemma Diagonal.pt2_mem (x : Diagonal) : x.pt2 ∈ x.endPoints :=
-  x.exists_pts_in_endPoints.choose_spec.2.choose_spec.1
-
-lemma Diagonal.pt1_neq_pt2 (x : Diagonal) : x.pt1 ≠ x.pt2 :=
-  x.exists_pts_in_endPoints.choose_spec.2.choose_spec.2.1
-
-lemma Diagonal.endPoints_eq_pt1_pt2 (x : Diagonal) : x.endPoints = {x.pt1, x.pt2} :=
-  x.exists_pts_in_endPoints.choose_spec.2.choose_spec.2.2
-
-def Diagonal.good (x : Diagonal) : Prop :=
-  Odd (max x.pt1 x.pt2 - min x.pt1 x.pt2 : ℕ)
-
-noncomputable def toPointsOnCircle (n : Fin 2006) : ℂ := Complex.exp (2 * π * Complex.I * n.1 / 2006)
-
--- excluding the endpoints
-noncomputable def Diagonal.clockwiseArc (d : Diagonal) : Finset (Fin 2006) :=
-  Finset.Ioo (min d.pt1 d.pt2) (max d.pt1 d.pt2)
-
-def Diagonal.intersects (d d' : Diagonal) : Prop :=
-  (d.endPoints ⊓ d'.endPoints ≠ ∅) ∨ -- share at least one common point
-  (d'.pt1 ∈ d.clockwiseArc ∧ d'.pt2 ∈ d.clockwiseArc) ∨ -- one endpoint of d' is inside the clockwise arc of d while the other is outside
-  (d'.pt2 ∈ d.clockwiseArc ∧ d'.pt2 ∈ d.clockwiseArc) -- one endpoint of d is inside the clockwise arc of d' while the other is outside
-
--- if the two end points of d differ by exactly 2, then it makes an isosceles triangle with two sides
-def Diagonal.IsIsoscelesByOneDiagonal (d : Diagonal) : Prop :=
-    (finRotate _) ^[2] d.pt1 = d.pt2 ∨
-    (finRotate _) ^[2] d.pt2 = d.pt1
-
-structure Diagonal.IsIsoscelesByTwoDiagonal (d d' : Diagonal) where
-  non_intersecting : ¬ d.intersects d'
-  distinct : d ≠ d'
-  shares_a_common_point : d.endPoints ⊓ d'.endPoints ≠ ∅
-  isosceles :
-    ∀ x ∈ d.endPoints ⊔ d'.endPoints,
-    ∀ y ∈ d.endPoints ⊔ d'.endPoints,
-    ∀ z ∈ d.endPoints ⊔ d'.endPoints,
-      x ≠ y → x ≠ z → y ≠ z →
-      dist (toPointsOnCircle x) (toPointsOnCircle y) = dist (toPointsOnCircle y) (toPointsOnCircle z) ∨
-      dist (toPointsOnCircle x) (toPointsOnCircle y) = dist (toPointsOnCircle y) (toPointsOnCircle z) ∨
-      dist (toPointsOnCircle x) (toPointsOnCircle z) = dist (toPointsOnCircle y) (toPointsOnCircle z)
-
--- if a collection of 2003 distinct diagonal are pairwise non-intersecting, they dissect the 2006-gon
-structure Configuration where
-  d : Fin 2003 ↪ Diagonal
-  valid : ∀ i j, i ≠ j → ¬ (d i).intersects (d j)
-
-noncomputable def Configuration.numOfIsoscelesTriangle (c : Configuration) : ℕ :=
-  (∑ i : Fin 2003 with (c.d i).IsIsoscelesByOneDiagonal, 1) +
-  (∑ i : Fin 2003, ∑ j : Fin 2003 with (c.d i).IsIsoscelesByTwoDiagonal (c.d j), 1)
+noncomputable def TriangleDissection.numOfIsoscelesTriangle (C : TriangleDissection N) : ℕ := by
+  classical exact
+  #{(a, b, c) : Fin N × Fin N × Fin N |
+    ∃ (hab : a < b) (hbc : b < c),
+      -- The edges of the triangle belong to the diagonals
+      (∃ i, C.diagonals i = s(a, b)) ∧
+      (∃ i, C.diagonals i = s(b, c)) ∧
+      (∃ i, C.diagonals i = s(c, a)) ∧
+      -- The triangle has two good diagonals
+      ( Diagonal.Good ⟨s(a, b), by simpa using hab.ne⟩ ∧
+        Diagonal.Good ⟨s(b, c), by simpa using hbc.ne⟩ ∨
+        Diagonal.Good ⟨s(b, c), by simpa using hbc.ne⟩ ∧
+        Diagonal.Good ⟨s(c, a), by simpa using (hab.trans hbc).ne'⟩ ∨
+        Diagonal.Good ⟨s(c, a), by simpa using (hab.trans hbc).ne'⟩ ∧
+        Diagonal.Good ⟨s(a, b), by simpa using hab.ne⟩) ∧
+      -- The triangle has two sides of equal length
+      ((b.val - a.val : ℤ) = c.val - b.val ∨
+       (c.val - b.val : ℤ) = N + a.val - c.val ∨
+       (N + a.val - c.val : ℤ) = c.val - b.val)}
 
 abbrev imo_2006_p2_solution : ℕ := sorry
 
@@ -109,4 +134,5 @@ abbrev imo_2006_p2_solution : ℕ := sorry
 Let $P$ be a regular 2006-gon. A diagonal of $P$ is called good if its endpoints divide the boundary of $P$ into two parts, each composed of an odd number of sides of $P$. The sides of $P$ are also called good. Suppose $P$ has been dissected into triangles by 2003 diagonals, no two of which have a common point in the interior of $P$. Find the maximum number of isosceles triangles having two good sides that could appear in such a configuration.
 -/
 theorem imo_2006_p2 :
-  IsGreatest {k | ∃ c : Configuration, c.numOfIsoscelesTriangle = k} imo_2006_p2_solution := by sorry
+    IsGreatest {k | ∃ c : TriangleDissection 2006, c.numOfIsoscelesTriangle = k}
+      imo_2006_p2_solution := sorry
