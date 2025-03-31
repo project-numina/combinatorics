@@ -57,7 +57,7 @@ noncomputable def TriangleDissection.numOfIsoscelesTriangle (C : TriangleDissect
       -- The triangle has two sides of equal length
       ((b.val - a.val : ℤ) = c.val - b.val ∨
        (c.val - b.val : ℤ) = N + a.val - c.val ∨
-       (N + a.val - c.val : ℤ) = c.val - b.val)}
+       (N + a.val - c.val : ℤ) = b.val - a.val)}
 
 abbrev imo_2006_p2_solution : ℕ := sorry
 
