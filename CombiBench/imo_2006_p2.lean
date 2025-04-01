@@ -1,19 +1,19 @@
 import Mathlib
 
+open scoped Classical Finset
+
 instance {N : ℕ} : CircularOrder (Fin N) := LinearOrder.toCircularOrder _
 
 variable {α : Type*} [CircularOrder α] {a b c d : α}
 
-/-- In a circular order, the property that `a, b, c, d` are in that order. -/
+-- In a circular order, the property that `a, b, c, d` are in that order.
 def SBtw₄ (a b c d : α) : Prop := sbtw a b c ∧ sbtw c d a
 
 lemma sbtw₄_swap : SBtw₄ a b c d ↔ SBtw₄ c d a b := and_comm
 
-open scoped Classical Finset
-
 variable {N : ℕ}
 
-/-- The diagonals of the `N`-gon. -/
+-- The diagonals of the `N`-gon.
 abbrev Diagonal (N : ℕ) := {e : Sym2 (Fin N) // ¬ e.IsDiag}
 
 namespace Diagonal
@@ -66,4 +66,4 @@ Let $P$ be a regular 2006-gon. A diagonal of $P$ is called good if its endpoints
 -/
 theorem imo_2006_p2 :
     IsGreatest {k | ∃ c : TriangleDissection 2006, c.numOfIsoscelesTriangle = k}
-      imo_2006_p2_solution := sorry
+      imo_2006_p2_solution :=  by sorry
