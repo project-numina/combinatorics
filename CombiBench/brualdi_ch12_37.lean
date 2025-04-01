@@ -16,7 +16,7 @@ noncomputable def SimpleGraph.dominationNum : ℕ := G.eDominationNum.toNat
 
 abbrev Q_3 := (pathGraph 2) □ (pathGraph 2) □ (pathGraph 2)
 
-abbrev brualdi_ch12_37_soulution : ℕ := sorry
+abbrev brualdi_ch12_37_solution : ℕ := sorry
 
 /--
 Determine the domination number of the graph $Q_{3}$ of vertices and edges of a three-dimensional cube.
