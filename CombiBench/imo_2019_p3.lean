@@ -1,6 +1,6 @@
 import Mathlib
 
-noncomputable instance (users : SimpleGraph (Fin 2019)) : Fintype (users.neighborSet a) :=
+noncomputable instance (users : SimpleGraph (Fin 2019)) (a : Fin 2019) : Fintype (users.neighborSet a) :=
   Fintype.ofFinite ↑(users.neighborSet a)
 
 def IsTriple (l : List (Fin 2019)) (G : SimpleGraph (Fin 2019)) : Prop :=

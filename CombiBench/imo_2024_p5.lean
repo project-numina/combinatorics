@@ -12,12 +12,12 @@ abbrev InteriorRow (N : ℕ) : Type := (Set.Icc 1 ⟨N, by omega⟩ : Set (Fin (
 abbrev MonsterData (N : ℕ) : Type := InteriorRow N ↪ Fin (N + 1)
 
 -- The cells with monsters as a Set, given an injection from rows to columns.
-def MonsterData.monsterCells (m : MonsterData N) :
+def MonsterData.monsterCells {N} (m : MonsterData N) :
     Set (Cell N) :=
   Set.range (fun x : InteriorRow N ↦ ((x : Fin (N + 2)), m x))
 
 -- Whether two cells are adjacent.
-def Adjacent (x y : Cell N) : Prop :=
+def Adjacent {N} (x y : Cell N) : Prop :=
   Nat.dist x.1 y.1 + Nat.dist x.2 y.2 = 1
 
 -- A valid path from the first to the last row.
@@ -30,7 +30,7 @@ structure Path (N : ℕ) where
   valid_move_seq : cells.Chain' Adjacent
 
 -- The first monster on a path, or `none`.
-noncomputable def Path.firstMonster (p : Path N) (m : MonsterData N) : Option (Cell N) :=
+noncomputable def Path.firstMonster {N} (p : Path N) (m : MonsterData N) : Option (Cell N) :=
   letI := Classical.propDecidable
   p.cells.find? (fun x ↦ (x ∈ m.monsterCells : Bool))
 
@@ -38,17 +38,17 @@ noncomputable def Path.firstMonster (p : Path N) (m : MonsterData N) : Option (C
 abbrev Strategy (N : ℕ) : Type := ⦃k : ℕ⦄ → (Fin k → Option (Cell N)) → Path N
 
 -- Playing a strategy, k attempts.
-noncomputable def Strategy.play (s : Strategy N) (m : MonsterData N) :
+noncomputable def Strategy.play {N} (s : Strategy N) (m : MonsterData N) :
     (k : ℕ) → Fin k → Option (Cell N)
-| 0 => Fin.elim0
-| k + 1 => Fin.snoc (s.play m k) ((s (s.play m k)).firstMonster m)
+  | 0 => Fin.elim0
+  | k + 1 => Fin.snoc (s.play m k) ((s (s.play m k)).firstMonster m)
 
 -- The predicate for a strategy winning within the given number of attempts.
-def Strategy.WinsIn (s : Strategy N) (m : MonsterData N) (k : ℕ) : Prop :=
+def Strategy.WinsIn {N} (s : Strategy N) (m : MonsterData N) (k : ℕ) : Prop :=
   none ∈ Set.range (s.play m k)
 
 -- Whether a strategy forces a win within the given number of attempts.
-def Strategy.ForcesWinIn (s : Strategy N) (k : ℕ) : Prop :=
+def Strategy.ForcesWinIn {N} (s : Strategy N) (k : ℕ) : Prop :=
   ∀ m, s.WinsIn m k
 
 abbrev imo_2024_p5_solution : ℕ := sorry

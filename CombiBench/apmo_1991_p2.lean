@@ -1,6 +1,6 @@
 import Mathlib
 
-noncomputable def red_points (points : Fin k → ℝ × ℝ) : Finset (ℝ × ℝ) :=
+noncomputable def red_points {k} (points : Fin k → ℝ × ℝ) : Finset (ℝ × ℝ) :=
   ((Finset.univ (α := Fin k × Fin k)).image (fun x => midpoint ℝ (points x.1) (points x.2)))
 
 /--

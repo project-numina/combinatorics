@@ -2,7 +2,7 @@ import Mathlib
 
 open Equiv Fintype Finset
 
-def IsBeautiful (e : Perm (Fin (n + 1))) : Prop :=
+def IsBeautiful {n} (e : Perm (Fin (n + 1))) : Prop :=
   ∀ ⦃a b⦄, a < b → ∀ ⦃c⦄, b < c → ∀ ⦃d⦄, c < d → a.val + d.val = b.val + c.val →
     -- a bc d
     e a < e b ∧ e b < e d ∧ e a < e c ∧ e c < e d ∨
@@ -17,7 +17,7 @@ def IsBeautiful (e : Perm (Fin (n + 1))) : Prop :=
     -- bc ad
     e b < e a ∧ e c < e a ∧ e b < e d ∧ e c < e d
 
-instance : DecidablePred (IsBeautiful (n := n)) := by unfold IsBeautiful; infer_instance
+instance {n} : DecidablePred (IsBeautiful (n := n)) := by unfold IsBeautiful; infer_instance
 
 def M (n : ℕ) : ℕ := #{e : Perm (Fin (n + 1)) | IsBeautiful e} / (n + 1)
 

@@ -21,4 +21,4 @@ abbrev brualdi_ch12_37_solution : ℕ := sorry
 /--
 Determine the domination number of the graph $Q_{3}$ of vertices and edges of a three-dimensional cube.
 -/
-theorem brualdi_ch12_37 : Q_3.dominationNum = brualdi_ch12_37_soulution:= by sorry
+theorem brualdi_ch12_37 : Q_3.dominationNum = brualdi_ch12_37_solution:= by sorry

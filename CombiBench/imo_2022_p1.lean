@@ -43,4 +43,4 @@ abbrev imo_2022_p1_solution : ℕ → Set (ℕ × ℕ) := sorry
  -/
  theorem imo_2022_p1 (n : ℕ) (hn : n > 0) :
     {(n', k) | n = n' ∧ k ≥ 1 ∧ k ≤ 2 * n ∧ (∀ I ∈ initial n, ∃ m : ℕ, checkLeft n' (pown k m I))} =
-    imo_2022_p1_soluition n := by sorry
+    imo_2022_p1_solution n := by sorry

@@ -1,5 +1,7 @@
 import Mathlib
 
+variable {α : Type*}
+
 structure SDR {n : ℕ} (A : Fin n → Finset α) where
   toFun : Fin n → α
   mem_Ai : ∀ i, toFun i ∈ A i

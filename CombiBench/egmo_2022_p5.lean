@@ -14,7 +14,7 @@ structure PerfectCover (n k : ℕ) where
   -- every position on the board is covered by some dominos
   covers : ∀ i : Fin n × Fin (2 * k), ∃ j, i = (d j).1 ∨ i = (d j).2
 
-noncomputable instance : Fintype (PerfectCover n k) :=
+noncomputable instance {n k} : Fintype (PerfectCover n k) :=
   Fintype.ofInjective PerfectCover.d <| by
     rintro ⟨d, _⟩ ⟨d', _⟩ (rfl : d = d')
     rfl
