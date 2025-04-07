@@ -17,9 +17,11 @@ end List
 
 instance : Fact (Module.finrank ℝ (EuclideanSpace ℝ (Fin 2)) = 2) := ⟨by simp⟩
 
+variable {n} [Fintype n] [DecidableEq n]
+
 -- The value of the following doesn't matter. All that matters is that it exists
-instance : Module.Oriented ℝ (EuclideanSpace ℝ (Fin 2)) (Fin 2) where positiveOrientation :=
-  sorry
+noncomputable instance : Module.Oriented ℝ (EuclideanSpace ℝ n) n where
+  positiveOrientation := Basis.orientation (Pi.basisFun ℝ n)
 
 structure IsWindmillProcess (S : Set (EuclideanSpace ℝ (Fin 2)))
     (f : ℕ → EuclideanSpace ℝ (Fin 2)) where
@@ -27,6 +29,7 @@ structure IsWindmillProcess (S : Set (EuclideanSpace ℝ (Fin 2)))
   oangle_le_oangle n x : x ∈ S →
     toIocMod two_pi_pos 0 (oangle (f n) (f (n + 1)) (f (n + 2))).toReal
       ≤ toIocMod two_pi_pos 0 (oangle (f n) (f (n + 1)) x).toReal
+
 /--
 Let $\mathcal{S}$ be a finite set of at least two points in the plane. Assume that no three points of $\mathcal S$ are collinear. A windmill is a process that starts with a line $\ell$ going through a single point $P \in \mathcal S$. The line rotates clockwise about the pivot $P$ until the first time that the line meets some other point belonging to $\mathcal S$. This point, $Q$, takes over as the new pivot, and the line now rotates clockwise about $Q$, until it next meets a point of $\mathcal S$. This process continues indefinitely. Show that we can choose a point $P$ in $\mathcal S$ and a line $\ell$ going through $P$ such that the resulting windmill uses each point of $\mathcal S$ as a pivot infinitely many times.
 -/
