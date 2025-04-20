@@ -266,6 +266,11 @@ In summation notation,
 (x+y)^n=\sum_{k=0}^n\binom{n}{k} x^{n-k} y^k.
 \]
 \end{theorem}
+\begin{proof}
+  \uses{thm:2.3.3}
+  \leanok
+\end{proof}
+
 
 \begin{theorem}
     \label{thm:5.2.2}
@@ -274,6 +279,11 @@ Let \( n \) be a positive integer. Then, for all \( x \),
 (1+x)^n = \sum_{k=0}^n \binom{n}{k} x^k = \sum_{k=0}^n \binom{n}{n-k} x^k.
 \]
 \end{theorem}
+\begin{proof}
+  \uses{thm:5.2.1}
+  \uses{thm:2.3.3}
+  \leanok
+\end{proof}
 
 \begin{theorem}
     \label{thm:5.3.1}
@@ -292,6 +302,9 @@ and if \( n \) is odd,
 &\binom{n}{(n+1)/2} > \cdots > \binom{n}{n-1} > \binom{n}{n}.
 \end{align*}
 \end{theorem}
+\begin{proof} 
+  \leanok
+\end{proof}
 
 \begin{corollary}
     \label{cor:5.3.2}
@@ -304,11 +317,22 @@ is
 \binom{n}{\lfloor n/2 \rfloor} = \binom{n}{\lceil n/2 \rceil}.
 \]
 \end{corollary}
+\begin{proof}
+  \uses{thm:5.3.1} 
+  \leanok
+\end{proof}
+
 
 \begin{theorem}
     \label{thm:5.3.3}
 Let \( S \) be a set of \( n \) elements. Then an antichain on \( S \) contains at most \( \binom{n}{\lfloor \frac{n}{2} \rfloor} \) sets.
 \end{theorem}
+\begin{proof}
+  \uses{cor:5.3.2} 
+  \leanok
+\end{proof}
+
+
 
 \begin{theorem}
     \label{thm:5.4.1}
@@ -318,6 +342,9 @@ $
 $
 where the summation extends over all nonnegative integral solutions is \( n_1, n_2, \ldots, n_t \) of \( n_1 + n_2 + \cdots + n_t = n \).
 \end{theorem}
+\begin{proof} 
+  \leanok
+\end{proof}
 
 \begin{theorem}
     \label{thm:5.5.1}
@@ -330,18 +357,27 @@ where
 \binom{\alpha}{k} = \frac{\alpha(\alpha - 1) \cdots (\alpha - k + 1)}{k!}.
 \]
 \end{theorem}
+\begin{proof} 
+  \uses{thm:5.2.1}
+  \leanok
+\end{proof}
 
 \begin{theorem}
     \label{thm:5.6.1}
 Let \((X, \leq)\) be a finite partially ordered set, and let \( r \) be the largest size of a chain. Then \( X \) can be partitioned into \( r \) but no fewer antichains.
 \end{theorem}
-
+\begin{proof}  
+  \leanok
+\end{proof}
 
 \begin{theorem}
     \label{thm:5.6.2}
 Let \((X, \leq)\) be a finite partially ordered set, and let \(m\) be the largest size of an antichain. Then \(X\) can be partitioned into \(m\) but no fewer chains.
 \end{theorem}
-
+\begin{proof} 
+  \uses{thm:5.3.3}
+  \leanok
+\end{proof}
 
 
 \chapter{The Inclusion-Exclusion Principle and Applications}
