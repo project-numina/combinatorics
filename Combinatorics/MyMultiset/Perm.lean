@@ -135,7 +135,7 @@ def infiniteBooleanStreamPerm (n r : ℕ) (_ : r + 1 ≤ n) :
       .inr ⟨⟨p.1.ℓ.tail, by simp [p.1.len], by simp⟩, by
         have := p.2
         simp only [Set.mem_setOf_eq] at this ⊢
-        rw [List.count_tail _ _ (by
+        rw [List.count_tail (by
           intro r
           apply_fun List.length at r
           simp [p.1.len] at r), if_pos (by simpa using h), this]
@@ -143,8 +143,7 @@ def infiniteBooleanStreamPerm (n r : ℕ) (_ : r + 1 ≤ n) :
     else
       .inl ⟨⟨p.1.ℓ.tail, by simp [p.1.len], by simp⟩, by
         simp only [Set.mem_setOf_eq]
-        rw [List.count_tail _ _ (by
-          intro r
+        rw [List.count_tail (fun r ↦ by
           apply_fun List.length at r
           simp [p.1.len] at r), if_neg (by aesop), p.2]
         rfl⟩
@@ -362,7 +361,7 @@ def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.RepIsFinite] :
       simp only [Set.mem_setOf_eq] at H ⊢
       rw [permItem.len]
       have H' : List.count true permBool.ℓ = permBool.ℓ.length - List.count false permBool.ℓ := by
-        have := List.length_eq_countP_add_countP (. = true) (permBool.ℓ)
+        have := List.length_eq_countP_add_countP (. = true) (l := permBool.ℓ)
         simp only [Bool.decide_eq_true, Bool.not_eq_true, Bool.decide_eq_false] at this
         rw [List.count_eq_countP, List.count_eq_countP]
         simp [this]
@@ -371,7 +370,7 @@ def insertEquiv [Fintype α] (S : MyMultiset (Option α)) [S.RepIsFinite] :
       simp only
       rw [List.splitWhileRememberingPosition_mergingWithPosition]
       have H' : List.count true permBool.ℓ = permBool.ℓ.length - List.count false permBool.ℓ := by
-        have := List.length_eq_countP_add_countP (. = true) (permBool.ℓ)
+        have := List.length_eq_countP_add_countP (. = true) (l := permBool.ℓ)
         simp only [Bool.decide_eq_true, Bool.not_eq_true, Bool.decide_eq_false] at this
         rw [List.count_eq_countP, List.count_eq_countP]
         simp [this]

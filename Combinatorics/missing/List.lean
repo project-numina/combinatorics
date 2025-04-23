@@ -31,8 +31,8 @@ theorem dropWhileRight_getLast_not
     {α : Type u} (P : α → Bool) (l : List α) (h : l.dropWhileRight P ≠ []) :
   ¬ P ((l.dropWhileRight P).getLast h) := by
   have := l.dropWhileRight_getLast?_not P
-  rw [List.getLast?_eq_getLast _ h] at this
-  apply this _ rfl
+  rw [List.getLast?_eq_getLast h] at this
+  exact this _ rfl
 
 theorem dropWhileRight_append {α : Type u} (P : α → Bool) (l l' : List α) :
     List.dropWhileRight P (l ++ l') =
@@ -40,15 +40,15 @@ theorem dropWhileRight_append {α : Type u} (P : α → Bool) (l l' : List α) :
     then List.dropWhileRight P l
     else l ++ List.dropWhileRight P l' := by
   split_ifs with H
-  · simp only [List.dropWhileRight, List.isEmpty_eq_true, List.reverse_eq_nil_iff,
+  · simp only [List.dropWhileRight, List.isEmpty_iff, List.reverse_eq_nil_iff,
     List.dropWhile_eq_nil_iff, List.mem_reverse, List.reverse_append, List.reverse_inj] at H ⊢
     rw [List.dropWhile_append, if_pos]
     simpa
-  · simp only [List.dropWhileRight, List.isEmpty_eq_true, List.reverse_eq_nil_iff,
+  · simp only [List.dropWhileRight, List.isEmpty_iff, List.reverse_eq_nil_iff,
     List.dropWhile_eq_nil_iff, List.mem_reverse, not_forall, Classical.not_imp, Bool.not_eq_true,
     List.reverse_append, List.reverse_eq_append_iff, List.reverse_reverse] at H ⊢
     rw [List.dropWhile_append, if_neg]
-    simp only [List.isEmpty_eq_true, List.dropWhile_eq_nil_iff, List.mem_reverse, not_forall,
+    simp only [List.isEmpty_iff, List.dropWhile_eq_nil_iff, List.mem_reverse, not_forall,
       Classical.not_imp, Bool.not_eq_true]
     tauto
 
@@ -119,7 +119,7 @@ lemma dropWhileRight_eq_fillToLength {α : Type u} [DecidableEq α] (l : List α
   induction l with
   | nil => simp [fillToLength]
   | cons x xs ih =>
-    simp only [dropWhileRight, reverse_cons, dropWhile_append, isEmpty_eq_true,
+    simp only [dropWhileRight, reverse_cons, dropWhile_append, List.isEmpty_iff,
       dropWhile_eq_nil_iff, mem_reverse, length_cons] at ih ⊢
     split_ifs with H
     · simp only [decide_eq_true_eq, dropWhile_cons, dropWhile_nil] at H ⊢
@@ -185,7 +185,7 @@ lemma splitWhileRememberingPosition_fst_count_false_length_add_snd_length {α : 
       simp only [splitWhileRememberingPosition_none_cons, count_cons_self, length_cons, ← ih]
       omega
     | some x =>
-      simp only [splitWhileRememberingPosition_some_cons, ne_eq, Bool.false_eq_true,
+      simp only [splitWhileRememberingPosition_some_cons, ne_eq, Bool.true_eq_false,
         not_false_eq_true, count_cons_of_ne, length_cons, ← ih]
       omega
 
@@ -227,9 +227,8 @@ lemma splitWhileRememberingPosition_snd_count
       by_cases h : a = x
       · subst h
         simp only [count_cons_self, ih]
-      · rw [count_cons_of_ne h, ih, count_cons_of_ne]
-        contrapose! h
-        simpa using h
+      · rw [count_cons_of_ne (b := x) (α := α) (Ne.symm h), ih, count_cons_of_ne]
+        simpa using (Ne.symm h)
 
 @[simp]
 lemma mergingWithPosition_nil {α : Type*} (l : List α) :
@@ -283,7 +282,7 @@ lemma splitWhileRememberingPosition_mergingWithPosition {α : Type*}
       specialize ih xs hx
       simp [ih, mergingWithPosition_true_cons, splitWhileRememberingPosition_some_cons]
     | false =>
-      simp only [ne_eq, Bool.true_eq_false, not_false_eq_true, count_cons_of_ne] at hx ih ⊢
+      simp only [ne_eq, Bool.false_eq_true, not_false_eq_true, count_cons_of_ne] at hx ih ⊢
       specialize ih x hx
       simp [ih, mergingWithPosition_false_cons, splitWhileRememberingPosition_none_cons]
 
@@ -293,7 +292,7 @@ lemma mergingWithPosition_length {α : Type*} (x : List Bool × List α)
   induction x with | mk bs x =>
   induction bs generalizing x with
   | nil =>
-    simp only [nodup_nil, count_nil, length_eq_zero] at hx
+    simp only [nodup_nil, count_nil, length_eq_zero_iff] at hx
     subst hx
     simp
   | cons b bs ih =>
@@ -316,7 +315,7 @@ lemma mergingWithPosition_count_none {α : Type*} [DecidableEq α] (x : List Boo
   induction x with | mk bs x =>
   induction bs generalizing x with
   | nil =>
-    simp only [nodup_nil, count_nil, length_eq_zero] at hx
+    simp only [nodup_nil, count_nil, length_eq_zero_iff] at hx
     subst hx
     simp
   | cons b bs ih =>
@@ -340,7 +339,7 @@ lemma mergingWithPosition_count_some {α : Type*} [DecidableEq α] (x : List Boo
   induction x with | mk bs x =>
   induction bs generalizing x with
   | nil =>
-    simp only [nodup_nil, count_nil, length_eq_zero] at hx
+    simp only [nodup_nil, count_nil, length_eq_zero_iff] at hx
     subst hx
     simp
   | cons b bs ih =>
@@ -353,7 +352,8 @@ lemma mergingWithPosition_count_some {α : Type*} [DecidableEq α] (x : List Boo
       by_cases h : a = x
       · subst h
         rw [mergingWithPosition_true_cons, count_cons_self, ih, count_cons_self]
-      · rw [mergingWithPosition_true_cons, count_cons_of_ne (by aesop), ih, count_cons_of_ne h]
+      · rw [mergingWithPosition_true_cons, count_cons_of_ne (by aesop), ih,
+          count_cons_of_ne (Ne.symm h)]
     | false =>
       simp only [ne_eq, Bool.true_eq_false, not_false_eq_true, count_cons_of_ne,
         length_cons] at hx ih ⊢
@@ -369,7 +369,7 @@ lemma length_eq_sum_count {α : Type*} [Fintype α] [DecidableEq α] (l : List �
     have (a : α) : count a (x :: xs) = if a = x then (count a xs) + 1 else count a xs := by
       split_ifs with H
       · subst H; simp
-      · rw [count_cons_of_ne H]
+      · rw [count_cons_of_ne (Ne.symm H)]
     simp_rw [this]
     rw [ih, add_comm, show (1 : ℕ) = ∑ a : α, if a = x then 1 else 0 by
       simp, ← Finset.sum_add_distrib]

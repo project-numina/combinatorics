@@ -18,7 +18,7 @@ lemma example_2_4_1 (s : Finset ℕ) (hs : ∀ x, x ∈ s ↔ (Nat.digits 3 x).l
         simp only [List.length_map, l.len, le_refl]
       · omega
       · intro x hx
-        simp? [List.dropWhileRight] at hx
+        simp only [List.dropWhileRight, List.mem_reverse] at hx
         have m := List.dropWhile_sublist _ |>.mem hx
         simp only [List.mem_reverse, List.mem_map] at m
         obtain ⟨a, ha, rfl⟩ := m

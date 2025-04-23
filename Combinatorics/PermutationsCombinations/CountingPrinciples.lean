@@ -1,7 +1,4 @@
-import Mathlib.Algebra.BigOperators.Ring
-import Mathlib.Algebra.Order.BigOperators.Group.Finset
-import Mathlib.Algebra.Order.Ring.Nat
-import Mathlib.Order.Partition.Finpartition
+import Mathlib
 
 variable {α : Type*}
 
@@ -41,9 +38,9 @@ theorem card_parts_strict_eq_average [DecidableEq α] {s t: Finset α} {P : Finp
   specialize hP t ht
   have hs := Finpartition.sum_card_parts P
   by_cases ht' : t.card = 0
-  · simp [ht'] at hP ⊢
-    rw [Finpartition.parts_eq_empty_iff]
-    simp [← Finset.card_eq_zero, ← hs]
+  · simp only [ht', Nat.div_zero, Finset.card_eq_zero, Finpartition.parts_eq_empty_iff,
+    Finset.bot_eq_empty] at hP ⊢
+    simp only [← Finset.card_eq_zero, ← hs, Finset.sum_eq_zero_iff]
     exact fun x a => Eq.symm ((fun {a b} => Nat.succ_inj'.mp) (congrArg Nat.succ (hP x a)))
   · symm
     rw [← hs, Nat.div_eq_iff_eq_mul_left (by omega)]
