@@ -98,6 +98,9 @@
     For $n$ and $r$ positive integers with $r\leq n$,
     \[P(n,r) = n\times(n-1)\times\cdots\times(n-r+1).\]  
 \end{theorem} 
+\begin{proof}
+    \uses{thm:2.1.2}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.2.2}
@@ -105,6 +108,9 @@
     \[\frac{P(n,r)}{r}=\frac{n!}{r\cdot(n-r)!}.\]
     In particular, the number of circular permutations of $n$ elements is $(n - 1)!$.
 \end{theorem}
+\begin{proof}
+    \uses{thm:2.1.4, thm:2.2.1}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.3.1} 
@@ -113,18 +119,27 @@
     Hence, 
     \[\binom{n}{r} = \frac{n!}{r! (n-r)!}.\]
 \end{theorem}
+\begin{proof}
+    \uses{thm:2.1.2, thm:2.2.1}
+\end{proof}
 
 \begin{corollary}
     \label{cor:2.3.2}
     For $0 \leq r \leq n$,
     \[\binom{n}{r} = \binom{n}{n-r}.\]
 \end{corollary}
+\begin{proof}
+    \uses{thm:2.3.1}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.3.3}
     (\textbf{Pascal's formula}) For all integers $n$ and $k$ with $1 \leq k \leq n-1$,
     \[\binom{n}{k} = \binom{n-1}{k} + \binom{n-1}{k-1}.\]
 \end{theorem}
+\begin{proof}
+    \uses{thm:2.3.1}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.3.4}
@@ -132,17 +147,26 @@
     \[\binom{n}{0} + \binom{n}{1} + \binom{n}{2} + \cdots + \binom{n}{n} = 2 ^ {n},\]
     and the common value equals the number of subsets of an n-element set.
 \end{theorem}
+\begin{proof}
+    \uses{thm:2.1.1, thm:2.1.2}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.4.1}
     Let $S$ be a multiset with objects of $k$ different types, where each object has an infinite repetition number. Then the number of r-permutations of $S$ is $k^{r}$.
 \end{theorem}
+\begin{proof}
+  \uses{thm:2.1.2}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.4.2}
     Let $S$ be a multiset with objects of $k$ different types with finite repetition numbers $n_1, n_2, ... , n_k$, respectively. Let the size of $S$ be $n = n_1 + n_2 + ... + n_k$. Then the number of permutations of $S$ equals
     \[\frac{n!}{n_1!n_2!\dots n_k!}.\]
 \end{theorem}
+\begin{proof}
+  \uses{thm:2.1.2, thm:2.3.1}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.4.3}
@@ -151,6 +175,9 @@
     If the boxes are not labeled, and $n_1 = n_2 = ... = n_k$, then the number of partitions equals
     \[\frac{n!}{k!n_1!n_2!\dots n_k!}.\]
 \end{theorem}
+\begin{proof}
+  \uses{thm:2.1.2, thm:2.1.4, thm:2.4.2}
+\end{proof}
 
 \begin{theorem}
     \label{thm:2.4.4}
